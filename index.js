@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var path = require("path");
-var hbs = require("express-handlebars");
+var exphbs = require("express-handlebars");
 var bodyparser = require("body-parser");
 var db = require('./models/db');
 var expressValidator = require('express-validator');
@@ -12,7 +12,8 @@ app.use(bodyparser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.engine('handlebars', hbs({
+// Create `ExpressHandlebars` instance with a default layout.
+var hbs = exphbs.create({
     defaultLayout: 'layout'
         // Example to use custom helper function for HandleBar
         ,
@@ -21,9 +22,30 @@ app.engine('handlebars', hbs({
         CheckNumber: require("./public/js/customchecknumber"),
         IsAdmin: require("./public/js/isadmin"),
         CheckIsAdmin: require("./public/js/checkisadmin")
-    }
-}));
+    },
+    // Uses multiple partials dirs, templates in "shared/templates/" are shared
+    // with the client-side of the app (see below).
+    partialsDir: [
+        'views/partials/'
+    ]
+});
+
+// Register `hbs` as our view engine using its bound `engine()` function.
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+// app.engine('handlebars', hbs({
+//     defaultLayout: 'layout'
+//         // Example to use custom helper function for HandleBar
+//         ,
+//     helpers: {
+//         CheckEmpty: require("./public/js/customcheckempty"),
+//         CheckNumber: require("./public/js/customchecknumber"),
+//         IsAdmin: require("./public/js/isadmin"),
+//         CheckIsAdmin: require("./public/js/checkisadmin")
+//     }
+// }));
+//app.set('view engine', 'handlebars');
 
 require("./passport/init");
 
@@ -40,35 +62,40 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Use Express-Validator to retrun form validation messages
-app.use(expressValidator({
-    errorFormatter: function(param, msg, value) {
-        var namespace = param.split('.'),
-            root = namespace.shift(),
-            formParam = root;
+// app.use(expressValidator({
+//     errorFormatter: function(param, msg, value) {
+//         var namespace = param.split('.'),
+//             root = namespace.shift(),
+//             formParam = root;
 
-        while (namespace.length) {
-            formParam += '[' + namespace.shift() + ']';
-        }
-        return {
-            param: formParam,
-            msg: msg,
-            value: value
-        };
-    }
-}));
+//         while (namespace.length) {
+//             formParam += '[' + namespace.shift() + ']';
+//         }
+//         return {
+//             param: formParam,
+//             msg: msg,
+//             value: value
+//         };
+//     }
+// }));
 
-app.use(flash());
+// app.use(flash());
 
-app.use(function(req, res, next) {
-    res.locals.messages = require('express-messages')(req, res);
-    next();
+// app.use(function(req, res, next) {
+//     res.locals.messages = require('express-messages')(req, res);
+//     next();
+// });
+
+//Get Home Page
+app.get('/', function(req, res) {
+    res.render('home', { layout: 'default', title: 'Home Page' });
 });
 
 var authRouter = require('./controllers/authroute');
-app.use('/', authRouter);
+app.use('/auth', authRouter);
 
 var forgotpwd = require('./controllers/forgotpwd');
-app.use('/', forgotpwd);
+app.use('/auth', forgotpwd);
 
 app.use(function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -76,14 +103,14 @@ app.use(function(req, res, next) {
         next();
         return;
     }
-    res.redirect("/login");
+    res.redirect("/auth/login");
 });
-
-var homeroute = require('./controllers/home');
-app.use("/", homeroute);
 
 var adminroute = require('./controllers/adminroute');
 app.use("/admin", adminroute);
+
+var homeroute = require('./controllers/home');
+app.use("/", homeroute);
 
 //Error handling
 app.get('*', function(req, res, next) {
@@ -101,13 +128,13 @@ app.use(function(err, req, res, next) {
         next();
 });
 
-// Handle un-caught error
-process.on("uncaughtException", function(err) {
-    console.log("There is some unhandled errors in the application");
-    console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
-    console.error(err.stack);
-    process.exit(1);
-});
+// // Handle un-caught error
+// process.on("uncaughtException", function(err) {
+//     console.log("There is some unhandled errors in the application");
+//     console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
+//     console.error(err.stack);
+//     process.exit(1);
+// });
 
 // Connect to Mongo on start
 db.connect(db.url, function(err) {

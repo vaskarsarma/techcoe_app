@@ -4,12 +4,11 @@ var router = express.Router();
 module.exports = router;
 
 router.get("/login", function(req, res) {
-    //console.log("login get");
     res.render('login'); //, { title: 'Login Page' });
 });
 
 router.post("/login", passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/home',
     failureRedirect: '/login'
 }));
 

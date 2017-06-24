@@ -4,3 +4,21 @@
 {{!--HandleBar Helper Functions instance--}}
 <p>{{CheckEmpty "dfdsfdsf"}}</p>
 <p>{{CheckNumber "10"}}</p>
+
+        <div>
+            {{> view1}}
+        </div>
+        <div>
+            {{> view2}}
+        </div>
+        <div>
+            {{> view3}}
+        </div>
+        {{#if user}}
+        <div>
+            {{> view4}}
+        </div>
+        <div>
+            {{> view5}}
+        </div>
+        {{/if}}
