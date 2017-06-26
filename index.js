@@ -112,6 +112,9 @@ app.use("/admin", adminroute);
 var homeroute = require('./controllers/home');
 app.use("/", homeroute);
 
+var blogroute = require('./controllers/blog');
+app.use("/blog", blogroute);
+
 //Error handling
 app.get('*', function(req, res, next) {
     var err = new Error("Failed to load resource");

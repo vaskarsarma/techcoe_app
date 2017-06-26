@@ -1,4 +1,4 @@
-module.exports = function (fieldvalue) {
+module.exports = function(fieldvalue) {
     if (fieldvalue != undefined || fieldvalue == "yes") {
         return '<li class="dropdown">' +
             '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User <span class="caret"></span></a>' +
@@ -6,6 +6,7 @@ module.exports = function (fieldvalue) {
             '<li><a href="/admin/add">Add</a></li>' +
             '<li class="divider"></li>' +
             '<li><a href="/admin/list">Show</a></li>' +
-            '</ul></li>'
+            '</ul></li>' +
+            '<li><a href="#">Dashboard</a></li>'
     }
 }
