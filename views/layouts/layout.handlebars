@@ -27,7 +27,7 @@
             {{#if user }}
             <ul class="nav navbar-nav">
                 <li class="navbar-brand">User Registration</li>
-                <li class="active"><a href="/">Home</a></li>
+                <li class="active"><a href="/home">Home</a></li>
                 {{#IsAdmin user.admin}} {{/IsAdmin}}
                 <li><a href="#">Dashboard</a></li>
             </ul>
@@ -45,6 +45,7 @@
             {{else}}
             <ul class="nav navbar-nav">
                 <li class="navbar-brand">User Registration</li>
+                <li></li>><a href="/">Home</a></li>
                 <li class="active"><a href="/auth/login">Login</a></li>
             </ul>
             {{/if}}
