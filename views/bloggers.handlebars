@@ -2,10 +2,24 @@
   <h1>{{title}}</h1>
 </div>
 
+<div>
+  {{#if isBlogAdded }}
+  <div class="col-sm-6 text-success"><i>Blog is added succesfully.</i></div>
+  {{else}} {{#if isBlogDeleted }}
+  <div class="col-sm-6 text-success"><i>Blog ({{topic}}) is deleted succesfully.</i></div>
+  {{else}} {{#if isBlogUpdated }}
+  <div class="col-sm-6 text-success"><i>Blog ({{topic}}) is updated succesfully.</i></div>
+  {{/if}} {{/if}} {{/if}}
+</div>
+
 <div class="main-content row">
 
-  <div class="col-md-8 col-md-offset-2">
-    <h3>Add Blogs</h3>
+  <div class="col-md-11 col-md-offset-1">
+    {{#if selectedBlogForEdit}}
+    <h3>Edit Blog</h3>
+    {{else}}
+    <h3>Add Blog</h3>
+    {{/if}}
     <form class="form-horizontal" action="/blog/savedata" method="POST">
       {{#if errors }}
       <ul class="errors">
@@ -17,16 +31,41 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="topic">Blog Topic:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="topic" name="topic" autofocus="autofocus" required="required">
+          <input type="text" class="form-control" id="topic" name="topic" autofocus="autofocus" required="required" value="{{blogs.topic}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="content">Content:</label>
         <div class="col-sm-10">
-          <textarea class="input" rows="10" cols="85" id="content" name="content" autofocus="autofocus" required="required"></textarea>
+          <textarea class="input" rows="10" cols="85" id="content" name="content" autofocus="autofocus" required="required">{{blogs.content}}</textarea>
         </div>
       </div>
-      <input type="hidden" id="userid" name="userid" value={{user._id}} />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="category">Blog Category:</label>
+        <div class="col-sm-10">
+          <select name="category" id="category" class="btn btn-default dropdown-toggle">
+          {{#each category}}
+            {{#if ../selectedBlogForEdit}}
+              {{#Compare ../blogs.categorykey this.key}} 
+                <option selected="selected" value="{{this.key}}">{{this.name}}</option>
+              {{else}}
+                <option value="{{this.key}}">{{this.name}}</option>
+              {{/Compare}}
+           {{else}}
+           <option value="{{this.key}}">{{this.name}}</option>
+           {{/if}}
+          {{/each}} 
+          </select>
+        </div>
+      </div>
+
+      {{#if selectedBlogForEdit}}
+      <input type="hidden" id="modifiedby" name="modifiedby" value={{user._id}} />
+      <input type="hidden" id="createdby" name="createdby" value={{blogs.createdby}} />
+      <input type="hidden" id="_id" name="_id" value={{blogs._id}} />
+      <input type="hidden" id="status" name="status" value={{blogs.status}} /> {{else}}
+      <input type="hidden" id="createdby" name="createdby" value={{user._id}} /> {{/if}}
+
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-default">Submit</button>
@@ -37,8 +76,41 @@
   </div>
 </div>
 
+{{#unless selectedBlogForEdit}}
 <div class="main-content row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-11 col-md-offset-1">
     <h3>List of Blogs</h3>
+    {{#if blogs}}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>AddedBy</th>
+          <th>Topic</th>
+          <th>Content</th>
+          <th>Category</th>
+          <th>Date Added</th>
+          <th>Status</th>
+          <th>Modify</th>
+        </tr>
+      </thead>
+      {{#each blogs}}
+      <tbody>
+        <tr>
+          <td>{{this.createdby}}</td>
+          <td>{{this.topic}}</td>
+          <td>{{this.content}}</td>
+          <td>{{this.categorykey}}</td>
+          <td>{{this.creationdate}}</td>
+          {{#GetBlogStatus this.status}}{{/GetBlogStatus}}
+          <td>
+            <a href="/blog/edit/{{this._id}}"><img class="img-circle emplist_imgwidth" src="/images/edit.jpg" alt="Edit Blog"/></a>
+            <a href="/blog/delete/{{this._id}}"><img class="img-circle emplist_imgwidth" src="/images/delete.jpg" alt="Delete Blog"/></a>
+          </td>
+        </tr>
+      </tbody>
+      {{/each}}
+    </table>
+    {{/if}}
   </div>
 </div>
+{{/unless}}

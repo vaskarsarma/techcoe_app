@@ -21,7 +21,9 @@ var hbs = exphbs.create({
         CheckEmpty: require("./public/js/customcheckempty"),
         CheckNumber: require("./public/js/customchecknumber"),
         IsAdmin: require("./public/js/isadmin"),
-        CheckIsAdmin: require("./public/js/checkisadmin")
+        CheckIsAdmin: require("./public/js/checkisadmin"),
+        Compare: require("./public/js/compare"),
+        GetBlogStatus: require("./public/js/getblogstatus")
     },
     // Uses multiple partials dirs, templates in "shared/templates/" are shared
     // with the client-side of the app (see below).
