@@ -98,7 +98,7 @@
         <tr>
           <td>{{this.createdby}}</td>
           <td>{{this.topic}}</td>
-          <td>{{this.content}}</td>
+          <td>{{{this.content}}}</td>
           <td>{{this.categorykey}}</td>
           <td>{{this.creationdate}}</td>
           {{#GetBlogStatus this.status}}{{/GetBlogStatus}}
@@ -114,3 +114,7 @@
   </div>
 </div>
 {{/unless}}
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+  CKEDITOR.replace('content');
+</script>

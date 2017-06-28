@@ -99,6 +99,9 @@ app.use('/auth', authRouter);
 var forgotpwd = require('./controllers/forgotpwd');
 app.use('/auth', forgotpwd);
 
+var reset = require('./controllers/resetpwd');
+app.use('/auth', reset);
+
 app.use(function(req, res, next) {
     if (req.isAuthenticated()) {
         res.locals.user = req.user;

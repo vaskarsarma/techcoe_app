@@ -1,23 +1,42 @@
-
 <div class="main-content row">
   <div class="col-md-4 col-md-offset-4">
-    <form class="form-horizontal" action="/auth/forgotpwd" method="POST">
+    {{#if emailNotFound }}
+    <div class="col-sm-6 text-success unableToSendEmail"><i>Email not found</i></div>
+    {{/if}}
+
+    {{#if errorToSendEmail }}
+    <div class="col-sm-6 text-success unableToSendEmail"><i>opps !! enable to send mail. Contact after some time </i></div></br>
+    {{/if}}
+    
+    {{#if IsEmailSend }}
+    <div class="col-sm-6 text-success"><i>Email send successfully </i></div>
+    {{!--</br></br>--}}
+    <a class="button" href="/auth/login">Go to login</a>
+    {{/if}}
+{{!--    
+    {{#if (not IsEmailSend )}}
+    <div class="col-sm-6 text-success"><i>Email not send</i></div>   
+    {{/if}}--}}
+
+{{#if showForm}}
+    <form class="form-horizontal" autocomplete="off" action="/auth/forgotpwd" method="POST">
 
       <div class="form-group">
         <label for="emailID">Enter your email ID:</label>
-        <input type="text" class="form-control" id="emailID" name="emailID" required="required" autofocus="autofocus" >
+        <input type="text" class="form-control" id="emailID" name="emailID" required="required" autofocus="autofocus">
       </div>
-      
+
       <div class="form-group">
-        <button type="submit">Log In</button>
-        {{!--<form method="post" action="/login" id="login">--}}
-        <!-- Some input fields -->
-        <button type="button" class="ankit">Cancel</button>
-        {{!--</form>--}}
-       
-        {{!--<a href="/login">Forgot your password</a>--}}
-      </div>     
+        <button type="submit">Submit</button> {{!--
+        <form method="post" action="/login" id="login">--}}
+          <!-- Some input fields -->
+          {{!--<button type="button" class="ankit">Cancel</button>--}}
+          <a class="button" href="/auth/login">Cancel</a> {{!--
+        </form>--}} {{!--
+
+        <a href="/login">Forgot your password</a>--}}
+      </div>
     </form>
-   
+{{/if}}
   </div>
 </div>

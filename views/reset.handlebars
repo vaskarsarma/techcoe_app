@@ -1,0 +1,27 @@
+
+<div class="main-content row">
+  <div class="col-md-4 col-md-offset-4">
+    <form class="form-horizontal" action="/auth/resetpwd" method="POST">
+
+      <div class="form-group">
+        <label for="CPwd">Current pwd:</label>
+        <input type="password" class="form-control" id="CPwd" name="CPwd"  autofocus="autofocus" >
+         <label for="NPwd">New Pwd:</label>
+        <input type="password" class="form-control" id="NPwd" name="NPwd"  autofocus="autofocus" >
+         <label for="RPwd">Re enter pwd:</label>
+        <input type="password" class="form-control" id="RPwd" name="RPwd"  autofocus="autofocus" >
+      </div>
+      
+      <div class="form-group">
+        <button type="submit">Submit</button>
+        {{!--<form method="post" action="/login" id="login">--}}
+        <!-- Some input fields -->
+        <button type="button" class="ankit">Cancel</button>
+        {{!--</form>--}}
+       
+        {{!--<a href="/login">Forgot your password</a>--}}
+      </div>     
+    </form>
+   
+  </div>
+</div>
