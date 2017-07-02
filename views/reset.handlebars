@@ -1,8 +1,19 @@
 
 <div class="main-content row">
-  <div class="col-md-4 col-md-offset-4">
-    <form class="form-horizontal" action="/auth/resetpwd" method="POST">
+  {{#if IsPasswordInValid }}
+    <div class="col-sm-6 text-success unableToSendEmail"><i>Current password is not vaid</i></div>
+    {{/if}}
 
+    {{#if IsError }}
+    <div class="col-sm-6 text-success unableToSendEmail"><i>Erorr in password updation </i></div>
+    {{/if}}
+
+    {{#if IsPasswordUpdated }}
+    <div class="col-sm-6 text-success unableToSendEmail"><i>Password updated Successfully</i></div>
+    {{/if}}
+
+  <div class="col-md-4 col-md-offset-4">
+    <form class="form-horizontal" action="/auth/reset?id={{userID}}" method="POST">
       <div class="form-group">
         <label for="CPwd">Current pwd:</label>
         <input type="password" class="form-control" id="CPwd" name="CPwd"  autofocus="autofocus" >

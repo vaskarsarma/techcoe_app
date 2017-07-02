@@ -6,6 +6,8 @@ var bodyparser = require("body-parser");
 var db = require('./models/db');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
@@ -90,6 +92,9 @@ app.use(passport.session());
 
 //Get Home Page
 app.get('/', function(req, res) {
+
+    // var salt = bcrypt.genSaltSync(saltRounds);
+    // console.log("salt:" + salt);
     res.render('home', { layout: 'default', title: 'Home Page' });
 });
 
