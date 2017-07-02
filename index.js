@@ -65,23 +65,23 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Use Express-Validator to retrun form validation messages
-// app.use(expressValidator({
-//     errorFormatter: function(param, msg, value) {
-//         var namespace = param.split('.'),
-//             root = namespace.shift(),
-//             formParam = root;
+//Use Express-Validator to retrun form validation messages
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.'),
+            root = namespace.shift(),
+            formParam = root;
 
-//         while (namespace.length) {
-//             formParam += '[' + namespace.shift() + ']';
-//         }
-//         return {
-//             param: formParam,
-//             msg: msg,
-//             value: value
-//         };
-//     }
-// }));
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
 
 // app.use(flash());
 
@@ -106,6 +106,9 @@ app.use('/auth', forgotpwd);
 
 var reset = require('./controllers/resetpwd');
 app.use('/auth', reset);
+
+var userregistration = require('./controllers/userregistration');
+app.use('/auth', userregistration);
 
 app.use(function(req, res, next) {
     if (req.isAuthenticated()) {
