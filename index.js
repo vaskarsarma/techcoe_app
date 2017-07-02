@@ -9,6 +9,8 @@ var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+var blogs = require('./models/blogs');
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
@@ -93,10 +95,28 @@ app.use(passport.session());
 //Get Home Page
 app.get('/', function(req, res) {
 
-    // var salt = bcrypt.genSaltSync(saltRounds);
-    // console.log("salt:" + salt);
-    res.render('home', { layout: 'default', title: 'Home Page' });
+    categoryList = blogs.category;
+    blogs.blogs(function(err, results) {
+        if (err) {
+            res.status(500).send();
+        } else {
+            if (results.length == 0) {
+                results = { count: 0 };
+                res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results });
+            } else {
+                res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results });
+            }
+        }
+    });
+
+    //res.render('home', { layout: 'default', title: 'Home Page' });
 });
+
+// //Get Home Page
+// app.get('/index', function(req, res) {
+//     console.log("index");
+//     res.sendFile('/index.html');
+// });
 
 var authRouter = require('./controllers/authroute');
 app.use('/auth', authRouter);
