@@ -148,6 +148,9 @@ app.use("/", homeroute);
 var blogroute = require('./controllers/blog');
 app.use("/blog", blogroute);
 
+var viewblogroute = require('./controllers/viewblog');
+app.use("/viewblog", viewblogroute);
+
 //Error handling
 app.get('*', function(req, res, next) {
     var err = new Error("Failed to load resource");

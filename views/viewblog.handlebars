@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-lg-8">
+
+        {{#if blog}}
+
+        <div class="col-lg-12 blogdata">
+
+            <!-- Title -->
+            <h1>{{title}}</h1>
+
+            <!-- Author -->
+            <p class="lead">
+                by <a href="#">{{blog.createdby}}</a>
+            </p>
+            <!-- Date/Time -->
+            <p><span class="glyphicon glyphicon-time"></span> Posted on {{blog.creationdate}}</p>
+
+            <hr>
+            <p class="lead view">{{{blog.content}}}</p>
+            <hr>
+
+        </div>
+
+        <!-- Blog Comments -->
+
+        <!-- Comments Form -->
+        <div class="well">
+            <h4>Leave a Comment:</h4>
+            <form role="form" action="/viewblog/addcomments" method="POST">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" name="blogcomment" id="blogcomment" required="required"></textarea>
+                    <input type="hidden" value="{{blog._id}}" name="_id" id="_id" />
+                    <input type="hidden" id="addedby" name="addedby" value={{user._id}} />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {{/if}}
+
+        <hr>
+
+        <!-- Posted Comments -->
+        {{#if comments}}
+        {{#each comments}}
+
+        <!-- Comment -->
+        <div class="media">
+            <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+            <div class="media-body">
+                <h4 class="media-heading">by {{this.addedby}}
+                    <small>on {{this.date}}</small>
+                </h4>
+                {{this.blogcomment}}
+            </div>
+        </div>
+
+        {{/each}}
+        {{/if}}
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4">
+        <!-- Blog Search Well -->
+        <div class="well">
+            <h4>Blog Search</h4>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                </button>
+                </span>
+            </div>
+            <!-- /.input-group -->
+        </div>
+
+        <!-- Top Visited Side Widget Well -->
+        <div class="well">
+            <h4>Top Visit</h4>
+            <p>display the top visited blogs.</p>
+        </div>
+
+        {{#if mostrecentblogs}}
+        <!-- Recent blogs Widget Well -->
+        <div class="well">
+            <h4>Recent Blogs</h4>
+
+            {{#each mostrecentblogs}}
+            <p><a href="/viewblog/showdetails/{{this._id}}">{{this.topic}}</a></p>
+             {{/each}}
+        </div>
+        {{/if}}
+
+    </div>
+</div>

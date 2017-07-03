@@ -20,3 +20,7 @@
 .unableToSendEmail {
     width: 100%;
 }
+
+.col-lg-10.blogdata h3 {
+    margin-top: 0px!important;
+}
