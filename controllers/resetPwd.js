@@ -27,7 +27,7 @@ router.get("/reset", function(req, res) {
 
         } else {
             console.log("valid user for reset");
-            res.render('reset', { userID: req.query.id });
+            res.render('reset', { userID: req.query.id, showForm: true });
         }
     });
     // res.render('reset');
@@ -36,44 +36,68 @@ router.get("/reset", function(req, res) {
 router.post("/reset", function(req, res) {
     //var id = req.params.CPwd;
     //console.log("post:" + req.params._id + " , cPwd:" + req.body.CPwd);
-    db.get().collection('users').findOne({ username: req.query.id }, function(err, info) {
-        console.log("Info:" + info);
-        if (err || info == null) {
-            //res.status(500).send();
-            res.render('reset', { IsPasswordInValid: true, userID: req.query.id });
-        } else {
-            console.log("ID :" + req.query.id + " , NPwd:" + req.body.NPwd);
-            bcrypt.compare(req.body.CPwd, info.password, function(err, result) {
-                if (result) {
-                    console.log("password match");
-                    bcrypt.hash(req.body.NPwd, 10, function(err, hash) {
-                        console.log("hash:" + hash);
-                        db.get().collection("users").update({ username: req.query.id }, {
-                            $set: {
-                                "password": hash
-                            }
-                        }, (err, results) => {
-                            if (err) {
-                                console.log("Error in Password updation ");
-                                //res.status(500).send();
-                                res.render('reset', { title: 'Reset Password', IsError: true, userID: req.query.id });
-                            } else {
-                                console.log("Password updated Successfully");
-                                res.render('reset', { title: 'Reset Password', IsPasswordUpdated: true, userID: req.query.id });
-                            }
-                        });
-                    });
+    var CPwd = req.body.CPwd;
+    var NPwd = req.body.NPwd;
+    var RPwd = req.body.RPwd;
+    req.checkBody('CPwd', 'Email ID is required').notEmpty();
+    req.checkBody('NPwd', 'email is not valid').notEmpty();
+    req.checkBody('RPwd', 'confirm password field is required').notEmpty();
+    req.checkBody('RPwd', 'confirm password did not match').equals(req.body.NPwd);
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log("errors");
+        // res.render('reset', { IsPasswordInValid: true, userID: req.query.id, showForm: true });
+        res.render('reset', {
+            errors: errors,
+            showForm: true,
+            userID: req.query.id
+        });
+    } else {
 
-                } else {
-                    console.log("password didn't match");
-                    res.render('reset', { title: 'Reset Password', IsPasswordInValid: true, userID: req.query.id });
-                }
-            });
-            //console.log("test");
-            // res.render('reset', { title: 'Rest Password', users: info });
-            // res.render('edituser', { title: 'Edit User', users: info });
-        }
-    });
+        db.get().collection('users').findOne({ username: req.query.id }, function(err, info) {
+            console.log("Info:" + info);
+            if (err || info == null) {
+                //res.status(500).send();
+                res.render('reset', { IsPasswordInValid: true, userID: req.query.id, showForm: true });
+            } else {
+                console.log("ID :" + req.query.id + " , NPwd:" + req.body.NPwd);
+                bcrypt.compare(req.body.CPwd, info.password, function(err, result) {
+                    if (result) {
+                        console.log("password match");
+                        bcrypt.hash(req.body.NPwd, 10, function(err, hash) {
+                            console.log("req.body.NPwd:" + req.body.NPwd + " ,new pawd hash:" + hash);
+                            db.get().collection("users").update({ username: req.query.id }, {
+                                $set: {
+                                    "password": hash
+                                }
+                            }, (err, results) => {
+                                if (err) {
+                                    console.log("Error in Password updation ");
+                                    //res.status(500).send();
+                                    res.render('reset', { title: 'Reset Password', IsError: true, userID: req.query.id, showForm: true });
+                                } else {
+                                    console.log("Password updated Successfully");
+                                    res.render('reset', {
+                                        title: 'Reset Password',
+                                        IsPasswordUpdated: true,
+                                        userID: req.query.id,
+                                        showForm: false
+                                    });
+                                }
+                            });
+                        });
+
+                    } else {
+                        console.log("password didn't match");
+                        res.render('reset', { title: 'Reset Password', IsPasswordInValid: true, userID: req.query.id, showForm: true });
+                    }
+                });
+                //console.log("test");
+                // res.render('reset', { title: 'Rest Password', users: info });
+                // res.render('edituser', { title: 'Edit User', users: info });
+            }
+        });
+    }
 
     //  res.render('reset');
 });

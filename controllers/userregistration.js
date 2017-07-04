@@ -29,7 +29,7 @@ router.post("/userregistration", function(req, res) {
     req.checkBody('email', 'email field is required').notEmpty();
     req.checkBody('email', 'email is not valid').isEmail();
     req.checkBody('password', 'password field is required').notEmpty();
-    req.checkBody('password2', 'password2 field is required').notEmpty();
+    req.checkBody('password2', 'confirm password field is required').notEmpty();
     req.checkBody('password2', 'password did not match').equals(req.body.password);
 
     var errors = req.validationErrors();

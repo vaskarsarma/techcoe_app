@@ -2,28 +2,27 @@
   <div class="col-md-4 col-md-offset-4">
     {{#if emailNotFound }}
     <div class="col-sm-6 text-success unableToSendEmail"><i>Email not found</i></div>
-    {{/if}}
-
-    {{#if errorToSendEmail }}
-    <div class="col-sm-6 text-success unableToSendEmail"><i>opps !! enable to send mail. Contact after some time </i></div></br>
-    {{/if}}
-    
-    {{#if IsEmailSend }}
+    {{/if}} {{#if errorToSendEmail }}
+    <div class="col-sm-6 text-success unableToSendEmail"><i>opps !! enable to send mail. Contact after some time </i></div>
+    </br>
+    {{/if}} {{#if IsEmailSend }}
     <div class="col-sm-6 text-success"><i>Email send successfully </i></div>
-    {{!--</br></br>--}}
-    <a class="button" href="/auth/login">Go to login</a>
-    {{/if}}
-{{!--    
-    {{#if (not IsEmailSend )}}
-    <div class="col-sm-6 text-success"><i>Email not send</i></div>   
-    {{/if}}--}}
-
-{{#if showForm}}
-    <form class="form-horizontal" autocomplete="off" action="/auth/forgotpwd/:_id" method="POST">
+    {{!--</br>
+    </br>--}}
+    <a class="button" href="/auth/login">Go to login</a> {{/if}} {{!-- {{#if (not IsEmailSend )}}
+    <div class="col-sm-6 text-success"><i>Email not send</i></div>
+    {{/if}}--}} {{#if errors }}
+    <ul class="errors alert-danger">
+      {{#each errors}}
+      <li>{{this.msg}} </li>
+      {{/each}}
+    </ul>
+    {{/if}} {{#if showForm}}
+    <form class="form-horizontal" autocomplete="off" action="/auth/forgotpwd" method="POST">
 
       <div class="form-group">
         <label for="emailID">Enter your email ID:</label>
-        <input type="text" class="form-control" id="emailID" name="emailID" required="required" autofocus="autofocus">
+        <input type="text" class="form-control" id="emailID" name="emailID" value="{{emailID}}" autofocus="autofocus">
       </div>
 
       <div class="form-group">
@@ -37,6 +36,6 @@
         <a href="/login">Forgot your password</a>--}}
       </div>
     </form>
-{{/if}}
+    {{/if}}
   </div>
 </div>
