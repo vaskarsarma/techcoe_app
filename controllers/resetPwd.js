@@ -54,7 +54,7 @@ router.post("/reset", function(req, res) {
         });
     } else {
 
-        db.get().collection('users').findOne({ username: req.query.id }, function(err, info) {
+        db.get().collection('users').findOne({ usernamehash: req.query.id }, function(err, info) {
             console.log("Info:" + info);
             if (err || info == null) {
                 //res.status(500).send();
@@ -66,7 +66,7 @@ router.post("/reset", function(req, res) {
                         console.log("password match");
                         bcrypt.hash(req.body.NPwd, 10, function(err, hash) {
                             console.log("req.body.NPwd:" + req.body.NPwd + " ,new pawd hash:" + hash);
-                            db.get().collection("users").update({ username: req.query.id }, {
+                            db.get().collection("users").update({ usernamehash: req.query.id }, {
                                 $set: {
                                     "password": hash
                                 }

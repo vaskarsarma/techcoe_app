@@ -14,11 +14,12 @@ router.get("/forgotpwd", function(req, res) {
     res.render('forgotpwd', { showForm: true });
 });
 
+
 router.post("/forgotpwd", function(req, res) {
 
     var emailID = req.body.emailID;
     req.checkBody('emailID', 'Email ID is required').notEmpty();
-    req.checkBody('emailID', 'email is not valid').isEmail();
+    req.checkBody('emailID', 'Email is not valid').isEmail();
     var errors = req.validationErrors();
 
     if (errors) {
@@ -48,9 +49,6 @@ router.post("/forgotpwd", function(req, res) {
                 var salt = null,
                     hash = null,
                     path = null;
-                // console.log("hash1:" + db.hash());
-                // res.render('forgotpwd', { emailNotFound: false, showForm: false });
-                // res.render('bloggers', { title: 'Blogs', selectedBlogForEdit: true, category: categoryList, blogs: info });
                 db.get().collection('salt').findOne({}, function(err, data) {
                     if (err || info == null) {
                         // console.log("step 3.1");
@@ -59,12 +57,12 @@ router.post("/forgotpwd", function(req, res) {
                         salt = data.salt;
                         //console.log("salt1:" + salt);
 
-                        console.log("info.username:" + info.username);
+                        console.log("info.usernamehash:" + info.usernamehash);
                         // if (salt != null)
                         //     hash = bcrypt.hashSync(info.username, salt);
 
                         console.log("hash:" + hash);
-                        path = "http://localhost:1337/auth/reset?id=" + info.username;
+                        path = "http://localhost:1337/auth/reset?id=" + info.usernamehash;
                         var mailOptions = {
                             from: 'nodegitapp@gmail.com',
                             to: req.body.emailID,

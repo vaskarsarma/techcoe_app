@@ -48,25 +48,36 @@ router.post("/userregistration", function(req, res) {
     } else {
         console.log("home");
 
-        db.get().collection("users").save({
-            "username": bcrypt.hashSync(username, 10),
-            "name": name,
-            "password": bcrypt.hashSync(password, 10),
-            "admin": admin,
-            "email": email
-        }, (err, results) => {
+        db.get().collection('users').findOne({ username: username }, function(err, info) {
+
             if (err) {
-                console.log("Error in inseration");
-                // res.status(500).send();
                 res.render('userregistration', { title: 'Sign-up', IsError: true });
+            } else if (info == null) {
+                db.get().collection("users").save({
+                    "usernamehash": bcrypt.hashSync(username, 10),
+                    "username": username,
+                    "name": name,
+                    "password": bcrypt.hashSync(password, 10),
+                    "admin": admin,
+                    "email": email,
+                    "IsEmailVerified": false,
+                    "active": false
+                }, (err, results) => {
+                    if (err) {
+                        console.log("Error in inseration");
+                        // res.status(500).send();
+                        res.render('userregistration', { title: 'Sign-up', IsError: true });
+                    } else {
+                        console.log("User inserted successfully");
+                        res.render('userregistration', { title: 'Sign-up', IsUpdated: true });
+                    }
+                });
             } else {
-                console.log("User inserted successfully");
-                res.render('userregistration', { title: 'Sign-up', IsUpdated: true });
+                res.render('userregistration', { title: 'Sign-up', IsUserNameAvailable: true });
             }
         });
         //  res.redirect('/userregistration');
     }
-    //var name=req.body.name;
-    ///console.log("ankit1");
+
 
 });
