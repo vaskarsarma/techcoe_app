@@ -1,4 +1,5 @@
 var db = require('../models/db');
+var ObjectId = require("mongodb").ObjectID;
 
 // exports.category = function(cb) {
 //     var collection = db.get().collection("category");
@@ -43,3 +44,48 @@ exports.recentblogs = function(cb) {
         cb(err, results);
     });
 }
+
+//++++++++++++++++++++++++ Methods to retirve blog specific details using Promise +++++++++++++++
+exports.viewblogsbyid = function(id) {
+    return new Promise(function(resolve, reject) {
+        db.get().collection('blogs').findOne({ _id: ObjectId(id) }, function(err, info) {
+            if (!err) {
+                resolve([id, info]);
+            } else {
+                reject(err);
+            }
+        });
+    });
+}
+
+exports.viewblogcomments = function([id, info]) {
+    return new Promise(function(resolve, reject) {
+        var collection = db.get().collection("comments");
+
+        collection.find({ blog_id: id }).limit(100).sort({ "date": 1 })
+            .toArray(function(err, comments) {
+                if (!err) {
+                    resolve([info, comments]);
+                } else {
+                    reject(err);
+                }
+            });
+    });
+}
+
+exports.viewrecentblogs = function([info, comments]) {
+    return new Promise(function(resolve, reject) {
+        var collection = db.get().collection("blogs");
+
+        collection.find({ status: { $in: ["0", "1"] } }).limit(10).sort({ "date": 1 })
+            .toArray(function(err, mostrecentblogs) {
+                if (!err) {
+                    resolve([info, comments, mostrecentblogs]);
+                } else {
+                    reject(err);
+                }
+            });
+    });
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
