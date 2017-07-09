@@ -21,6 +21,20 @@ exports.get = function() {
     return state.db
 }
 
+exports.update = function(collection, findQuery, updateQuery) {
+    //state.db.get().collection(collection).update()
+    return new Promise(function(resolve, reject) {
+        state.db.get().collection(collection)
+            .update({ findQuery }, { $set: { updateQuery } }, (err, results) => {
+                if (!err) {
+                    resolve(results);
+                } else {
+                    reject(err);
+                }
+            });
+    });
+}
+
 // exports.GetHash = function() {
 //     return state.hash
 // }
