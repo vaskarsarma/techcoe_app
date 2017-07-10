@@ -10,6 +10,10 @@ var db = require('../models/db');
 module.exports = router;
 
 router.get("/forgotpwd", function(req, res) {
+    var query = { email: req.body.emailID };
+    db.findOne("users", query, function(err, info) {
+        console.log("info:" + JSON.stringify(info));
+    });
     console.log("forgotpwd");
     res.render('forgotpwd', { showForm: true });
 });
