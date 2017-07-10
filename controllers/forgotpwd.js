@@ -10,8 +10,18 @@ var db = require('../models/db');
 module.exports = router;
 
 router.get("/forgotpwd", function(req, res) {
-    var query = { email: req.body.emailID };
-    db.findOne("users", query, function(err, info) {
+    // var query = JSON.parse({ username: "ankit" });
+    //{ email: req.body.emailID };
+    //  { username: findQuery }
+    // db.findOne("users", query, function(err, info) {
+    //     console.log("info:" + JSON.stringify(info));
+    // });
+
+
+    var filter = { "username": "ankit" };
+    console.log("filter:" + JSON.stringify(filter));
+    db.findOne("users", filter, "ankit").then(function(info) {
+        //console.log("err:" + JSON.stringify(err));
         console.log("info:" + JSON.stringify(info));
     });
     console.log("forgotpwd");

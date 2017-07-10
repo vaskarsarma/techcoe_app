@@ -21,7 +21,7 @@ exports.get = function() {
     return state.db
 }
 
-function getOne() {
+function getConnection() {
     return state.db
 }
 
@@ -39,21 +39,20 @@ exports.update = function(collection, findQuery, updateQuery) {
     });
 }
 
-exports.findOne = function(collection, findQuery) {
-    //state.db.get().collection(collection).update()
-    console.log("findOne");
-    console.log("collection:" + collection);
-    console.log("findQuery:" + JSON.stringify(findQuery));
+exports.findOne = function(collection, filter, findQuery) {
+    console.log("filter:" + JSON.stringify(filter));
+    var test = JSON.stringify(filter);
+    console.log("test:" + test);
     return new Promise(function(resolve, reject) {
-        console.log("In Prommise");
-        getOne().collection(collection)
-            .findOne({ username: "ankit" }, (err, results) => {
-                console.log("result");
+        getConnection().collection(collection)
+            //.findOne({ "username": "ankit" }, (err, results) => {
+            .findOne(filter, (err, results) => {
+
                 if (!err) {
-                    console.log("resolve" + JSON.stringify(results));
+                    //  console.log("resolve" + JSON.stringify(results));
                     resolve(results);
                 } else {
-                    console.log("reject");
+                    // console.log("reject");
                     reject(err);
                 }
             });
