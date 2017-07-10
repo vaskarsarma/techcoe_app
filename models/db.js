@@ -21,6 +21,45 @@ exports.get = function() {
     return state.db
 }
 
+function getConnection() {
+    return state.db
+}
+
+exports.update = function(collection, findQuery, updateQuery) {
+    //state.db.get().collection(collection).update()
+    return new Promise(function(resolve, reject) {
+        state.db.get().collection(collection)
+            .update({ findQuery }, { $set: { updateQuery } }, (err, results) => {
+                if (!err) {
+                    resolve(results);
+                } else {
+                    reject(err);
+                }
+            });
+    });
+}
+
+exports.findOne = function(collection, filter, findQuery) {
+    console.log("filter:" + JSON.stringify(filter));
+    var test = JSON.stringify(filter);
+    console.log("test:" + test);
+    return new Promise(function(resolve, reject) {
+        getConnection().collection(collection)
+            //.findOne({ "username": "ankit" }, (err, results) => {
+            .findOne(filter, (err, results) => {
+
+                if (!err) {
+                    //  console.log("resolve" + JSON.stringify(results));
+                    resolve(results);
+                } else {
+                    // console.log("reject");
+                    reject(err);
+                }
+            });
+    });
+}
+
+
 // exports.GetHash = function() {
 //     return state.hash
 // }
