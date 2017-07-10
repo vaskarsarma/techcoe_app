@@ -20,5 +20,4 @@ router.get('/home', function(req, res) {
             }
         }
     });
-    //res.render('home', { layout: 'layout', title: 'Home Page' });
 });

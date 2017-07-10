@@ -22,12 +22,12 @@ var hbs = exphbs.create({
         // Example to use custom helper function for HandleBar
         ,
     helpers: {
-        CheckEmpty: require("./public/js/customcheckempty"),
-        CheckNumber: require("./public/js/customchecknumber"),
-        IsAdmin: require("./public/js/isadmin"),
-        CheckIsAdmin: require("./public/js/checkisadmin"),
-        Compare: require("./public/js/compare"),
-        GetBlogStatus: require("./public/js/getblogstatus")
+        CheckEmpty: require("./public/js/helper/customcheckempty"),
+        CheckNumber: require("./public/js/helper/customchecknumber"),
+        IsAdmin: require("./public/js/helper/isadmin"),
+        CheckIsAdmin: require("./public/js/helper/checkisadmin"),
+        Compare: require("./public/js/helper/compare"),
+        GetBlogStatus: require("./public/js/helper/getblogstatus")
     },
     // Uses multiple partials dirs, templates in "shared/templates/" are shared
     // with the client-side of the app (see below).

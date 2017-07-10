@@ -77,6 +77,7 @@ router.post("/savedata", function(req, res) {
     if (req.body._id != undefined && req.body._id != null) {
         var id = req.body._id;
         var name = req.body.name;
+        var admin = req.body.admin ? "yes" : "";
 
         db.get().collection('users').findOne({ _id: ObjectId(id) }, function(err, info) {
             if (err) {
@@ -87,7 +88,7 @@ router.post("/savedata", function(req, res) {
                         "_id": ObjectId(info._id),
                         "name": req.body.name,
                         "password": req.body.password,
-                        "admin": req.body.admin
+                        "admin": admin
                     }, (err, results) => {
                         console.log("u4");
                         if (err) {

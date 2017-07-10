@@ -23,7 +23,7 @@ router.post("/userregistration", function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
     var password2 = req.body.password2;
-    var admin = req.body.admin ? "checked" : "";
+    var admin = "";
     req.checkBody('username', 'Username field is required').notEmpty();
     req.checkBody('name', 'Name field is required').notEmpty();
     req.checkBody('email', 'email field is required').notEmpty();

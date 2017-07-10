@@ -5,93 +5,72 @@
 
         <div class="col-lg-12 blogdata">
 
-            <!-- Title -->
-            <h1>{{title}}</h1>
+            <div class="post-wrapper wow fadeIn" data-wow-delay="0.2s">
 
-            <!-- Author -->
-            <p class="lead">
-                by <a href="#">{{blog.createdby}}</a>
-            </p>
-            <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on {{blog.creationdate}}</p>
+                <!-- Title ,Author ,Date/Time-->
+                <h1 class="h1-responsive"><img border="0" src="/images/article.png" title="article"> {{title}}</h1>
+                <p>Written by <a href="#">{{blog.createdby}}</a>,
+                    <span class="glyphicon glyphicon-time"></span> Posted on {{blog.creationdate}}</p>
 
-            <hr>
-            <p class="lead view">{{{blog.content}}}</p>
-            <hr>
+                <!--Content-->
+                <p>{{{blog.content}}}</p>
+
+            </div>
 
         </div>
 
         <!-- Blog Comments -->
-
         <!-- Comments Form -->
-        <div class="well">
-            <h4>Leave a Comment:</h4>
-            <form role="form" action="/viewblog/addcomments" method="POST">
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" name="blogcomment" id="blogcomment" required="required"></textarea>
-                    <input type="hidden" value="{{blog._id}}" name="_id" id="_id" />
-                    <input type="hidden" id="addedby" name="addedby" value={{user._id}} />
+        <div class="widget-wrapper wow fadeIn" data-wow-delay="0.6s">
+            <div class="card">
+                <div class="card-block">
+                    <h5><strong>Leave a Comment</strong></h5>
+                    <form role="form" action="/viewblog/addcomments" method="POST">
+                        <div class="form-group md-form">
+                            <textarea class="form-control" rows="4" name="blogcomment" id="blogcomment" required="required"></textarea>
+                            <input type="hidden" value="{{blog._id}}" name="_id" id="_id" />
+                            <input type="hidden" id="addedby" name="addedby" value={{user.username}} />
+                        </div>
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </form>
+
+                    <hr>
+
+                    <!-- Posted Comments -->
+                    {{#if comments}}
+
+                    <ul id="comments" class="comments">
+                        {{#each comments}}
+                        <li class="comment">
+                            <div class="clearfix">
+                                <h4 class="pull-left">{{this.addedby}}</h4>
+                                <p class="pull-right">{{this.date}}</p>
+                            </div>
+                            <p>
+                                <em>{{this.blogcomment}}</em>
+                            </p>
+                        </li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-        {{/if}}
-
-        <hr>
-
-        <!-- Posted Comments -->
-        {{#if comments}}
-        {{#each comments}}
-
-        <!-- Comment -->
-        <div class="media">
-            <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-            <div class="media-body">
-                <h4 class="media-heading">by {{this.addedby}}
-                    <small>on {{this.date}}</small>
-                </h4>
-                {{this.blogcomment}}
             </div>
         </div>
-
-        {{/each}}
         {{/if}}
     </div>
 
     <!-- Blog Sidebar Widgets Column -->
     <div class="col-md-4">
-        <!-- Blog Search Well -->
-        <div class="well">
-            <h4>Blog Search</h4>
-            <div class="input-group">
-                <input type="text" class="form-control">
-                <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                </button>
-                </span>
+
+        <!-- Top Visited Side Widget Well -->
+        <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+            <div class="list-group">
+                <h4 class="list-group-item active">Top Visit</h4>
+                <a href="#" class="list-group-item">display the top visited blogs.</a>
             </div>
-            <!-- /.input-group -->
         </div>
 
         <!-- Top Visited Side Widget Well -->
-        <div class="well">
-            <h4>Top Visit</h4>
-            <p>display the top visited blogs.</p>
-        </div>
-
-        {{#if mostrecentblogs}}
-        <!-- Recent blogs Widget Well -->
-        <div class="well">
-            <h4>Recent Blogs</h4>
-
-            {{#each mostrecentblogs}}
-            <p><a href="/viewblog/showdetails/{{this._id}}">{{this.topic}}</a></p>
-             {{/each}}
-        </div>
-        {{/if}}
-
+        {{#if mostrecentblogs}} {{> recentblogs mostrecentblogs=mostrecentblogs }} {{/if}}
     </div>
 </div>

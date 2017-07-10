@@ -1,4 +1,4 @@
-var status = require('../../data/blogstatus.json');
+var status = require('../../../data/blogstatus.json');
 
 module.exports = function(fieldvalue) {
     if (fieldvalue != undefined) {
