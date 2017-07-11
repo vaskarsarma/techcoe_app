@@ -3,10 +3,9 @@
 
 <div class="row">
     <div class="col-lg-8 blogdata">
-        {{#Compare blogs.count "0"}}
+        {{#Compare blogs.count 0}}
         <img class="img-responsive img-circle img-fluid" border="0" src="/images/learnings.jpg" title="article" /> {{else}}
         {{#each blogs}}
-
         <div class="post-wrapper wow fadeIn" data-wow-delay="0.2s">
 
             <!-- Title ,Author ,Date/Time-->
@@ -57,7 +56,7 @@
         <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
             <div class="list-group">
                 <h4 class="list-group-item active">Top Visit</h4>
-                <a href="#" class="list-group-item">display the top visited blogs.</a>
+                <span class="list-group-item">display the top visited blogs.</span>
             </div>
         </div>
 

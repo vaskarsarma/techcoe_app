@@ -12,6 +12,8 @@ module.exports = function(lvalue, operator, rvalue, options) {
         operator = "===";
     }
 
+    //console.log("l " + lvalue + " , r " + rvalue);
+
     operators = {
         '==': function(l, r) { return l == r; },
         '===': function(l, r) { return l === r; },

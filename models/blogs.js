@@ -45,6 +45,21 @@ exports.recentblogs = function(cb) {
     });
 }
 
+exports.viewblogsbycategory = function(key) {
+    return new Promise(function(resolve, reject) {
+        var collection = db.get().collection("blogs");
+
+        collection.find({ categorykey: key }).limit(10).sort({ "date": 1 })
+            .toArray(function(err, info) {
+                if (!err) {
+                    resolve(info);
+                } else {
+                    reject(err);
+                }
+            });
+    });
+}
+
 //++++++++++++++++++++++++ Methods to retirve blog specific details using Promise +++++++++++++++
 exports.viewblogsbyid = function(id) {
     return new Promise(function(resolve, reject) {

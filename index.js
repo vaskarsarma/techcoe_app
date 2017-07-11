@@ -108,15 +108,7 @@ app.get('/', function(req, res) {
             }
         }
     });
-
-    //res.render('home', { layout: 'default', title: 'Home Page' });
 });
-
-// //Get Home Page
-// app.get('/index', function(req, res) {
-//     console.log("index");
-//     res.sendFile('/index.html');
-// });
 
 var authRouter = require('./controllers/authroute');
 app.use('/auth', authRouter);

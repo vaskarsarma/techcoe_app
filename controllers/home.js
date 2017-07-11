@@ -21,3 +21,19 @@ router.get('/home', function(req, res) {
         }
     });
 });
+
+router.get('/home/:key', function(req, res) {
+    var key = req.params.key;
+    categoryList = blogs.category;
+    blogs.viewblogsbycategory(key).then((results) => {
+        if (results.length == 0) {
+            results = { count: 0 };
+            res.render('home', { layout: 'layout', title: 'Home Page', category: categoryList, blogs: results });
+        } else {
+            res.render('home', { layout: 'layout', title: 'Home Page', category: categoryList, blogs: results });
+        }
+    }).catch((e) => {
+        console.log("Exception " + e);
+        res.status(500).send();
+    });
+});
