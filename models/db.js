@@ -60,12 +60,12 @@ exports.findOne = function(collection, filter, findQuery) {
 }
 
 exports.Insert = function(collection, filter) {
-    console.log("DB: Inset");
+    console.log("DB: Inset" + JSON.stringify(filter));
     return new Promise(function(resolve, reject) {
         getConnection().collection(collection)
             .save(filter, (err, results) => {
                 if (!err) {
-                    console.log("resolve" + JSON.stringify(results));
+                    console.log("resolve subscription");
                     resolve(results);
                 } else {
                     console.log("reject");

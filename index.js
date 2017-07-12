@@ -147,6 +147,9 @@ app.use("/blog", blogroute);
 var viewblogroute = require('./controllers/viewblog');
 app.use("/viewblog", viewblogroute);
 
+var profileroute = require('./controllers/profileroute');
+app.use("/myprofile", profileroute);
+
 //Error handling
 app.get('*', function(req, res, next) {
     var err = new Error("Failed to load resource");
