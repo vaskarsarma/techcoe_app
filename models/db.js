@@ -59,6 +59,22 @@ exports.findOne = function(collection, filter, findQuery) {
     });
 }
 
+exports.Insert = function(collection, filter) {
+    console.log("DB: Inset");
+    return new Promise(function(resolve, reject) {
+        getConnection().collection(collection)
+            .save(filter, (err, results) => {
+                if (!err) {
+                    console.log("resolve" + JSON.stringify(results));
+                    resolve(results);
+                } else {
+                    console.log("reject");
+                    reject(err);
+                }
+            });
+    });
+}
+
 
 // exports.GetHash = function() {
 //     return state.hash

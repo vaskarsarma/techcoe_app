@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-block">
+    <div class="subscribeBlock">
+      <h4><strong>Subscribe to our newsletter</strong></h4>
+      <p>Once a week we will send you a summary of the most useful news</p>
+      <div class="ErrorPanel hidden">
+      </div>
+      <div class="md-form">
+        {{!--<i class="fa fa-user prefix"></i>
+        <input type="text" id="nameSubscribe" class="form-control">
+        <label for="name">Your name</label>--}}
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="fa fa-user prefix"></i>
+          <input type="text" id="nameSubscribe" class="mdl-textfield__input" pattern="[a-zA-Z\s]*">
+          <label class="mdl-textfield__label" for="nameSubscribe">Your name</label>
+          <span class="mdl-textfield__error">Only alphabet and no numbers, please!</span>
+        </div>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-envelope prefix"></i>
+        <input type="text" id="emailSubscribe" class="form-control">
+        <label for="email">Your email</label> 
+      </div>
+      <button class="btn btn-info subscribe">Submit</button>
+    </div>
+    <div class="alert alert-success hidden successResult" role="alert">
+      <strong>Well done!</strong> You successfully subscribe for our newsletters.
+    </div>
+    <div class="alert alert-info hidden alertResult" role="alert">
+      <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+    </div>
+    <div class="alert alert-warning hidden warningResult" role="alert">
+      <strong>Warning!</strong> Better check yourself, you're not looking too good.
+    </div>
+    <div class="alert alert-danger hidden errorResult" role="alert">
+      <strong>OMG!</strong> currently there some technical issue .
+    </div>
+  </div>
+</div>

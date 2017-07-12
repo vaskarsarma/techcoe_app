@@ -1,13 +1,44 @@
 /* YOUR CUSTOM STYLES */
+
 .list-group-item.active {
     background-color: #33b5e5;
-    border-color:#33b5e5
+    border-color: #33b5e5
 }
 
 .list-group-item:not(.active) {
-    color:#222;
+    color: #222;
 }
 
 .list-group-item:not(.active):hover {
-    color:#666;
+    color: #666;
 }
+
+.show {
+    display: block !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/*
+body {
+    text-align: center;
+}
+
+.mdl-layout {
+    align-items: center;
+    justify-content: center;
+}
+
+.mdl-layout__content {
+    padding: 24px;
+    flex: none;
+}
+
+.mdl-textfield__error {
+    width: 100%;
+    left: 0;
+    text-align: left;
+}*/

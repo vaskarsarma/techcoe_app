@@ -110,6 +110,7 @@ app.get('/', function(req, res) {
     });
 });
 
+
 var authRouter = require('./controllers/authroute');
 app.use('/auth', authRouter);
 
@@ -118,6 +119,9 @@ app.use('/auth', forgotpwd);
 
 var reset = require('./controllers/resetpwd');
 app.use('/auth', reset);
+
+var subscribe = require('./controllers/subscribe');
+app.use('/subscribe', subscribe);
 
 var userregistration = require('./controllers/userregistration');
 app.use('/auth', userregistration);
