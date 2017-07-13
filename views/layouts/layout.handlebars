@@ -78,9 +78,13 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
                     </ul>
-                    <form class="form-inline waves-effect waves-light">
+                    {{!-- <form class="form-inline waves-effect waves-light">
                         <input class="form-control" type="text" placeholder="Search">
-                    </form>
+                    </form> --}}
+                    <div id="bloodhound">
+                         <input class="typeahead " type="text" placeholder="Countries">
+                        {{!-- <input class="form-control" type="text" placeholder="Search"> --}}
+                    </div>
                     <ul class="nav-item navbar-nav navbar-right">
                         <li class="nav-item active"><a class="nav-link" href="/auth/login">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="/auth/userregistration">Sign-up</a></li>
@@ -109,6 +113,8 @@
 
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/js/typeahead.bundle.js"></script>
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/js/mdb.min.js"></script>

@@ -1,41 +1,53 @@
 $(function() {
-    $('.cancel').click(function() {
-        var cancel = confirm("Are you sure you want to cancel?")
+    $(".cancel").click(function() {
+        var cancel = confirm("Are you sure you want to cancel?");
         if (cancel == true) {
             history.back(1);
         }
     });
 
-    $('.subscribe').click(function() {
+    $(".subscribe").click(function() {
         console.log("subscribe click");
 
         var isValid = true;
         var errorPanel = $("<div></div>");
         var errorMessage = null;
 
-        if ($("#nameSubscribe").val() == "" || $("#nameSubscribe").val() == undefined) {
+        if (
+            $("#nameSubscribe").val() == "" ||
+            $("#nameSubscribe").val() == undefined
+        ) {
             isValid = false;
             console.log("error in name");
-            errorPanel.append(ErrorMessage("<strong>Warning!</strong> Please enter name."));
+            errorPanel.append(
+                ErrorMessage("<strong>Warning!</strong> Please enter name.")
+            );
         } else if (!validateName($("#nameSubscribe").val())) {
             isValid = false;
             console.log("error in name");
-            errorPanel.append(ErrorMessage(" <strong>Warning!</strong> Please enter valid Name."));
+            errorPanel.append(
+                ErrorMessage(" <strong>Warning!</strong> Please enter valid Name.")
+            );
         }
 
         if (!validateEmail($("#emailSubscribe").val())) {
             isValid = false;
             console.log("error in email");
-            errorPanel.append(ErrorMessage("<strong>Warning!</strong> Please enter valid email."));
+            errorPanel.append(
+                ErrorMessage("<strong>Warning!</strong> Please enter valid email.")
+            );
         }
 
         if (isValid) {
-            $(".ErrorPanel").html('');
+            $(".ErrorPanel").html("");
             console.log("hi");
             $.ajax({
-                url: 'http://localhost:1337/subscribe',
-                type: 'GET',
-                data: 'emailID="' + $("#emailSubscribe").val() + '"&name="' + $("#nameSubscribe").val(),
+                url: "http://localhost:1337/subscribe",
+                type: "GET",
+                data: 'emailID="' +
+                    $("#emailSubscribe").val() +
+                    '"&name="' +
+                    $("#nameSubscribe").val(),
                 success: function(data) {
                     console.log("data : " + data);
                     $(".subscribeBlock").addClass("hidden");
@@ -65,6 +77,26 @@ $(function() {
 
     function ErrorMessage($message) {
         return $("<div class='alert alert-warning'></div>").append($message);
-
     }
+
+
+    $.getJSON("/commonapi/data/countries").done(function(data) {
+        var result = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: data
+        });
+        $("#bloodhound .typeahead").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            name: 'states',
+            source: result
+        });
+
+    }).fail(function(jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+    });
+
 });

@@ -126,6 +126,9 @@ app.use('/subscribe', subscribe);
 var userregistration = require('./controllers/userregistration');
 app.use('/auth', userregistration);
 
+var CommonAPI = require('./controllers/CommonAPI');
+app.use('/commonapi', CommonAPI);
+
 app.use(function(req, res, next) {
     if (req.isAuthenticated()) {
         res.locals.user = req.user;
