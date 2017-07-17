@@ -15,29 +15,39 @@ router.get("/", function(req, res) {
 
 
     Promise.all([db.findAllCount("users"), db.findAllCount("subscribeUser")]).then(data => {
-        console.log(data[0]);
-    });
-
-
-    db.findAllCount("users").then(function(count) {
-        console.log("findAllCount users count:" + count);
-        collectionCountList.userCount = count;
-        console.log("collectionCountList.userCount :" + collectionCountList.userCount);
-
-
-    }).then(db.findAllCount("subscribeUser"), function(count) {
-        console.log("findAllCount subscribeUser  count:" + count);
-        collectionCountList.subscribeUser = count;
-        console.log("collectionCountList.subscribeUser :" + collectionCountList.subscribeUser);
+        console.log(data);
+        collectionCountList.userCount = data[0];
+        collectionCountList.subscribeUser = data[1];
     }).then(function() {
         collectionCountList.TotalVisitor = 0;
         collectionCountList.totalCategory = blogs.category.length;
-        console.log("collectionCountList.totalCategory :" + collectionCountList.totalCategory);
+        //console.log("collectionCountList.totalCategory :" + collectionCountList.totalCategory);
         // console.log("userregistration");
         // console.log("dashboard");
         console.log("dashboard end");
         res.render('dashboard', { collectionCountList: collectionCountList });
     });
+
+
+    // db.findAllCount("users").then(function(count) {
+    //     console.log("findAllCount users count:" + count);
+    //     collectionCountList.userCount = count;
+    //     console.log("collectionCountList.userCount :" + collectionCountList.userCount);
+
+
+    // }).then(db.findAllCount("subscribeUser"), function(count) {
+    //     console.log("findAllCount subscribeUser  count:" + count);
+    //     collectionCountList.subscribeUser = count;
+    //     console.log("collectionCountList.subscribeUser :" + collectionCountList.subscribeUser);
+    // }).then(function() {
+    //     collectionCountList.TotalVisitor = 0;
+    //     collectionCountList.totalCategory = blogs.category.length;
+    //     console.log("collectionCountList.totalCategory :" + collectionCountList.totalCategory);
+    //     // console.log("userregistration");
+    //     // console.log("dashboard");
+    //     console.log("dashboard end");
+    //     res.render('dashboard', { collectionCountList: collectionCountList });
+    // });
 
     // db.find("blogs").then(function(results) {
 
