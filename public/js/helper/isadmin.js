@@ -1,5 +1,5 @@
 module.exports = function(fieldvalue) {
-    if (fieldvalue != undefined || fieldvalue == "yes") {
+    if (fieldvalue != undefined && fieldvalue == "yes") {
         return '<li class="nav-item dropdown btn-group">' +
             '<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>' +
             '<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">' +

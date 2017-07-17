@@ -47,3 +47,67 @@ footer.page-footer {
     background-color: #333;
     margin-top: 2rem;
 }
+
+
+/* Profile */
+
+
+/**
+ * Ranking component
+ */
+
+.rank-label-container {
+    margin-top: -19px;
+    /* z-index: 1000; */
+    text-align: center;
+}
+
+.label.label-default.rank-label {
+    background-color: #33b5e5;
+    padding: 5px 10px 5px 10px;
+    border-radius: 27px;
+}
+
+
+/* Circualr Profile Image */
+
+.user {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.one {
+    background-image: url('/images/350x150.png');
+}
+
+.two {
+    background-image: url('/images/150x150.png');
+}
+
+.three {
+    background-image: url('/images/350x750.png');
+}
+
+.navbarimage {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.four {
+    background-image: url('/images/18x18.png');
+}
+
+.navbar-nav>li>a.profile-image {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
