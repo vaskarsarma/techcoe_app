@@ -1,5 +1,10 @@
 /* YOUR CUSTOM STYLES */
 
+
+/* .container {
+    width: 100% !important;
+} */
+
 .list-group-item.active {
     background-color: #33b5e5;
     border-color: #33b5e5

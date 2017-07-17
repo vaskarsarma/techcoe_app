@@ -75,6 +75,38 @@ exports.Insert = function(collection, filter) {
     });
 }
 
+exports.findAllCount = function(collection) {
+    console.log("find all: " + collection);
+    return new Promise(function(resolve, reject) {
+        getConnection().collection(collection).find().count(function(err, count) {
+            if (!err) {
+                console.log("resolve : " + collection + ": " + JSON.stringify(count));
+                resolve(count);
+            } else {
+                console.log("reject");
+                reject(err);
+            }
+        });
+    });
+}
+
+
+
+exports.find = function(collection) {
+    console.log("find: " + collection);
+    return new Promise(function(resolve, reject) {
+        getConnection().collection(collection).find().toArray(function(err, results) {
+            if (!err) {
+                // console.log("resolve : " + collection + ": " + JSON.stringify(results));
+                resolve(results);
+            } else {
+                console.log("reject");
+                reject(err);
+            }
+        });
+    });
+}
+
 
 // exports.GetHash = function() {
 //     return state.hash

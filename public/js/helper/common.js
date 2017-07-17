@@ -30,7 +30,16 @@ $(function() {
             );
         }
 
-        if (!validateEmail($("#emailSubscribe").val())) {
+        if (
+            $("#emailSubscribe").val() == "" ||
+            $("#emailSubscribe").val() == undefined
+        ) {
+            isValid = false;
+            console.log("error in name");
+            errorPanel.append(
+                ErrorMessage("<strong>Warning!</strong> Please enter email.")
+            );
+        } else if (!validateEmail($("#emailSubscribe").val())) {
             isValid = false;
             console.log("error in email");
             errorPanel.append(
@@ -79,24 +88,23 @@ $(function() {
         return $("<div class='alert alert-warning'></div>").append($message);
     }
 
-
-    $.getJSON("/commonapi/data/countries").done(function(data) {
-        var result = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: data
+    $.getJSON("/commonapi/data/countries")
+        .done(function(data) {
+            var result = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: data
+            });
+            $("#bloodhound .typeahead").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            }, {
+                name: "states",
+                source: result
+            });
+        })
+        .fail(function(jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
         });
-        $("#bloodhound .typeahead").typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        }, {
-            name: 'states',
-            source: result
-        });
-
-    }).fail(function(jqxhr, textStatus, error) {
-        var err = textStatus + ", " + error;
-    });
-
 });

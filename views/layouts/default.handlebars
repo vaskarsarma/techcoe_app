@@ -29,10 +29,40 @@
     <!-- Material Design Bootstrap -->
     <link href="/css/mdb.min.css" rel="stylesheet">
 
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet"> {{!--
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
+
+    <!-- Waves Effect Css -->
+    <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Morris Chart Css-->
+    <link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+    <link href="/plugins/PluginStyle.css" rel="stylesheet" /> 
+    {{!--
+    <!-- Custom Css -->
+    <link href="/plugins/style.css" rel="stylesheet"> --}}
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/plugins/themes/all-themes.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
+
+
+    <!-- Bootstrap Core Css -->
+    {{!--
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+
 
 </head>
 
@@ -54,12 +84,16 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/dashboard">dashboard</span></a>
+                        </li>
                     </ul>
                     <div id="bloodhound">
-                         <input class="typeahead" type="text" placeholder="Countries">
-                        {{!-- <input class="form-control" type="text" placeholder="Search"> --}}
+                        <input class="typeahead" type="text" placeholder="Countries"> {{!-- <input class="form-control" type="text"
+                            placeholder="Search"> --}}
                     </div>
-                    {{!-- <form class="form-inline waves-effect waves-light">
+                    {{!--
+                    <form class="form-inline waves-effect waves-light">
                         <input class="form-control" type="text" placeholder="Search">
                     </form> --}}
                     <ul class="nav-item navbar-nav navbar-right">
@@ -95,7 +129,7 @@
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
-     <script type="text/javascript" src="/js/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="/js/typeahead.bundle.js"></script>
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/js/mdb.min.js"></script>
@@ -104,6 +138,44 @@
     <script>
         new WOW().init();
     </script>
+
+    {{!-- Plugin new JS --}}
+    <!-- Select Plugin Js -->
+    {{!-- <script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="/plugins/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="/plugins/raphael/raphael.min.js"></script>
+    <script src="/plugins/morrisjs/morris.js"></script>
+
+    <!-- ChartJs -->
+    <script src="/plugins/chartjs/Chart.bundle.js"></script>
+
+    <!-- Flot Charts Plugin Js -->
+    <script src="/plugins/flot-charts/jquery.flot.js"></script>
+    <script src="/plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="/plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="/plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="/plugins/flot-charts/jquery.flot.time.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/plugins/admin.js"></script>
+    <script src="/plugins/pages/index.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/plugins/demo.js"></script> --}}
+
 </body>
 
 </html>

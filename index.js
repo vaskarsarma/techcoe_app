@@ -117,7 +117,7 @@ app.use('/auth', authRouter);
 var forgotpwd = require('./controllers/forgotpwd');
 app.use('/auth', forgotpwd);
 
-var reset = require('./controllers/resetpwd');
+var reset = require('./controllers/resetPwd');
 app.use('/auth', reset);
 
 var subscribe = require('./controllers/subscribe');
@@ -128,6 +128,10 @@ app.use('/auth', userregistration);
 
 var CommonAPI = require('./controllers/CommonAPI');
 app.use('/commonapi', CommonAPI);
+
+var dashboard = require('./controllers/dashboard');
+app.use('/dashboard', dashboard);
+
 
 app.use(function(req, res, next) {
     if (req.isAuthenticated()) {
