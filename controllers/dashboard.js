@@ -13,7 +13,6 @@ router.get("/", function(req, res) {
     console.log("dashboard start");
     var collectionCountList = {};
 
-
     Promise.all([db.findAllCount("users"), db.findAllCount("subscribeUser")]).then(data => {
         console.log(data);
         collectionCountList.userCount = data[0];
