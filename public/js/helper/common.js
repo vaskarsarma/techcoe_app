@@ -93,9 +93,11 @@ $(function() {
         if (data != null) {
             console.log("common data:" + JSON.stringify(data));
             data = alasql('SELECT categorykey , count(*) as total FROM ? GROUP BY categorykey', [data]);
-            console.log("filtered data:" + JSON.stringify(data));
+            // console.log("filtered data:" + JSON.stringify(data));
             //  console.log(GetTradingBlogs(data));
-            $(".blogTrend").html(GetTradingBlogs(data));
+            var test = GetTradingBlogs(data);
+            console.log("test:" + test);
+            $(".blogTrend").append(GetTradingBlogs(data));
         }
     }).fail(function(jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
@@ -228,19 +230,17 @@ $(function() {
     }
 
     let GetTradingBlogs = (results) => {
-        var list;
-        var span = $("<span class='pull-right'></span>")
+        var list = $("<ul class='dashboard-stat-list blogTrend'></ul>");
+        var node = null;
         $.each(results, function(i, item) {
-            //alert(item.PageName);
-            node = $("<li></li>");
-            span = span.append(item["total"]);
-            console.log("span:" + JSON.stringify(span));
-            node.append(item["categorykey"]).append(span);
-            console.log(JSON.stringify(node));
-            //  console.log("node:" + node);
-            //  console.log("categorykey:" + item["categorykey"] + " ,total=" + item["total"])
-            list += node;
+
+            node = "<li>" + item["categorykey"] +
+                "<span class='pull-right'><i class='material-icons'>trending_up</i>" +
+                item["total"] + "</span></li>";
+            list.append(node);
+            // console.log("node:" + node);
         });
-        return list;
+        //  console.log("list:" + list.html());
+        return list.html();
     };
 });
