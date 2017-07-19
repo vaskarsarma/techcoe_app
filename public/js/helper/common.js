@@ -103,6 +103,38 @@ $(function() {
         return $("<div class='alert alert-warning'></div>").append($message);
     }
 
+    function getFileExtension(filename) {
+        // Use a regular expression to trim everything before final dot
+        var extension = filename.replace(/^.*\./, '');
+        // Iff there is no dot anywhere in filename, we would have extension == filename,
+        // so we account for this possibility now
+        if (extension == filename) {
+            extension = '';
+        } else {
+            // if there is an extension, we convert to lower case
+            // (N.B. this conversion will not effect the value of the extension
+            // on the file upload.)
+            extension = extension.toLowerCase().trim();
+        }
+
+        return extension;
+    }
+
+    let GetTradingBlogs = (results) => {
+        var list = $("<ul class='dashboard-stat-list blogTrend'></ul>");
+        var node = null;
+        $.each(results, function(i, item) {
+            //console.log(item["categorykey"]);
+            // console.log(validateCategory(categoryJSON, item["categorykey"]));
+            node = "<li>" + validateCategory(categoryJSON, item["categorykey"]) +
+                "<span class='pull-right'><i class='material-icons'>trending_up</i>" +
+                item["total"] + "</span></li>";
+            list.append(node);
+            // console.log("node:" + node);
+        });
+        //  console.log("list:" + list.html());
+        return list.html();
+    };
 
     $.getJSON("/authorizedAPI/data/GetTradingBlogs").done(function(data) {
         if (data != null) {
@@ -227,36 +259,16 @@ $(function() {
         }
     });
 
-    function getFileExtension(filename) {
-        // Use a regular expression to trim everything before final dot
-        var extension = filename.replace(/^.*\./, '');
-        // Iff there is no dot anywhere in filename, we would have extension == filename,
-        // so we account for this possibility now
-        if (extension == filename) {
-            extension = '';
-        } else {
-            // if there is an extension, we convert to lower case
-            // (N.B. this conversion will not effect the value of the extension
-            // on the file upload.)
-            extension = extension.toLowerCase().trim();
+    $.getJSON("/authorizedAPI/data/validateTickets").done(function(data) {
+        if (data != null) {
+            // console.log("common data:" + JSON.stringify(data));
+            //   data = alasql('SELECT categorykey , count(*) as total FROM ? GROUP BY categorykey', [data]);
+            // console.log("filtered data:" + JSON.stringify(data));
+            //  console.log(GetTradingBlogs(data));
+            // var test = GetTradingBlogs(data);
+            //  console.log("test:" + test);
+            //   $(".blogTrend").append(GetTradingBlogs(data));
         }
+    })
 
-        return extension;
-    }
-
-    let GetTradingBlogs = (results) => {
-        var list = $("<ul class='dashboard-stat-list blogTrend'></ul>");
-        var node = null;
-        $.each(results, function(i, item) {
-            //console.log(item["categorykey"]);
-            // console.log(validateCategory(categoryJSON, item["categorykey"]));
-            node = "<li>" + validateCategory(categoryJSON, item["categorykey"]) +
-                "<span class='pull-right'><i class='material-icons'>trending_up</i>" +
-                item["total"] + "</span></li>";
-            list.append(node);
-            // console.log("node:" + node);
-        });
-        //  console.log("list:" + list.html());
-        return list.html();
-    };
 });
