@@ -1,4 +1,9 @@
 $(function() {
+
+    var categoryJSON = [{ "key": "0", "name": "Technical Blog" }, { "key": "1", "name": "Beginner Blog" },
+        { "key": "2", "name": "Beginner Blog 1" }, { "key": "3", "name": "Beginner Blog 2" }
+    ];
+
     $(".cancel").click(function() {
         var cancel = confirm("Are you sure you want to cancel?");
         if (cancel == true) {
@@ -7,7 +12,7 @@ $(function() {
     });
 
     $(".subscribe").click(function() {
-        console.log("subscribe click");
+        //.log("subscribe click");
 
         var isValid = true;
         var errorPanel = $("<div></div>");
@@ -58,12 +63,12 @@ $(function() {
                     '"&name="' +
                     $("#nameSubscribe").val(),
                 success: function(data) {
-                    console.log("data : " + data);
+                    //  console.log("data : " + data);
                     $(".subscribeBlock").addClass("hidden");
                     $(".successResult").removeClass("hidden");
                 },
                 error: function(err) {
-                    console.log("err : " + err);
+                    // console.log("err : " + err);
                     $(".subscribeBlock").addClass("hidden");
                     $(".errorResult").removeClass("hidden");
                 }
@@ -73,6 +78,16 @@ $(function() {
             $(".ErrorPanel").html(errorPanel).removeClass("hidden");
         }
     });
+
+    let validateCategory = (categoryJSON, match) => {
+        var node = null;
+        $.each(categoryJSON, function(i, data) {
+            if (data["key"] === match) {
+                node = data["name"];
+            }
+        });
+        return node;
+    };
 
     function validateEmail($email) {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -91,12 +106,12 @@ $(function() {
 
     $.getJSON("/authorizedAPI/data/GetTradingBlogs").done(function(data) {
         if (data != null) {
-            console.log("common data:" + JSON.stringify(data));
+            // console.log("common data:" + JSON.stringify(data));
             data = alasql('SELECT categorykey , count(*) as total FROM ? GROUP BY categorykey', [data]);
             // console.log("filtered data:" + JSON.stringify(data));
             //  console.log(GetTradingBlogs(data));
-            var test = GetTradingBlogs(data);
-            console.log("test:" + test);
+            // var test = GetTradingBlogs(data);
+            //  console.log("test:" + test);
             $(".blogTrend").append(GetTradingBlogs(data));
         }
     }).fail(function(jqxhr, textStatus, error) {
@@ -233,8 +248,9 @@ $(function() {
         var list = $("<ul class='dashboard-stat-list blogTrend'></ul>");
         var node = null;
         $.each(results, function(i, item) {
-
-            node = "<li>" + item["categorykey"] +
+            //console.log(item["categorykey"]);
+            // console.log(validateCategory(categoryJSON, item["categorykey"]));
+            node = "<li>" + validateCategory(categoryJSON, item["categorykey"]) +
                 "<span class='pull-right'><i class='material-icons'>trending_up</i>" +
                 item["total"] + "</span></li>";
             list.append(node);
