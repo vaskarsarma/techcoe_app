@@ -9,6 +9,8 @@
     <meta name="description" content="Blogger's Point">
     <meta name="author" content="TechCOE">
 
+
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,57 +18,40 @@
         type='text/css'>
     <link rel="stylesheet" href="//storage.googleapis.com/code.getmdl.io/1.0.1/material.teal-red.min.css" />
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Material Design Bootstrap -->
-    <link href="/css/mdb.min.css" rel="stylesheet">
-
-    <link href="/css/style.css" rel="stylesheet"> {{!--
-    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
+    {{!-- <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
+     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    {{!-- <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
     <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="/plugins/morrisjs/morris.css" rel="stylesheet" /> --}}
+    <link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
 
-    {{!-- <link href="/plugins/PluginStyle.css" rel="stylesheet" />  --}}
-    {{!--
+    <link href="/plugins/PluginStyle_Old.css" rel="stylesheet" />
+
+     <link rel="stylesheet" href="/css/main.css">
+
+      <link href="/css/style.css" rel="stylesheet">
+
+      <link href="/css/mdb.min.css" rel="stylesheet">
+     {{!--
     <!-- Custom Css -->
     <link href="/plugins/style.css" rel="stylesheet"> --}}
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    {{!-- <link href="/plugins/themes/all-themes.css" rel="stylesheet" /> --}}
+    <link href="/plugins/themes/all-themes.css" rel="stylesheet" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/main.css">
-
-
-    <!-- Bootstrap Core Css -->
-    {{!--
-    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
-
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
 
 
 </head>
 
-<body>
+<body class="theme-red ls-closed">
     <header>
         <nav class="navbar navbar-toggleable-md navbar-dark">
             <div class="container">
@@ -105,15 +90,11 @@
         </nav>
     </header>
 
-    <main>
-        <div class="container">
+    <section class="content">
+        <div class="container-fluid">
             {{{body}}}
-
-            <!-- /.row -->
-            {{!--
-            <hr> --}}
         </div>
-    </main>
+    </section>
 
     {{> footer}}
 
@@ -123,7 +104,7 @@
     <!-- JQuery -->
     <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
 
-     <!-- JQuery LINQ -->
+    <!-- JQuery LINQ -->
     <script type="text/javascript" src="/js/alasql.min.js"></script>
 
     <!-- Bootstrap tooltips -->
@@ -142,42 +123,7 @@
         new WOW().init();
     </script>
 
-    {{!-- Plugin new JS --}}
-    <!-- Select Plugin Js -->
-    {{!-- <script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-    <!-- Slimscroll Plugin Js -->
-    <script src="/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="/plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="/plugins/jquery-countto/jquery.countTo.js"></script>
-
-    <!-- Morris Plugin Js -->
-    <script src="/plugins/raphael/raphael.min.js"></script>
-    <script src="/plugins/morrisjs/morris.js"></script>
-
-    <!-- ChartJs -->
-    <script src="/plugins/chartjs/Chart.bundle.js"></script>
-
-    <!-- Flot Charts Plugin Js -->
-    <script src="/plugins/flot-charts/jquery.flot.js"></script>
-    <script src="/plugins/flot-charts/jquery.flot.resize.js"></script>
-    <script src="/plugins/flot-charts/jquery.flot.pie.js"></script>
-    <script src="/plugins/flot-charts/jquery.flot.categories.js"></script>
-    <script src="/plugins/flot-charts/jquery.flot.time.js"></script>
-
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="/plugins/jquery-sparkline/jquery.sparkline.js"></script>
-
-    <!-- Custom Js -->
-    <script src="/plugins/admin.js"></script>
-    <script src="/plugins/pages/index.js"></script>
-
-    <!-- Demo Js -->
-    <script src="/plugins/demo.js"></script> --}}
 
 </body>
 
