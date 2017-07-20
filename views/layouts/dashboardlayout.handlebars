@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blogger's Point">
+    <meta name="author" content="TechCOE">
+
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic' rel='stylesheet'
+        type='text/css'>
+    <link rel="stylesheet" href="//storage.googleapis.com/code.getmdl.io/1.0.1/material.teal-red.min.css" />
+
+
+
+    {{!-- <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
+     <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Morris Chart Css-->
+    <link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+    <link href="/plugins/PluginStyle_Old.css" rel="stylesheet" />
+
+     <link rel="stylesheet" href="/css/main.css">
+
+      <link href="/css/style.css" rel="stylesheet">
+
+      <link href="/css/mdb.min.css" rel="stylesheet">
+     {{!--
+    <!-- Custom Css -->
+    <link href="/plugins/style.css" rel="stylesheet"> --}}
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/plugins/themes/all-themes.css" rel="stylesheet" />
+
+
+
+
+</head>
+
+<body class="ls-closed">
+    <header>
+        <nav class="navbar navbar-toggleable-md navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <strong>Blogger's Meet</strong>
+                </a>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbarNav1">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/dashboard">dashboard</span></a>
+                        </li>
+                    </ul>
+                    <div id="bloodhound">
+                        <input class="typeahead" type="text" placeholder="Countries"> {{!-- <input class="form-control" type="text"
+                            placeholder="Search"> --}}
+                    </div>
+                    {{!--
+                    <form class="form-inline waves-effect waves-light">
+                        <input class="form-control" type="text" placeholder="Search">
+                    </form> --}}
+                    <ul class="nav-item navbar-nav navbar-right">
+                        <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/auth/userregistration">Sign-up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="content">
+        <div class="container-fluid">
+            {{{body}}}
+        </div>
+    </section>
+
+    {{> footer}}
+
+
+    <!-- SCRIPTS -->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
+
+    <!-- JQuery LINQ -->
+    <script type="text/javascript" src="/js/alasql.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/js/typeahead.bundle.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <script src="//storage.googleapis.com/code.getmdl.io/1.0.1/material.min.js"></script>
+    <script src="/js/helper/common.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+
+
+</body>
+
+</html>

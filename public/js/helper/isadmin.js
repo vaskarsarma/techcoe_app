@@ -6,6 +6,6 @@ module.exports = function(fieldvalue) {
             '<a class="dropdown-item" href="/admin/add">Add</a>' +
             '<a class="dropdown-item" href="/admin/list">Show</a>' +
             '</div></li>' +
-            '<li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>';
+            '<li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>';
     }
 }

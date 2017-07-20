@@ -130,6 +130,9 @@ app.use('/auth', userregistration);
 var CommonAPI = require('./controllers/CommonAPI');
 app.use('/commonapi', CommonAPI);
 
+var authorizedAPI = require('./controllers/authorizedAPI');
+app.use('/authorizedAPI', authorizedAPI);
+
 var dashboard = require('./controllers/dashboard');
 app.use('/dashboard', dashboard);
 

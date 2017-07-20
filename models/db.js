@@ -92,12 +92,15 @@ exports.findAllCount = function(collection) {
 
 
 
-exports.find = function(collection) {
-    console.log("find: " + collection);
+exports.find = function(collection, filter) {
+    console.log("test");
+    //  console.log("find: " + collection + " , filter:" + JSON.stringify(filter));
+    //  console.log("find: " + collection);
     return new Promise(function(resolve, reject) {
-        getConnection().collection(collection).find().toArray(function(err, results) {
+        getConnection().collection(collection).find({}, filter).toArray(function(err, results) {
             if (!err) {
-                // console.log("resolve : " + collection + ": " + JSON.stringify(results));
+                console.log("success");
+                //   console.log("resolve : " + collection + ": " + JSON.stringify(results));
                 resolve(results);
             } else {
                 console.log("reject");
