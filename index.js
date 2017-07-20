@@ -158,8 +158,8 @@ app.use("/blog", blogroute);
 var viewblogroute = require('./controllers/viewblog');
 app.use("/viewblog", viewblogroute);
 
-var profileroute = require('./controllers/profileroute');
-app.use("/myprofile", profileroute);
+var myprofileroute = require('./controllers/myprofile');
+app.use("/myprofile", myprofileroute);
 
 //Error handling
 app.get('*', function(req, res, next) {
@@ -178,12 +178,12 @@ app.use(function(err, req, res, next) {
 });
 
 // // Handle un-caught error
-// process.on("uncaughtException", function(err) {
-//     console.log("There is some unhandled errors in the application");
-//     console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
-//     console.error(err.stack);
-//     process.exit(1);
-// });
+process.on("uncaughtException", function(err) {
+    console.log("There is some unhandled errors in the application");
+    console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
+    console.error(err.stack);
+    process.exit(1);
+});
 
 // Connect to Mongo on start
 db.connect(db.url, function(err) {
