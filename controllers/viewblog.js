@@ -41,6 +41,7 @@ router.post('/addcomments', function(req, res) {
         "blog_id": id,
         "addedby": req.body.addedby,
         "blogcomment": req.body.blogcomment,
+        "IsApproved": false,
         "date": new Date().toUTCString()
     }, (err, results) => {
         if (err) {

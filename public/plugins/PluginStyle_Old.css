@@ -1,6 +1,10 @@
 ﻿/* Navbar ====================================== */
 
 @import url(materialize.css);
+.dashboard-stat-list {
+    font-size: 15px !important;
+}
+
 .navbar {
     font-family: "Roboto", sans-serif;
     -webkit-border-radius: 0;
@@ -3888,7 +3892,7 @@ section.content {
 }
 
 .card .body {
-    font-size: 14px;
+    font-size: 18px;
     color: #555;
     padding: 20px;
 }

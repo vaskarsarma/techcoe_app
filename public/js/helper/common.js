@@ -136,6 +136,22 @@ $(function() {
         return list.html();
     };
 
+    let GetDashboardBlogsInfo = (results) => {
+        var list = $("<ul class='dashboard-stat-list validateTickets'></ul>");
+        var node = null;
+        $.each(results, function(i, item) {
+            //console.log(item["categorykey"]);
+            // console.log(validateCategory(categoryJSON, item["categorykey"]));
+            node = "<li>" + item["text"] +
+                "<span class='pull-right'><b>" + item["total"] + "</b>" +
+                "<small>TICKETS</small></li>";
+            list.append(node);
+            // console.log("node:" + node);
+        });
+        console.log("GetDashboardBlogsInfo list:" + list.html());
+        return list.html();
+    };
+
     $.getJSON("/authorizedAPI/data/GetTradingBlogs").done(function(data) {
         if (data != null) {
             // console.log("common data:" + JSON.stringify(data));
@@ -259,15 +275,19 @@ $(function() {
         }
     });
 
-    $.getJSON("/authorizedAPI/data/validateTickets").done(function(data) {
+    $.getJSON("/authorizedAPI/data/DashboardBlogsInfo").done(function(data) {
         if (data != null) {
-            // console.log("common data:" + JSON.stringify(data));
-            //   data = alasql('SELECT categorykey , count(*) as total FROM ? GROUP BY categorykey', [data]);
-            // console.log("filtered data:" + JSON.stringify(data));
+            console.log("DashboardBlogsInfo data:" + JSON.stringify(data));
+            var collection = [];
+            console.log(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data]));
+            collection.push(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Total approved' as text FROM ? where IsApproved=true", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Total disapproved' as text FROM ? where IsApproved=false", [data])[0]);
+            console.log("DashboardBlogsInfo query data:" + JSON.stringify(collection));
             //  console.log(GetTradingBlogs(data));
             // var test = GetTradingBlogs(data);
             //  console.log("test:" + test);
-            //   $(".blogTrend").append(GetTradingBlogs(data));
+            $(".validateTickets").append(GetDashboardBlogsInfo(collection));
         }
     })
 
