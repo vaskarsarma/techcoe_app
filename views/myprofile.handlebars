@@ -1,84 +1,196 @@
-<div class="row">
-  <!-- left column -->
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    {{> uploadprofilephoto}}
-  </div>
+<div class="container-fluid">
+  <div class="row">
 
-  <!-- edit form column -->
-  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-    <div class="alert alert-info alert-dismissable">
-      <a class="panel-close close" data-dismiss="alert">×</a>
-      <i class="fa fa-coffee"></i> This is an <strong>.alert</strong>. Use this to show important messages to the user.
+    <!--First column-->
+    <div class="col-lg-4">
+      {{> uploadprofilephoto}}
     </div>
-    <h3>Personal info</h3>
-    <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label class="col-lg-3 control-label">First name:</label>
-        <div class="col-lg-8">
-          <input class="form-control" value="Jane" type="text">
+    <!--/.First column-->
+
+    <!--Second column-->
+    <div class="col-lg-8 col-md-8">
+      <div class="widget-wrapper">
+        <div class="list-group">
+          <h4 class="list-group-item active">About me</h4>
+          <span class="list-group-item">
+            This is about me and my proffession.
+          </span>
         </div>
       </div>
-      <div class="form-group">
-        <label class="col-lg-3 control-label">Last name:</label>
-        <div class="col-lg-8">
-          <input class="form-control" value="Bishop" type="text">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-lg-3 control-label">Company:</label>
-        <div class="col-lg-8">
-          <input class="form-control" value="" type="text">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-lg-3 control-label">Email:</label>
-        <div class="col-lg-8">
-          <input class="form-control" value="janesemail@gmail.com" type="text">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-lg-3 control-label">Time Zone:</label>
-        <div class="col-lg-8">
-          <div class="ui-select">
-            <select id="user_time_zone" class="form-control">
-                <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                <option value="Alaska">(GMT-09:00) Alaska</option>
-                <option value="Pacific Time (US & Canada)">(GMT-08:00) Pacific Time (US & Canada)</option>
-                <option value="Arizona">(GMT-07:00) Arizona</option>
-                <option value="Mountain Time (US & Canada)">(GMT-07:00) Mountain Time (US & Canada)</option>
-                <option value="Central Time (US & Canada)" selected="selected">(GMT-06:00) Central Time (US & Canada)</option>
-                <option value="Eastern Time (US & Canada)">(GMT-05:00) Eastern Time (US & Canada)</option>
-                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-              </select>
+
+      <div class="row">
+        <!--Second1 column-->
+        <div class="col-lg-6 col-md-6">
+          <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+            <div class="list-group">
+              <h4 class="list-group-item active">Personal info</h4>
+              <div class="list-group-item">
+                <div class="PDErrorPanel hidden">
+                </div>
+                <form class="form-horizontal" action="" method="">
+                  <div class="form-group md-form">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" required="required" autofocus="autofocus">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" id="country" name="country" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="phone">Contact Number</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required="required">
+                  </div>
+
+                  <div class="form-group ">
+                    <button class="btn btn-info" type="submit">Save</button>
+                    <button class="btn btn-info" type="reset">Cancel</button>
+                  </div>
+
+                </form>
+              </div>
+
+
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-3 control-label">Username:</label>
-        <div class="col-md-8">
-          <input class="form-control" value="janeuser" type="text">
+        <!--/.Second column-->
+
+        <!--Third1 column-->
+        <div class="col-lg-6 col-md-6">
+          <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+            <div class="list-group">
+              <h4 class="list-group-item active">Proffessional details</h4>
+              <div class="list-group-item">
+                <div class="EduErrorPanel hidden">
+                </div>
+                <form class="form-horizontal" action="" method="">
+                  <div class="form-group md-form">
+                    <label for="proffession">Proffession</label>
+                    <input type="text" class="form-control" id="proffession" name="proffession" required="required" autofocus="autofocus">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="department">Department</label>
+                    <input type="text" class="form-control" id="department" name="department" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" id="company" name="companys`s" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="location">Experience</label>
+                    <input type="text" class="form-control" id="location" name="location" required="required">
+                  </div>
+
+                  <div class="form-group ">
+                    <button class="btn btn-info" type="submit">Save</button>
+                    <button class="btn btn-info" type="reset">Cancel</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+        <!--/.Third column-->
       </div>
-      <div class="form-group">
-        <label class="col-md-3 control-label">Password:</label>
-        <div class="col-md-8">
-          <input class="form-control" value="11111122333" type="password">
+
+            <div class="row">
+        <!--Second1 column-->
+        <div class="col-lg-6 col-md-6">
+          <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+            <div class="list-group">
+              <h4 class="list-group-item active">Education</h4>
+              <div class="list-group-item">
+                <div class="PDErrorPanel hidden">
+                </div>
+                <form class="form-horizontal" action="" method="">
+                  <div class="form-group md-form">
+                    <label for="hqualification">Highest Qualification</label>
+                    <input type="text" class="form-control" id="hqualification" name="hqualification" required="required" autofocus="autofocus">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="university">University</label>
+                    <input type="text" class="form-control" id="university" name="university" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="yearofpass">Year of passing</label>
+                    <input type="text" class="form-control" id="yearofpass" name="yearofpass" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="place">Place</label>
+                    <input type="text" class="form-control" id="place" name="place" required="required">
+                  </div>
+
+                  <div class="form-group ">
+                    <button class="btn btn-info" type="submit">Save</button>
+                    <button class="btn btn-info" type="reset">Cancel</button>
+                  </div>
+
+                </form>
+              </div>
+
+
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-3 control-label">Confirm password:</label>
-        <div class="col-md-8">
-          <input class="form-control" value="11111122333" type="password">
+        <!--/.Second column-->
+
+        <!--Third1 column-->
+        <div class="col-lg-6 col-md-6">
+          <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+            <div class="list-group">
+              <h4 class="list-group-item active">Contact details</h4>
+              <div class="list-group-item">
+                <div class="EduErrorPanel hidden">
+                </div>
+                <form class="form-horizontal" action="" method="">
+                  <div class="form-group md-form">
+                    <label for="address1">Address1</label>
+                    <input type="text" class="form-control" id="address1" name="address1" required="required" autofocus="autofocus">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="address2">Address2</label>
+                    <input type="text" class="form-control" id="address2" name="address2" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" id="company" name="companys`s" required="required">
+                  </div>
+
+                  <div class="form-group md-form">
+                    <label for="location">Experience</label>
+                    <input type="text" class="form-control" id="location" name="location" required="required">
+                  </div>
+
+                  <div class="form-group ">
+                    <button class="btn btn-info" type="submit">Save</button>
+                    <button class="btn btn-info" type="reset">Cancel</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+        <!--/.Third column-->
       </div>
-      <div class="form-group">
-        <label class="col-md-3 control-label"></label>
-        <div class="col-md-8">
-          <input class="btn btn-primary" value="Save Changes" type="button">
-          <span></span>
-          <input class="btn btn-default" value="Cancel" type="reset">
-        </div>
-      </div>
-    </form>
+
+    </div>
+    <!--/.Second column-->
   </div>
 </div>
