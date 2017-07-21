@@ -1,5 +1,12 @@
 ﻿/* Navbar ====================================== */
 
+#container {
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto
+}
+
 @import url(materialize.css);
 .dashboard-stat-list {
     font-size: 15px !important;
@@ -2352,7 +2359,8 @@
     margin: 0 !important;
     color: #666 !important;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .block-header h2 small {
@@ -3870,8 +3878,8 @@ section.content {
 .card .header h2 {
     margin: 0;
     font-size: 18px;
-    font-weight: normal;
-    color: #111;
+    font-weight: bold;
+    color: #fff;
 }
 
 .card .header h2 small {
@@ -6199,7 +6207,7 @@ section.content {
 
 .table tbody tr td,
 .table tbody tr th {
-    padding: 10px;
+    padding: 3px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }

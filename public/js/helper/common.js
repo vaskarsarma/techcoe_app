@@ -193,7 +193,7 @@ $(function() {
                 "' style='width: " + percentage + "%'></div></div></td></tr>";
             list.append(node);
         });
-        console.log("list:" + list.html());
+        //  console.log("list:" + list.html());
         return list.html();
     };
 
@@ -336,18 +336,65 @@ $(function() {
 
     $.getJSON("/authorizedAPI/data/DashboardUserInfo").done(function(data) {
         if (data != null) {
-            console.log("DashboardUserInfo data:" + JSON.stringify(data));
+            // console.log("DashboardUserInfo data:" + JSON.stringify(data));
             var collection = [];
             // console.log(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data]));
-            collection.push(alasql("SELECT count(*) as total, 'Total users' as text,'totalUser' as key FROM ?", [data])[0]);
-            collection.push(alasql("SELECT count(*) as total, 'Admin users' as text ,'adminUser' as key FROM ? where admin=true", [data])[0]);
-            collection.push(alasql("SELECT count(*) as total, 'Total active users' as text ,'activeUser' as key FROM ? where active=true", [data])[0]);
-            collection.push(alasql("SELECT count(*) as total, 'Total deactive users' as text ,'deactiveUser' as key FROM ? where active=false", [data])[0]);
-            collection.push(alasql("SELECT count(*) as total, 'Email verification pending' as text ,'emailVeriPending' as key FROM ? where IsEmailVerified=false", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Total' as text,'totalUser' as key FROM ?", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Admin' as text ,'adminUser' as key FROM ? where admin=true", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Active' as text ,'activeUser' as key FROM ? where active=true", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Deactive' as text ,'deactiveUser' as key FROM ? where active=false", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Email' as text ,'emailVeriPending' as key FROM ? where IsEmailVerified=false", [data])[0]);
             $(".userInfo").append(GetDashboardUserInfo(collection));
         }
     }).fail(function(jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
+    });
+
+
+    Highcharts.chart('container', {
+
+        title: {
+            text: 'Solar Employment Growth by Sector, 2010-2016'
+        },
+
+        subtitle: {
+            text: 'Source: thesolarfoundation.com'
+        },
+
+        yAxis: {
+            title: {
+                text: 'Number of Employees'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                pointStart: 2010
+            }
+        },
+
+        series: [{
+            name: 'A',
+            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+        }, {
+            name: 'B',
+            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+        }, {
+            name: 'C',
+            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+        }, {
+            name: 'D',
+            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+        }, {
+            name: 'E',
+            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+        }]
+
     });
 
 });
