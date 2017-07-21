@@ -4,6 +4,10 @@ $(function() {
         { "key": "2", "name": "Beginner Blog 1" }, { "key": "3", "name": "Beginner Blog 2" }
     ];
 
+    var userInfoColor = [{ "key": "totalUser", "color": "bg-green" }, { "key": "adminUser", "color": "bg-blue" },
+        { "key": "activeUser", "color": "bg-light-blue" }, { "key": "deactiveUser", "color": "bg-red" }, { "key": "emailVeriPending", "color": "bg-orange" }
+    ];
+
     $(".cancel").click(function() {
         var cancel = confirm("Are you sure you want to cancel?");
         if (cancel == true) {
@@ -89,10 +93,26 @@ $(function() {
         return node;
     };
 
-    function validateEmail($email) {
+    let validateUserInfoColor = (userInfoColor, match) => {
+        var node = null;
+        $.each(userInfoColor, function(i, data) {
+            if (data["key"] === match) {
+                node = data["color"];
+            }
+        });
+        return node;
+    };
+
+    let calculatePercentage = (val, total) => {
+        //  var test = ((val * 100) / total).toFixed(0);
+        //debugger;
+        return ((val * 100) / total).toFixed(0);
+    };
+
+    let validateEmail = ($email) => {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         return emailReg.test($email);
-    }
+    };
 
     function validateName($name) {
         var NameReg = /^[a-zA-Z\s]+$/;
@@ -148,7 +168,32 @@ $(function() {
             list.append(node);
             // console.log("node:" + node);
         });
-        console.log("GetDashboardBlogsInfo list:" + list.html());
+        // console.log("GetDashboardBlogsInfo list:" + list.html());
+        return list.html();
+    };
+
+
+    let GetDashboardUserInfo = (results) => {
+        var list = $("<tbody class='userInfo'></tbody>");
+        var node = null;
+        var count = 0;
+        var totalUser = 0;
+        $.each(results, function(i, item) {
+            count++;
+            //  var totalUser = 0;
+            totalUser = count == 1 ? item["total"] : totalUser;
+            var percentage = calculatePercentage(item["total"], totalUser);
+            var UserInfoColor = validateUserInfoColor(userInfoColor, item["key"]);
+            node = "<tr>" +
+                "<td>" + count + "</td>" +
+                "<td><span class='label " + UserInfoColor + "'>" + item["text"] + "</span></td>" +
+                "<td>" + item["total"] + "</td>" +
+                "<td>" + percentage + "%</td>" +
+                "<td><div class='progress'><div class='progress-bar " + UserInfoColor +
+                "' style='width: " + percentage + "%'></div></div></td></tr>";
+            list.append(node);
+        });
+        console.log("list:" + list.html());
         return list.html();
     };
 
@@ -277,18 +322,32 @@ $(function() {
 
     $.getJSON("/authorizedAPI/data/DashboardBlogsInfo").done(function(data) {
         if (data != null) {
-            console.log("DashboardBlogsInfo data:" + JSON.stringify(data));
+            // console.log("DashboardBlogsInfo data:" + JSON.stringify(data));
             var collection = [];
             console.log(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data]));
             collection.push(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data])[0]);
             collection.push(alasql("SELECT count(*) as total, 'Total approved' as text FROM ? where IsApproved=true", [data])[0]);
             collection.push(alasql("SELECT count(*) as total, 'Total disapproved' as text FROM ? where IsApproved=false", [data])[0]);
-            console.log("DashboardBlogsInfo query data:" + JSON.stringify(collection));
-            //  console.log(GetTradingBlogs(data));
-            // var test = GetTradingBlogs(data);
-            //  console.log("test:" + test);
             $(".validateTickets").append(GetDashboardBlogsInfo(collection));
         }
-    })
+    }).fail(function(jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+    });
+
+    $.getJSON("/authorizedAPI/data/DashboardUserInfo").done(function(data) {
+        if (data != null) {
+            console.log("DashboardUserInfo data:" + JSON.stringify(data));
+            var collection = [];
+            // console.log(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data]));
+            collection.push(alasql("SELECT count(*) as total, 'Total users' as text,'totalUser' as key FROM ?", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Admin users' as text ,'adminUser' as key FROM ? where admin=true", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Total active users' as text ,'activeUser' as key FROM ? where active=true", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Total deactive users' as text ,'deactiveUser' as key FROM ? where active=false", [data])[0]);
+            collection.push(alasql("SELECT count(*) as total, 'Email verification pending' as text ,'emailVeriPending' as key FROM ? where IsEmailVerified=false", [data])[0]);
+            $(".userInfo").append(GetDashboardUserInfo(collection));
+        }
+    }).fail(function(jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+    });
 
 });
