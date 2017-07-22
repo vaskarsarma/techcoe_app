@@ -34,3 +34,13 @@ router.get("/data/DashboardUserInfo", function(req, res) {
         res.json(results);
     });
 });
+
+router.get("/data/DashboardUserGraphInfo", function(req, res) {
+    // console.log("DashboardBlogsInfo start");
+    var commentFilter = { "password": false, "usernamehash": false, "_id": false };
+    // var userFilter = { "categorykey": true, "_id": false };   
+    db.find("users", commentFilter).then(function(results) {
+        //  console.log("DashboardUserInfo end ;" + JSON.stringify(results));
+        res.json(results);
+    });
+});
