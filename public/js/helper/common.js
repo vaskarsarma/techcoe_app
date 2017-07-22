@@ -197,6 +197,110 @@ $(function() {
         return list.html();
     };
 
+
+    let CreateUserGraph = (results) => {
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'Users growth by day, 2016-2017'
+            },
+
+            // subtitle: {
+            //     text: 'Source: thesolarfoundation.com'
+            // },
+
+            yAxis: {
+                title: {
+                    text: 'Number of Users'
+                }
+            },
+            legend: {
+                // layout: 'vertical',
+                // align: 'right',
+                // verticalAlign: 'middle'
+                backgroundColor: '#FCFFC5'
+            },
+
+            plotOptions: {
+                series: {
+                    pointStart: 0
+                }
+            },
+
+            series: results
+
+            // {
+            //     "name": "A",
+            //     "data": [
+            //         [Date.UTC(2010, 0, 1), 39.9],
+            //         [Date.UTC(2010, 2, 1), 77.5],
+            //         [Date.UTC(2010, 3, 1), 166.4],
+            //         [Date.UTC(2010, 3, 16), 16.4],
+            //         [Date.UTC(2010, 3, 19), 86.4]
+            //     ]
+            // },
+            // {
+            //     "name": "B",
+            //     "data": [
+            //         [Date.UTC(2010, 0, 1), 2.9],
+            //         [Date.UTC(2010, 2, 1), 81.5],
+            //         [Date.UTC(2010, 3, 1), 166.4]
+            //     ]
+            // },
+            // {
+            //     "name": "C",
+            //     "data": [
+            //         [Date.UTC(2010, 0, 1), 27.9],
+            //         [Date.UTC(2010, 2, 1), 78.5],
+            //         [Date.UTC(2010, 3, 1), 88.4]
+            //     ]
+            // },
+            // {
+            //     "name": "D",
+            //     "data": [
+            //         [Date.UTC(2010, 0, 1), 9.9],
+            //         [Date.UTC(2010, 2, 1), 76.5],
+            //         [Date.UTC(2010, 3, 1), 87.4]
+            //     ]
+            // }, {
+            //     "name": "E",
+            //     "data": [
+            //         [Date.UTC(2010, 0, 1), 87.9],
+            //         [Date.UTC(2010, 2, 1), 7.5],
+            //         [Date.UTC(2010, 3, 1), 45.4]
+            //     ]
+            // }
+            //     {
+            //     name: 'Installation',
+            //     data: [1, 4, 5, 8, 34, 56, 77, 88]
+            // }, {
+            //     name: 'Manufacturing',
+            //     data: [1, 2, 5, 8, 33, 44, 55, 99]
+            // }, {
+            //     name: 'Sales & Distribution',
+            //     data: [23, 33, 36, 45, 55, 67, 89, 999]
+            // }, {
+            //     name: 'Project Development',
+            //     data: [null, null, 44, 55, 66, 77, 88, 90]
+            // }, {
+            //     name: 'Other',
+            //     data: [23, 34, 45, 56, 67, 78, 89, 90]
+            // }
+            //]
+        });
+    };
+
+
+    $.getJSON("/userGraph.json").done(function(data) {
+            if (data != null) {
+                CreateUserGraph(data);
+                // console.log("JSON success data:" + JSON.stringify(data));
+            }
+        })
+        .fail(function(jqxhr, textStatus, error) {
+            console.log("json error");
+        });
+
     $.getJSON("/authorizedAPI/data/GetTradingBlogs").done(function(data) {
         if (data != null) {
             // console.log("common data:" + JSON.stringify(data));
@@ -350,51 +454,95 @@ $(function() {
         var err = textStatus + ", " + error;
     });
 
+    // Highcharts.chart('container', {
 
-    Highcharts.chart('container', {
+    //     title: {
+    //         text: 'Solar Employment Growth by Sector, 2010-2016'
+    //     },
 
-        title: {
-            text: 'Solar Employment Growth by Sector, 2010-2016'
-        },
+    //     subtitle: {
+    //         text: 'Source: thesolarfoundation.com'
+    //     },
 
-        subtitle: {
-            text: 'Source: thesolarfoundation.com'
-        },
+    //     yAxis: {
+    //         title: {
+    //             text: 'Number of Employees'
+    //         }
+    //     },
+    //     legend: {
+    //         // layout: 'vertical',
+    //         // align: 'right',
+    //         // verticalAlign: 'middle'
+    //         backgroundColor: '#FCFFC5'
+    //     },
 
-        yAxis: {
-            title: {
-                text: 'Number of Employees'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
+    //     plotOptions: {
+    //         series: {
+    //             pointStart: 0
+    //         }
+    //     },
 
-        plotOptions: {
-            series: {
-                pointStart: 2010
-            }
-        },
+    //     series: [
 
-        series: [{
-            name: 'A',
-            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }, {
-            name: 'B',
-            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-        }, {
-            name: 'C',
-            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-        }, {
-            name: 'D',
-            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-        }, {
-            name: 'E',
-            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-        }]
+    //         {
+    //             "name": "A",
+    //             "data": [
+    //                 [Date.UTC(2010, 0, 1), 39.9],
+    //                 [Date.UTC(2010, 2, 1), 77.5],
+    //                 [Date.UTC(2010, 3, 1), 166.4],
+    //                 [Date.UTC(2010, 3, 16), 16.4],
+    //                 [Date.UTC(2010, 3, 19), 86.4]
+    //             ]
+    //         },
+    //         {
+    //             "name": "B",
+    //             "data": [
+    //                 [Date.UTC(2010, 0, 1), 2.9],
+    //                 [Date.UTC(2010, 2, 1), 81.5],
+    //                 [Date.UTC(2010, 3, 1), 166.4]
+    //             ]
+    //         },
+    //         {
+    //             "name": "C",
+    //             "data": [
+    //                 [Date.UTC(2010, 0, 1), 27.9],
+    //                 [Date.UTC(2010, 2, 1), 78.5],
+    //                 [Date.UTC(2010, 3, 1), 88.4]
+    //             ]
+    //         },
+    //         {
+    //             "name": "D",
+    //             "data": [
+    //                 [Date.UTC(2010, 0, 1), 9.9],
+    //                 [Date.UTC(2010, 2, 1), 76.5],
+    //                 [Date.UTC(2010, 3, 1), 87.4]
+    //             ]
+    //         }, {
+    //             "name": "E",
+    //             "data": [
+    //                 [Date.UTC(2010, 0, 1), 87.9],
+    //                 [Date.UTC(2010, 2, 1), 7.5],
+    //                 [Date.UTC(2010, 3, 1), 45.4]
+    //             ]
+    //         }
+    //         //     {
+    //         //     name: 'Installation',
+    //         //     data: [1, 4, 5, 8, 34, 56, 77, 88]
+    //         // }, {
+    //         //     name: 'Manufacturing',
+    //         //     data: [1, 2, 5, 8, 33, 44, 55, 99]
+    //         // }, {
+    //         //     name: 'Sales & Distribution',
+    //         //     data: [23, 33, 36, 45, 55, 67, 89, 999]
+    //         // }, {
+    //         //     name: 'Project Development',
+    //         //     data: [null, null, 44, 55, 66, 77, 88, 90]
+    //         // }, {
+    //         //     name: 'Other',
+    //         //     data: [23, 34, 45, 56, 67, 78, 89, 90]
+    //         // }
+    //     ]
 
-    });
+    // });
 
 });
