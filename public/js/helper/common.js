@@ -306,87 +306,26 @@ $(function() {
                     text: 'Number of Users'
                 }
             },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    day: "%e. %b",
+                    month: "%b '%y",
+                    year: "%Y"
+                }
+            },
             legend: {
                 // layout: 'vertical',
                 // align: 'right',
                 // verticalAlign: 'middle'
                 backgroundColor: '#FCFFC5'
             },
-
             plotOptions: {
                 series: {
                     pointStart: 0
                 }
             },
-
             series: collection
-                // [{
-                //     "name": "Logged in user",
-                //     "data": [
-                //         [1500508800000, 1],
-                //         [1500595200000, 1],
-                //         [1500681600000, 1]
-                //     ]
-                // }]
-
-            // {
-            //     "name": "A",
-            //     "data": [
-            //         [Date.UTC(2010, 0, 1), 39.9],
-            //         [Date.UTC(2010, 2, 1), 77.5],
-            //         [Date.UTC(2010, 3, 1), 166.4],
-            //         [Date.UTC(2010, 3, 16), 16.4],
-            //         [Date.UTC(2010, 3, 19), 86.4]
-            //     ]
-            // },
-            // {
-            //     "name": "B",
-            //     "data": [
-            //         [Date.UTC(2010, 0, 1), 2.9],
-            //         [Date.UTC(2010, 2, 1), 81.5],
-            //         [Date.UTC(2010, 3, 1), 166.4]
-            //     ]
-            // },
-            // {
-            //     "name": "C",
-            //     "data": [
-            //         [Date.UTC(2010, 0, 1), 27.9],
-            //         [Date.UTC(2010, 2, 1), 78.5],
-            //         [Date.UTC(2010, 3, 1), 88.4]
-            //     ]
-            // },
-            // {
-            //     "name": "D",
-            //     "data": [
-            //         [Date.UTC(2010, 0, 1), 9.9],
-            //         [Date.UTC(2010, 2, 1), 76.5],
-            //         [Date.UTC(2010, 3, 1), 87.4]
-            //     ]
-            // }, {
-            //     "name": "E",
-            //     "data": [
-            //         [Date.UTC(2010, 0, 1), 87.9],
-            //         [Date.UTC(2010, 2, 1), 7.5],
-            //         [Date.UTC(2010, 3, 1), 45.4]
-            //     ]
-            // }
-            //     {
-            //     name: 'Installation',
-            //     data: [1, 4, 5, 8, 34, 56, 77, 88]
-            // }, {
-            //     name: 'Manufacturing',
-            //     data: [1, 2, 5, 8, 33, 44, 55, 99]
-            // }, {
-            //     name: 'Sales & Distribution',
-            //     data: [23, 33, 36, 45, 55, 67, 89, 999]
-            // }, {
-            //     name: 'Project Development',
-            //     data: [null, null, 44, 55, 66, 77, 88, 90]
-            // }, {
-            //     name: 'Other',
-            //     data: [23, 34, 45, 56, 67, 78, 89, 90]
-            // }
-            //]
         });
     };
 
@@ -399,6 +338,7 @@ $(function() {
                 collectionName = data["text"];
                 var d = new Date(data["dateTime"]);
                 var utcDate = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+                //"Date.UTC(" + d.getUTCFullYear() + "," + d.getUTCMonth() + "," + d.getUTCDate() + ")";
                 var data = [utcDate, data["total"]];
                 collection.push(data);
             });
@@ -419,7 +359,7 @@ $(function() {
                 // collection.push(alasql("SELECT count(*) as total, 'Email' as text ,'emailVeriPending' as key FROM ? where IsEmailVerified=false", [data])[0]);
 
                 var collectionList = CreateGraphCollection(collection);
-                console.log("Graph collection:" + JSON.stringify(collectionList));
+                // console.log("Graph collection:" + JSON.stringify(collectionList));
                 CreateUserGraph(collectionList);
             }
         })
