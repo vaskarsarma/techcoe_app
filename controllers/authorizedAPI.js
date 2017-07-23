@@ -37,10 +37,17 @@ router.get("/data/DashboardUserInfo", function(req, res) {
 
 router.get("/data/DashboardUserGraphInfo", function(req, res) {
     // console.log("DashboardBlogsInfo start");
-    var commentFilter = { "password": false, "usernamehash": false, "_id": false };
-    // var userFilter = { "categorykey": true, "_id": false };   
-    db.find("users", commentFilter).then(function(results) {
-        //  console.log("DashboardUserInfo end ;" + JSON.stringify(results));
-        res.json(results);
-    });
+    var userFilter = { "password": false, "usernamehash": false, "_id": false };
+    var subscribeUserFilter = { "dateTime": true, "_id": false };
+    var collectionCountList = {};
+    Promise.all([db.find("users", userFilter), db.find("subscribeUser", subscribeUserFilter)]).then(data => {
+            //  console.log("data:" + JSON.stringify(data));
+            collectionCountList.userData = data[0];
+            collectionCountList.subscribeUserData = data[1];
+            res.json(collectionCountList);
+        })
+        // db.find("users", commentFilter).then(function(results) {
+        //     //  console.log("DashboardUserInfo end ;" + JSON.stringify(results));
+        //     res.json(results);
+        // });
 });

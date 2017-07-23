@@ -62,7 +62,7 @@ router.post("/userregistration", function(req, res) {
                     "email": email,
                     "IsEmailVerified": false,
                     "active": false,
-                    "dateTime": new Date().toUTCString()
+                    "dateTime": new Date().toDateString()
                 }, (err, results) => {
                     if (err) {
                         console.log("Error in inseration");

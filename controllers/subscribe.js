@@ -30,13 +30,15 @@ router.get('/', function(req, res) {
             res.json(false);
         } else {
             console.log("success sendMail");
-            var filter = { "name": req.query.name, "emailID": req.query.emailID };
+            var filter = { "name": req.query.name, "emailID": req.query.emailID, "dateTime": new Date().toDateString() };
             console.log("step 1");
             db.Insert("subscribeUser", filter).then(function(info) {
                 //console.log("err:" + JSON.stringify(err));
+                res.json(true);
                 console.log("Insert info:" + JSON.stringify(info));
+            }).catch(function(error) {
+                res.json(false);
             });
-            res.json(true);
         }
     });
 

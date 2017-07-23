@@ -290,7 +290,7 @@ $(function() {
         var collection = [];
         collection.push(results);
         console.log("text:" + collection);
-        console.log("text1:" + JSON.stringify(collection));
+        console.log("text1:" + JSON.stringify(results));
         Highcharts.chart('container', {
 
             title: {
@@ -325,34 +325,53 @@ $(function() {
                     pointStart: 0
                 }
             },
-            series: collection
+            series: results
         });
     };
 
     let CreateGraphCollection = (results) => {
         var collection = [];
-        var collectionList = {};
+        var collectionList = [];
+        var fullCollectionList = {};
         var collectionName = "";
-        if (results != null && results[0] != null) {
-            $.each(results[0], function(i, data) {
-                collectionName = data["text"];
-                var d = new Date(data["dateTime"]);
-                var utcDate = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-                //"Date.UTC(" + d.getUTCFullYear() + "," + d.getUTCMonth() + "," + d.getUTCDate() + ")";
-                var data = [utcDate, data["total"]];
-                collection.push(data);
+        // debugger;
+        if (results != null) {
+            $.each(results, function(i, result) {
+                //  console.log("result:" + JSON.stringify(result));
+                collection = [];
+                $.each(result, function(i, data) {
+                    //      console.log("result data:" + JSON.stringify(data));
+                    collectionName = data["text"];
+                    var d = new Date(data["dateTime"]);
+                    var utcDate = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+                    //"Date.UTC(" + d.getUTCFullYear() + "," + d.getUTCMonth() + "," + d.getUTCDate() + ")";
+                    var data = [utcDate, data["total"]];
+                    collection.push(data);
+                });
+                collectionList.push({ "name": collectionName, "data": collection });
             });
-            collectionList = { "name": collectionName, "data": collection };
-            //console.log(JSON.stringify(collectionList));
+
+            // $.each(results[0], function(i, data) {
+            //     collectionName = data["text"];
+            //     var d = new Date(data["dateTime"]);
+            //     var utcDate = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            //     //"Date.UTC(" + d.getUTCFullYear() + "," + d.getUTCMonth() + "," + d.getUTCDate() + ")";
+            //     var data = [utcDate, data["total"]];
+            //     collection.push(data);
+            // });
+            //collectionList = { "name": collectionName, "data": collection };
+            console.log(JSON.stringify(collectionList));
             return collectionList;
         }
     };
     $.getJSON("/authorizedAPI/data/DashboardUserGraphInfo").done(function(data) {
             if (data != null) {
-                // console.log("DashboardUserGraphInfo data:" + JSON.stringify(data));
+                //  console.log("DashboardUserGraphInfo userData data:" + JSON.stringify(data.userData));
+                //   console.log("DashboardUserGraphInfo subscribeUserData data:" + JSON.stringify(data.subscribeUserData));
                 var collection = [];
-                //  console.log(alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [data]));
-                collection.push(alasql("SELECT count(*) as total, dateTime, 'Logged in user' as text FROM ? GROUP BY dateTime", [data]));
+                //    console.log("test1:" + JSON.stringify(alasql("SELECT count(*) as total, dateTime, 'Logged in user' as text FROM ? GROUP BY dateTime ", [data])));
+                collection.push(alasql("SELECT count(*) as total, dateTime, 'User registration' as text FROM ? GROUP BY  dateTime ", [data.userData]));
+                collection.push(alasql("SELECT count(*) as total, dateTime, 'Subscribe Users' as text FROM ? GROUP BY  dateTime ", [data.subscribeUserData]));
                 // collection.push(alasql("SELECT count(*) as total, FROM ? where admin=true", [data])[0]);
                 // collection.push(alasql("SELECT count(*) as total, 'Active' as text ,'activeUser' as key FROM ? where active=true", [data])[0]);
                 // collection.push(alasql("SELECT count(*) as total, 'Deactive' as text ,'deactiveUser' as key FROM ? where active=false", [data])[0]);
