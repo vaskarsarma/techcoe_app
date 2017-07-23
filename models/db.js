@@ -1,4 +1,5 @@
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require("mongodb").ObjectID;
 
 var state = {
     db: null,
@@ -26,20 +27,36 @@ function getConnection() {
 }
 
 exports.update = function(collection, findQuery, updateQuery) {
-    //state.db.get().collection(collection).update()
+    Console.log(collection + " , " + findQuery + " , " + updateQuery);
+
     return new Promise(function(resolve, reject) {
-        state.db.get().collection(collection)
-            .update({ findQuery }, { $set: { updateQuery } }, (err, results) => {
+        getConnection().collection(collection).update(findQuery, { $set: updateQuery }, { upsert: false },
+            (err, results) => {
                 if (!err) {
+                    console.log("update success");
                     resolve(results);
                 } else {
+                    console.log("update failure");
                     reject(err);
                 }
             });
     });
 }
 
-exports.findOne = function(collection, filter, findQuery) {
+// getConnection().collection(collection)
+//     .update({ findQuery }, { $set: { updateQuery } }, (err, results) => {
+//         if (!err) {
+//             console.log(results);
+//             resolve(results);
+//         } else {
+//             console.log(err);
+//             reject(err);
+//         }
+//     });
+// });
+// }
+
+exports.findOne = function(collection, filter) {
     console.log("filter:" + JSON.stringify(filter));
     var test = JSON.stringify(filter);
     console.log("test:" + test);
@@ -60,7 +77,7 @@ exports.findOne = function(collection, filter, findQuery) {
 }
 
 exports.Insert = function(collection, filter) {
-    console.log("DB: Inset" + JSON.stringify(filter));
+    console.log("DB: Insert" + JSON.stringify(filter));
     return new Promise(function(resolve, reject) {
         getConnection().collection(collection)
             .save(filter, (err, results) => {

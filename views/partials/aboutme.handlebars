@@ -1,0 +1,30 @@
+<div class="widget-wrapper">
+    <div class="list-group">
+        <h4 class="list-group-item active">About me</h4>
+        <div class="AMErrorPanel hidden">
+        </div>
+        <div class="alert alert-success hidden amsuccessResult" role="alert">
+            <strong>Well Done!</strong> You have successfully updated the about me section.
+        </div>
+        <div class="alert alert-danger hidden amerrorResult" role="alert">
+            Currently there are some technical issue . Please try again later.
+        </div>
+        <form id="frmaboutme">
+            <div class="list-group-item">
+                {{#if aboutme}}
+                <textarea name="aboutme" id="aboutme" placeholder="Let us know about yourself...">{{aboutme.content}}</textarea> 
+                {{else}}
+                <textarea name="aboutme" id="aboutme" placeholder="Let us know about yourself..."></textarea> 
+                {{/if}}
+            </div>
+            <div class="list-group-item">
+                <button type="submit" class="btn btn-info">Save</button>
+            </div>
+            {{#if aboutme}}
+            <input type="hidden" id='userid' name='userid' value="{{aboutme.userid}}">
+            <input type="hidden" id='_id' name='_id' value="{{aboutme._id}}"> {{else}}
+            <input type="hidden" id='userid' name='userid' value="{{user._id}}">
+            <input type="hidden" id='_id' name='_id' value=""> {{/if}}
+        </form>
+    </div>
+</div>

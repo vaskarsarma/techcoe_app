@@ -1,0 +1,51 @@
+<div class="col-lg-6 col-md-6">
+  <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+    <div class="list-group">
+      <h4 class="list-group-item active">Education</h4>
+      <div class="list-group-item">
+        <div class="eduerrorPanel hidden">
+        </div>
+        <div class="alert alert-success hidden edusuccessResult" role="alert">
+          <strong>Well Done!</strong> You have successfully updated the education details.
+        </div>
+        <div class="alert alert-danger hidden eduerrorResult" role="alert">
+          Currently there are some technical issue . Please try again later.
+        </div>
+        <form class="form-horizontal" id="frmeducation">
+          <div class="form-group md-form">
+            <label for="hqualification">Highest Qualification</label>
+            <input type="text" class="form-control" id="hqualification" name="hqualification" autofocus="autofocus" value="{{edudetails.hqualification}}">
+          </div>
+
+          <div class="form-group md-form">
+            <label for="university">University</label>
+            <input type="text" class="form-control" id="university" name="university" value="{{edudetails.university}}">
+          </div>
+
+          <div class="form-group md-form">
+            <label for="yearofpass">Year of passing</label>
+            <input type="text" class="form-control" id="yearofpass" name="yearofpass" value="{{edudetails.yearofpass}}">
+          </div>
+
+          <div class="form-group md-form">
+            <label for="place">Place</label>
+            <input type="text" class="form-control" id="place" name="place" value="{{edudetails.place}}">
+          </div>
+
+          <div class="form-group ">
+            <button class="btn btn-info" type="submit">Save</button>
+          </div>
+
+          {{#if edudetails}}
+          <input type="hidden" id='userid' name='userid' value="{{edudetails.userid}}">
+          <input type="hidden" id='_id' name='_id' value="{{edudetails._id}}"> {{else}}
+          <input type="hidden" id='userid' name='userid' value="{{user._id}}">
+          <input type="hidden" id='_id' name='_id' value=""> {{/if}}
+
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>

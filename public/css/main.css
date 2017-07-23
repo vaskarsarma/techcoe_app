@@ -111,3 +111,70 @@ footer.page-footer {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+
+/* ############# Start My Profile Accordion #########################  */
+
+
+/* GENERAL STYLES */
+
+
+/* body {
+    font-family: Verdana;
+} */
+
+
+/* FANCY COLLAPSE PANEL STYLES */
+
+
+/* .fancy-collapse-panel .panel-default>.panel-heading {
+    padding: 0;
+}
+
+.fancy-collapse-panel .panel-heading a {
+    padding: 12px 35px 12px 15px;
+    display: inline-block;
+    width: 100%;
+    background-color: #33b5e5;
+    color: #ffffff;
+    position: relative;
+    text-decoration: none;
+}
+
+.fancy-collapse-panel .panel-heading a:after {
+    font-family: "FontAwesome";
+    content: "\f147";
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    top: 50%;
+    line-height: 1;
+    margin-top: -10px;
+}
+
+.fancy-collapse-panel .panel-heading a.collapsed:after {
+    content: "\f196";
+}
+
+.collapse.in {
+    display: block;
+    visibility: visible;
+}
+
+.defaultfontweight {
+    font-weight: none !important;
+} */
+
+.defaultfontweight {
+    font-weight: normal;
+    color: #757575;
+}
+
+textarea {
+    resize: none;
+    border: none;
+}
+
+
+/*############# End My Profile Accordion #########################   */

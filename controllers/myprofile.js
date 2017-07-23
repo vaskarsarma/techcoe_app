@@ -6,11 +6,311 @@ var path = require("path");
 var fs = require("fs");
 var mv = require("mv");
 var mkdirp = require("mkdirp");
+var db = require("../models/db");
+var ObjectId = require("mongodb").ObjectID;
 
 //View/Edit user details
 router.get('/:_id', function(req, res) {
-    var id = req.params._id;
-    res.render("myprofile", { layout: 'layout', title: 'My Profile Page' });
+    var userid = req.params._id;
+    var filter = { "userid": userid };
+
+    var collectionCountList = {};
+
+    Promise.all([
+        db.findOne("aboutme", filter),
+        db.findOne("personalinfo", filter),
+        db.findOne("proffessionalinfo", filter),
+        db.findOne("education", filter),
+        db.findOne("contactdetails", filter)
+    ]).then(data => {
+        res.render("myprofile", {
+            layout: 'layout',
+            title: 'My Profile Page',
+            aboutme: data[0],
+            personaldetails: data[1],
+            proffessionaldetails: data[2],
+            edudetails: data[3],
+            contactdetails: data[4]
+        });
+    }).catch(function(err) {
+        console.log("Error while retriveing about me content");
+        res.status(500).send();
+    });
+});
+
+router.post('/updateaboutme', function(req, res) {
+    if (req.url == '/updateaboutme') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var userid = fields.userid;
+            var data = fields.aboutme;
+            var id = fields._id;
+            var filter = "";
+
+            if (userid != "" && id == "") {
+                filter = { "userid": userid, "content": data };
+                db.Insert("aboutme", filter).then(function(results) {
+                    res.json(true);
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            } else {
+                filter = { "_id": ObjectId(id) };
+                db.findOne('aboutme', filter).then(function(results) {
+                    if (results._id != undefined) {
+                        filter = { "_id": ObjectId(results._id) };
+                        var updateQuery = { "content": data };
+
+                        db.get().collection("aboutme").update(filter, {
+                            $set: updateQuery
+                        }, { upsert: false }, (err, results) => {
+                            if (err) {
+                                res.json(false);
+                            } else {
+                                console.log("content updated Successfully");
+                                res.json(true);
+                            }
+                        });
+                    }
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            }
+        });
+    }
+    return;
+});
+
+router.post('/updatepersonaldetails', function(req, res) {
+    if (req.url == '/updatepersonaldetails') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var userid = fields.userid;
+            var id = fields._id;
+            var filter = "";
+
+            if (userid != "" && id == "") {
+
+                filter = {
+                    "userid": userid,
+                    "firstname": fields.firstname,
+                    "lastname": fields.lastname,
+                    "dob": fields.dob,
+                    "phone": fields.phone
+                };
+
+                db.Insert("personalinfo", filter).then(function(results) {
+                    res.json(true);
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            } else {
+
+                filter = { "_id": ObjectId(id) };
+
+                db.findOne('personalinfo', filter).then(function(results) {
+                    if (results._id != undefined) {
+                        filter = { "_id": ObjectId(results._id) };
+
+                        var updateQuery = {
+                            "firstname": fields.firstname,
+                            "lastname": fields.lastname,
+                            "dob": fields.dob,
+                            "phone": fields.phone
+                        };
+
+                        db.get().collection("personalinfo").update(filter, {
+                            $set: updateQuery
+                        }, { upsert: false }, (err, results) => {
+                            if (err) {
+                                res.json(false);
+                            } else {
+                                console.log("Personal details updated Successfully");
+                                res.json(true);
+                            }
+                        });
+                    }
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            }
+        });
+    }
+    return;
+});
+
+router.post('/updateprofdetails', function(req, res) {
+    if (req.url == '/updateprofdetails') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var userid = fields.userid;
+            var id = fields._id;
+            var filter = "";
+
+            if (userid != "" && id == "") {
+
+                filter = {
+                    "userid": userid,
+                    "proffession": fields.proffession,
+                    "department": fields.department,
+                    "company": fields.company,
+                    "locations": fields.locations
+                };
+
+                db.Insert("proffessionalinfo", filter).then(function(results) {
+                    res.json(true);
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            } else {
+
+                filter = { "_id": ObjectId(id) };
+
+                db.findOne('proffessionalinfo', filter).then(function(results) {
+                    if (results._id != undefined) {
+                        filter = { "_id": ObjectId(results._id) };
+
+                        var updateQuery = {
+                            "proffession": fields.proffession,
+                            "department": fields.department,
+                            "company": fields.company,
+                            "locations": fields.locations
+                        };
+
+                        db.get().collection("proffessionalinfo").update(filter, {
+                            $set: updateQuery
+                        }, { upsert: false }, (err, results) => {
+                            if (err) {
+                                res.json(false);
+                            } else {
+                                console.log("proffessional details updated Successfully");
+                                res.json(true);
+                            }
+                        });
+                    }
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            }
+        });
+    }
+    return;
+});
+
+router.post('/updateedudetails', function(req, res) {
+    if (req.url == '/updateedudetails') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var userid = fields.userid;
+            var id = fields._id;
+            var filter = "";
+
+            if (userid != "" && id == "") {
+
+                filter = {
+                    "userid": userid,
+                    "hqualification": fields.hqualification,
+                    "university": fields.university,
+                    "yearofpass": fields.yearofpass,
+                    "place": fields.place
+                };
+
+                db.Insert("education", filter).then(function(results) {
+                    res.json(true);
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            } else {
+
+                filter = { "_id": ObjectId(id) };
+
+                db.findOne('education', filter).then(function(results) {
+                    if (results._id != undefined) {
+                        filter = { "_id": ObjectId(results._id) };
+
+                        var updateQuery = {
+                            "hqualification": fields.hqualification,
+                            "university": fields.university,
+                            "yearofpass": fields.yearofpass,
+                            "place": fields.place
+                        };
+
+                        db.get().collection("education").update(filter, {
+                            $set: updateQuery
+                        }, { upsert: false }, (err, results) => {
+                            if (err) {
+                                res.json(false);
+                            } else {
+                                console.log("education details updated Successfully");
+                                res.json(true);
+                            }
+                        });
+                    }
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            }
+        });
+    }
+    return;
+});
+
+router.post('/updatecontactdetails', function(req, res) {
+    if (req.url == '/updatecontactdetails') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var userid = fields.userid;
+            var id = fields._id;
+            var filter = "";
+
+            if (userid != "" && id == "") {
+
+                filter = {
+                    "userid": userid,
+                    "address1": fields.address1,
+                    "address2": fields.address2,
+                    "country": fields.country,
+                    "pinno": fields.pinno
+                };
+
+                db.Insert("contactdetails", filter).then(function(results) {
+                    res.json(true);
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            } else {
+
+                filter = { "_id": ObjectId(id) };
+
+                db.findOne('contactdetails', filter).then(function(results) {
+                    if (results._id != undefined) {
+                        filter = { "_id": ObjectId(results._id) };
+
+                        var updateQuery = {
+                            "address1": fields.address1,
+                            "address2": fields.address2,
+                            "country": fields.country,
+                            "pinno": fields.pinno
+                        };
+
+                        db.get().collection("contactdetails").update(filter, {
+                            $set: updateQuery
+                        }, { upsert: false }, (err, results) => {
+                            if (err) {
+                                res.json(false);
+                            } else {
+                                console.log("contact details updated Successfully");
+                                res.json(true);
+                            }
+                        });
+                    }
+                }).catch(function(err) {
+                    res.json(false);
+                });
+            }
+        });
+    }
+    return;
 });
 
 //View/Edit user details
