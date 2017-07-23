@@ -16,6 +16,7 @@ app.use(bodyparser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'profilephoto')));
+app.use(express.static(path.join(__dirname, 'data')));
 
 // Create `ExpressHandlebars` instance with a default layout.
 var hbs = exphbs.create({

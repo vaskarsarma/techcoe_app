@@ -10,36 +10,44 @@ router.get("/data/GetTradingBlogs", function(req, res) {
 
     var filter = { "categorykey": true, "_id": false };
     db.find("blogs", filter).then(function(results) {
-        //  console.log("blogs Res:" + JSON.stringify(results));
-        // res.render('dashboard', { collectionCountList: collectionCountList });
         res.json(results);
     });
 
 });
 
-router.get("/data/validateTickets", function(req, res) {
+router.get("/data/DashboardBlogsInfo", function(req, res) {
+    // console.log("DashboardBlogsInfo start");
+    var commentFilter = { "IsApproved": true, "_id": false };
+    // var userFilter = { "categorykey": true, "_id": false };   
+    db.find("comments", commentFilter).then(function(results) {
+        // console.log("DashboardBlogsInfo end ;" + results);
+        res.json(results);
+    });
+});
 
-    // var commentFilter = { "categorykey": true, "_id": false };
-    // var userFilter = { "categorykey": true, "_id": false };
-    // Promise.all([db.findAllCount("users"), db.findAllCount("subscribeUser")]).then(data => {
-    //     console.log(data);
-    //     collectionCountList.userCount = data[0];
-    //     collectionCountList.subscribeUser = data[1];
-    // }).then(function() {
-    //     collectionCountList.TotalVisitor = 0;
-    //     collectionCountList.totalCategory = blogs.category.length;
-    //     //console.log("collectionCountList.totalCategory :" + collectionCountList.totalCategory);
-    //     // console.log("userregistration");
-    //     // console.log("dashboard");
-    //     console.log("dashboard end");
-    //     res.render('dashboard', { layout: 'dashboardlayout', collectionCountList: collectionCountList });
-    // });
+router.get("/data/DashboardUserInfo", function(req, res) {
+    // console.log("DashboardBlogsInfo start");
+    var commentFilter = { "password": false, "usernamehash": false, "_id": false };
+    // var userFilter = { "categorykey": true, "_id": false };   
+    db.find("users", commentFilter).then(function(results) {
+        //  console.log("DashboardUserInfo end ;" + JSON.stringify(results));
+        res.json(results);
+    });
+});
 
-
-    // db.find("comments", filter).then(function(results) {
-    //     //  console.log("blogs Res:" + JSON.stringify(results));
-    //     // res.render('dashboard', { collectionCountList: collectionCountList });
-    //     res.json(results);
-    // });
-
+router.get("/data/DashboardUserGraphInfo", function(req, res) {
+    // console.log("DashboardBlogsInfo start");
+    var userFilter = { "password": false, "usernamehash": false, "_id": false };
+    var subscribeUserFilter = { "dateTime": true, "_id": false };
+    var collectionCountList = {};
+    Promise.all([db.find("users", userFilter), db.find("subscribeUser", subscribeUserFilter)]).then(data => {
+            //  console.log("data:" + JSON.stringify(data));
+            collectionCountList.userData = data[0];
+            collectionCountList.subscribeUserData = data[1];
+            res.json(collectionCountList);
+        })
+        // db.find("users", commentFilter).then(function(results) {
+        //     //  console.log("DashboardUserInfo end ;" + JSON.stringify(results));
+        //     res.json(results);
+        // });
 });
