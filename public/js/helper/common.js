@@ -841,6 +841,9 @@ let checkControlContent = (control_id, i, isImage) => {
         var imgPath = ("/" + ctrlVal + "/" + ctrlVal + ".jpg").toLowerCase();
         var imgSRC = ($('.reloadimage').attr('src')).toLowerCase();
 
+        if (imgSRC.indexOf('?') != -1)
+            imgSRC = imgSRC.substring(0, imgSRC.indexOf('?'));
+
         if (imgPath == imgSRC)
             return i + 3;
         else
@@ -868,14 +871,10 @@ let run_waitMe = (divClass, animation) => {
 }
 
 $('.graphLoader').on("click", function() {
-console.log("Wait 1");
-run_waitMe();
+    console.log("Wait 1");
+    run_waitMe();
 
-setTimeout(function() {
-    $('.userInfoDiv').waitMe('hide');
-}, 4000);
-});
-
-
-// run_waitMe('bounce');
+    setTimeout(function() {
+        $('.userInfoDiv').waitMe('hide');
+    }, 4000);
 });
