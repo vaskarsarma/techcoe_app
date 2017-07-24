@@ -279,7 +279,7 @@ $(function() {
             totalUser = count == 1 ? item["total"] : totalUser;
             var percentage = calculatePercentage(item["total"], totalUser);
             var UserInfoColor = validateUserInfoColor(userInfoColor, item["key"]);
-            node = "<tr>" +
+            node = "<tr" + count + ">" +
                 "<td>" + count + "</td>" +
                 "<td><span class='label " + UserInfoColor + "'>" + item["text"] + "</span></td>" +
                 "<td>" + item["total"] + "</td>" +
@@ -472,96 +472,7 @@ $(function() {
             var err = textStatus + ", " + error;
         });
 
-    // Highcharts.chart('container', {
 
-    //     title: {
-    //         text: 'Solar Employment Growth by Sector, 2010-2016'
-    //     },
-
-    //     subtitle: {
-    //         text: 'Source: thesolarfoundation.com'
-    //     },
-
-    //     yAxis: {
-    //         title: {
-    //             text: 'Number of Employees'
-    //         }
-    //     },
-    //     legend: {
-    //         // layout: 'vertical',
-    //         // align: 'right',
-    //         // verticalAlign: 'middle'
-    //         backgroundColor: '#FCFFC5'
-    //     },
-
-    //     plotOptions: {
-    //         series: {
-    //             pointStart: 0
-    //         }
-    //     },
-
-    //     series: [
-
-    //         {
-    //             "name": "A",
-    //             "data": [
-    //                 [Date.UTC(2010, 0, 1), 39.9],
-    //                 [Date.UTC(2010, 2, 1), 77.5],
-    //                 [Date.UTC(2010, 3, 1), 166.4],
-    //                 [Date.UTC(2010, 3, 16), 16.4],
-    //                 [Date.UTC(2010, 3, 19), 86.4]
-    //             ]
-    //         },
-    //         {
-    //             "name": "B",
-    //             "data": [
-    //                 [Date.UTC(2010, 0, 1), 2.9],
-    //                 [Date.UTC(2010, 2, 1), 81.5],
-    //                 [Date.UTC(2010, 3, 1), 166.4]
-    //             ]
-    //         },
-    //         {
-    //             "name": "C",
-    //             "data": [
-    //                 [Date.UTC(2010, 0, 1), 27.9],
-    //                 [Date.UTC(2010, 2, 1), 78.5],
-    //                 [Date.UTC(2010, 3, 1), 88.4]
-    //             ]
-    //         },
-    //         {
-    //             "name": "D",
-    //             "data": [
-    //                 [Date.UTC(2010, 0, 1), 9.9],
-    //                 [Date.UTC(2010, 2, 1), 76.5],
-    //                 [Date.UTC(2010, 3, 1), 87.4]
-    //             ]
-    //         }, {
-    //             "name": "E",
-    //             "data": [
-    //                 [Date.UTC(2010, 0, 1), 87.9],
-    //                 [Date.UTC(2010, 2, 1), 7.5],
-    //                 [Date.UTC(2010, 3, 1), 45.4]
-    //             ]
-    //         }
-    //         //     {
-    //         //     name: 'Installation',
-    //         //     data: [1, 4, 5, 8, 34, 56, 77, 88]
-    //         // }, {
-    //         //     name: 'Manufacturing',
-    //         //     data: [1, 2, 5, 8, 33, 44, 55, 99]
-    //         // }, {
-    //         //     name: 'Sales & Distribution',
-    //         //     data: [23, 33, 36, 45, 55, 67, 89, 999]
-    //         // }, {
-    //         //     name: 'Project Development',
-    //         //     data: [null, null, 44, 55, 66, 77, 88, 90]
-    //         // }, {
-    //         //     name: 'Other',
-    //         //     data: [23, 34, 45, 56, 67, 78, 89, 90]
-    //         // }
-    //     ]
-
-    // });
 
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
@@ -861,4 +772,31 @@ $(function() {
             $(".cderrorPanel").html(errorPanel).removeClass("hidden");
         }
     });
+
+    let run_waitMe = (divClass, animation) => {
+        divClass = divClass != null ? divClass : "userInfoDiv";
+        animation = animation != null ? animation : 'timer';
+        $("." + divClass).waitMe({
+            effect: animation,
+            text: '',
+            bg: 'rgba(255,255,255,0.7)',
+            color: '#000',
+            sizeW: '',
+            sizeH: '',
+            source: '',
+            onClose: function() {}
+        });
+    }
+
+    $('.graphLoader').on("click", function() {
+        console.log("Wait 1");
+        run_waitMe();
+
+        setTimeout(function() {
+            $('.userInfoDiv').waitMe('hide');
+        }, 4000);
+    });
+
+
+    // run_waitMe('bounce');
 });
