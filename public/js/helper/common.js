@@ -1,5 +1,26 @@
 $(function() {
 
+    $(".profileprogress").imgProgress({
+        // path to the image
+        // path to the image
+        //img_url: "sss.jpg",
+        // size in pixels
+        size: 200,
+        // bar size
+        barSize: 12,
+        // background color
+        backgroundColor: 'white',
+        // foreground color
+        foregroundColor: '#4abde8',
+        // CSS background-size property
+        backgroundSize: 'cover',
+        // current percentage value
+        percent: 10
+    });
+
+    $(".profileprogress").imgProgressTo(profileCompleteStatus());
+
+
     $('textarea').each(function() {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
     }).on('input', function() {
@@ -168,6 +189,7 @@ $(function() {
                     } else {
                         $('.reloadimage').attr('src', data.filepath + '?' + new Date().getTime());
                         $("#displayImage").val("");
+                        $(".profileprogress").imgProgressTo(profileCompleteStatus());
                     }
                 },
                 error: function(error) {
@@ -619,6 +641,7 @@ $(function() {
                     console.log("success : " + JSON.stringify(data));
                     $(".amerrorResult").addClass("hidden");
                     $(".amsuccessResult").removeClass("hidden");
+                    $(".profileprogress").imgProgressTo(profileCompleteStatus());
                 },
                 error: function(error) {
                     console.log("error : " + error);
@@ -676,6 +699,7 @@ $(function() {
                     console.log("success : " + JSON.stringify(data));
                     $(".pderrorResult").addClass("hidden");
                     $(".pdsuccessResult").removeClass("hidden");
+                    $(".profileprogress").imgProgressTo(profileCompleteStatus());
                 },
                 error: function(error) {
                     console.log("error : " + error);
@@ -718,7 +742,6 @@ $(function() {
             );
         }
 
-
         var data = new FormData(this); // <-- 'this' is your form element
 
         if (isValid) {
@@ -734,6 +757,7 @@ $(function() {
                     console.log("success : " + JSON.stringify(data));
                     $(".profderrorResult").addClass("hidden");
                     $(".profdsuccessResult").removeClass("hidden");
+                    $(".profileprogress").imgProgressTo(profileCompleteStatus());
                 },
                 error: function(error) {
                     console.log("error : " + error);
@@ -792,6 +816,7 @@ $(function() {
                     console.log("success : " + JSON.stringify(data));
                     $(".eduerrorResult").addClass("hidden");
                     $(".edusuccessResult").removeClass("hidden");
+                    $(".profileprogress").imgProgressTo(profileCompleteStatus());
                 },
                 error: function(error) {
                     console.log("error : " + error);
@@ -850,6 +875,7 @@ $(function() {
                     console.log("success : " + JSON.stringify(data));
                     $(".cdsuccessResult").removeClass("hidden");
                     $(".cderrorResult").addClass("hidden");
+                    $(".profileprogress").imgProgressTo(profileCompleteStatus());
                 },
                 error: function(error) {
                     console.log("error : " + error);
@@ -862,3 +888,55 @@ $(function() {
         }
     });
 });
+
+let profileCompleteStatus = () => {
+    var totalFields = 20;
+    var percentagePerFields = 100 / 20;
+
+    var i = 0;
+    i = checkControlContent("_id", i, true);
+    i = checkControlContent("aboutme", i, false);
+    i = checkControlContent("firstname", i, false);
+    i = checkControlContent("lastname", i, false);
+    i = checkControlContent("dob", i, false);
+    i = checkControlContent("phone", i, false);
+    i = checkControlContent("proffession", i, false);
+    i = checkControlContent("department", i, false);
+    i = checkControlContent("company", i, false);
+    i = checkControlContent("locations", i, false);
+    i = checkControlContent("hqualification", i, false);
+    i = checkControlContent("university", i, false);
+    i = checkControlContent("yearofpass", i, false);
+    i = checkControlContent("place", i, false);
+    i = checkControlContent("address1", i, false);
+    i = checkControlContent("address2", i, false);
+    i = checkControlContent("country", i, false);
+    i = checkControlContent("pinno", i, false);
+
+    var totalpercentage = percentagePerFields * i;
+
+    $('.profileCompleted').html("");
+    $('.profileCompleted').append("<strong>" + totalpercentage + "% completed</strong>");
+
+    return totalpercentage;
+}
+
+let checkControlContent = (control_id, i, isImage) => {
+
+    var ctrlVal = $("#" + control_id).val();
+
+    if (isImage && ctrlVal !== "" && ctrlVal !== undefined) {
+
+        var imgPath = ("/" + ctrlVal + "/" + ctrlVal + ".jpg").toLowerCase();
+        var imgSRC = ($('.reloadimage').attr('src')).toLowerCase();
+
+        if (imgPath == imgSRC)
+            return i + 3;
+        else
+            return i;
+
+    } else if (ctrlVal !== "" && ctrlVal !== undefined)
+        return i + 1;
+    else
+        return i;
+};
