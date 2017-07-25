@@ -69,7 +69,7 @@ router.post("/userregistration", function(req, res) {
                         // res.status(500).send();
                         res.render('userregistration', { title: 'Sign-up', IsError: true });
                     } else {
-                        console.log("User inserted successfully");
+                        // console.log("User inserted successfully");
                         res.render('userregistration', { title: 'Sign-up', IsUpdated: true });
                     }
                 });

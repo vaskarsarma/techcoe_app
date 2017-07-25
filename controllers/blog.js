@@ -57,7 +57,7 @@ router.post("/savedata", function(req, res) {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            console.log("Blog details updated Successfully");
+                            //  console.log("Blog details updated Successfully");
 
                             //Add update history 
                             db.get().collection("bloghistory").save({
@@ -73,7 +73,7 @@ router.post("/savedata", function(req, res) {
                                     console.log("Failed to updated History");
                                     res.status(500).send();
                                 } else {
-                                    console.log("Blog History Table is updated successfuly");
+                                    //  console.log("Blog History Table is updated successfuly");
                                 }
                             });
 

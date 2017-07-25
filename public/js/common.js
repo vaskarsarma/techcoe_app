@@ -229,10 +229,31 @@ $(".userInfoLoader").on("click", function() {
 });
 
 $("#userInfoTable").on("click", "tr", function() {
-    var type = $(this).attr("type");
-    if (type != null) {
+    var value = $(this).attr("type");
+    if (value != null) {
         run_waitMe('userTableDiv'); //, 'progressBar');
-        $(".userTableDiv").toggle("slow");
+
+        // $.get("/authorizedAPI/data/DashboardUsertable", function(data, status) {
+        //     alert("Data: " + data + "\nStatus: " + status);
+        // });
+
+        $.ajax({
+                method: "Post",
+                url: "/authorizedAPI/data/DashboardUsertable",
+                data: { type: $(this).attr("type").toLowerCase() }
+            })
+            .done(function(data) {
+                console.log("table 2 ");
+                //alert("success");
+            })
+            .fail(function() {
+                console.log("error");
+                //alert("error");
+            })
+            .always(function() {
+                //  alert("complete");
+            });
+        //  $(".userTableDiv").toggle("slow");
     }
 
     // switch (type) {

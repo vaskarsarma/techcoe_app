@@ -94,7 +94,7 @@ router.post("/savedata", function(req, res) {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            console.log("Data updated Successfully");
+                            //  console.log("Data updated Successfully");
                             data.users(function(err, results) {
                                 if (err) {
                                     res.status(500).send();
@@ -114,7 +114,7 @@ router.post("/savedata", function(req, res) {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            console.log("Data Saved Successfully");
+                            // console.log("Data Saved Successfully");
                             data.users(function(err, results) {
                                 if (err) {
                                     res.status(500).send();
@@ -138,7 +138,7 @@ router.post("/savedata", function(req, res) {
             if (err) {
                 res.status(500).send();
             } else {
-                console.log("Data Saved Successfully");
+                //console.log("Data Saved Successfully");
                 data.users(function(err, results) {
                     if (err) {
                         res.status(500).send();
@@ -176,7 +176,7 @@ router.get('/delete/:_id', function(req, res) {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            console.log("Record deleted Successfully");
+                            // console.log("Record deleted Successfully");
                             data.users(function(err, results) {
                                 if (err) {
                                     res.status(500).send();

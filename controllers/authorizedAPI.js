@@ -35,13 +35,47 @@ router.get("/data/DashboardUserGraphInfo", function(req, res) {
     var subscribeUserFilter = { "dateTime": true, "_id": false };
     var collectionCountList = {};
     Promise.all([db.find("users", userFilter), db.find("subscribeUser", subscribeUserFilter)]).then(data => {
-            //  console.log("data:" + JSON.stringify(data));
-            collectionCountList.userData = data[0];
-            collectionCountList.subscribeUserData = data[1];
-            res.json(collectionCountList);
-        })
-        // db.find("users", commentFilter).then(function(results) {
-        //     //  console.log("DashboardUserInfo end ;" + JSON.stringify(results));
-        //     res.json(results);
-        // });
+        collectionCountList.userData = data[0];
+        collectionCountList.subscribeUserData = data[1];
+        res.json(collectionCountList);
+    });
+});
+
+router.post("/data/DashboardUsertable", function(req, res) {
+
+    var type = req.params.type;
+    if (type != null) {
+        console.log("table1:" + req.body.type);
+        var commentFilter = {};
+        switch (type) {
+            case "total":
+                commentFilter = { "_id": false };
+                // execute code block 1
+                break;
+            case "admin":
+                commentFilter = { "_id": false };
+                // execute code block 2
+                break;
+            case "active":
+                commentFilter = { "_id": false };
+                // execute code block 2
+                break;
+            case "deactive":
+                commentFilter = { "_id": false };
+                // execute code block 2
+                break;
+            case "email":
+                commentFilter = { "_id": false };
+                // execute code block 2
+                break;
+        }
+        db.find("users", commentFilter).then(function(results) {
+            res.json(results);
+        });
+    }
+    // var commentFilter = { "password": false, "usernamehash": false, "_id": false };
+    // db.find("users", commentFilter).then(function(results) {
+    //     res.json(results);
+    // });
+    res.json("true");
 });

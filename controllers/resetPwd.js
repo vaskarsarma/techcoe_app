@@ -76,7 +76,7 @@ router.post("/reset", function(req, res) {
                                     //res.status(500).send();
                                     res.render('reset', { title: 'Reset Password', IsError: true, userID: req.query.id, showForm: true });
                                 } else {
-                                    console.log("Password updated Successfully");
+                                    // console.log("Password updated Successfully");
                                     res.render('reset', {
                                         title: 'Reset Password',
                                         IsPasswordUpdated: true,

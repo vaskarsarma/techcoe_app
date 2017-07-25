@@ -47,7 +47,7 @@ router.post('/addcomments', function(req, res) {
         if (err) {
             res.status(500).send();
         } else {
-            console.log("Blog Comments Saved Successfully");
+            //  console.log("Blog Comments Saved Successfully");
 
             getblogdetails(id, res);
         }
