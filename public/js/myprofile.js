@@ -364,8 +364,34 @@ $(function() {
             $(".cderrorPanel").html(errorPanel).removeClass("hidden");
         }
     });
-});
 
+    /* Code toverify email id in the my profile page */
+    $("#frmemailverification").submit(function(e) {
+        e.preventDefault();
+
+        var data = new FormData(this); // <-- 'this' is your form element
+
+        $.ajax({
+            url: "/myprofile/verifyemail",
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: "POST",
+            success: function(data) {
+                console.log("success : " + JSON.stringify(data));
+                $(".vemailsuccessResult").removeClass("hidden");
+                $(".vemailerrorResult").addClass("hidden");
+            },
+            error: function(error) {
+                console.log("error : " + error);
+                $(".vemailsuccessResult").addClass("hidden");
+                $(".vemailerrorResult").removeClass("hidden");
+            }
+        });
+
+    });
+});
 
 var substringMatcher = function(strs) {
     return function findMatches(q, cb) {
