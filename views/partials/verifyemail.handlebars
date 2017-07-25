@@ -1,5 +1,25 @@
 <div class="col-lg-6 col-md-6">
-    <div class="widget-wrapper wow fadeIn" data-wow-delay="0.1s">
-        verify email
+    <div class="wow fadeIn" data-wow-delay="0.1s">
+        <h4>Welcome {{user.name}} , </h4>
+        <br> {{#if user.IsEmailVerified}}
+        <h5>Your registered email-id is already verified.</h5>
+        {{else}}
+         <div class="alert alert-danger hidden vemailerrorResult" role="alert">
+          Currently there are some technical issue . Please try again later.
+        </div>
+        <div class="alert alert-success hidden vemailsuccessResult" role="alert">
+          <strong>One verification mail is sent to your registered email id. Please check and confirm.</strong>
+        </div>
+        <form id="frmemailverification">
+        <h5>You are yet to verfy your registered email-id.</h5>
+        <br>
+        <h5>Please click here to verify your email ID.</h5>
+        <br>
+        <input type="submit" value="verify email" class="btn-info">
+        <input type="hidden" id="hndemailid" name="emailid" value={{user.email}} />
+        <input type="hidden" id="hnduserid" name="userid" value={{user._id}} />
+        </form>
+        
+        {{/if}}
     </div>
 </div>

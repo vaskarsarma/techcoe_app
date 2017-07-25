@@ -313,6 +313,21 @@ router.post('/updatecontactdetails', function(req, res) {
     return;
 });
 
+router.post('/verifyemail', function(req, res) {
+    if (req.url == '/verifyemail') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var userid = fields.userid;
+            var id = fields._id;
+            var filter = "";
+
+            res.json(true);
+        });
+
+    }
+    return;
+});
+
 //View/Edit user details
 router.post('/uploadphoto', function(req, res) {
     if (req.url == '/uploadphoto') {
