@@ -229,7 +229,30 @@ $(".userInfoLoader").on("click", function() {
 });
 
 $("#userInfoTable").on("click", "tr", function() {
-    debugger;
+    var type = $(this).attr("type");
+    if (type != null) {
+        run_waitMe('userTableDiv'); //, 'progressBar');
+        $(".userTableDiv").toggle("slow");
+    }
+
+    // switch (type) {
+    //     case 'Total':
+    //         alert('jQuery Wins!');
+    //         break;
+    //     case 'Admin':
+    //         alert('prototype Wins!');
+    //         break;
+    //     case 'Active':
+    //         alert('mootools Wins!');
+    //         break;
+    //     case 'Deactive':
+    //         alert('dojo Wins!');
+    //         break;
+    //     default:
+    //         alert('Nobody Wins!');
+    // }
+
+    //debugger;
     //  LoadDashboardUserInfo();
 });
 
@@ -277,7 +300,7 @@ let LoadDashboardUserInfo = () => {
 
 let run_waitMe = (divClass, animation) => {
     divClass = divClass != null ? divClass : "userInfoDiv";
-    animation = animation != null ? animation : "timer";
+    animation = animation != null ? animation : "facebook";
     $("." + divClass).waitMe({
         effect: animation,
         text: "",
