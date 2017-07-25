@@ -9,6 +9,8 @@ var mkdirp = require("mkdirp");
 var db = require("../models/db");
 var ObjectId = require("mongodb").ObjectID;
 
+var configparam = require("../data/configparam.json");
+
 //View/Edit user details
 router.get('/:_id', function(req, res) {
     var userid = req.params._id;
@@ -317,13 +319,47 @@ router.post('/verifyemail', function(req, res) {
     if (req.url == '/verifyemail') {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
-            var userid = fields.userid;
-            var id = fields._id;
-            var filter = "";
+            var userid = fields.hnduserid;
+            var emailid = fields.hndemailid;
 
-            res.json(true);
+            var nodemailer = require('nodemailer');
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'nodegitapp@gmail.com',
+                    pass: 'Node@123'
+                }
+            });
+
+
+            // console.log('1 ' + new Date().toDateString());
+            // console.log('2 ' + new Date().toISOString());
+            // console.log('3 ' + new Date().toLocaleDateString());
+            // console.log('4 ' + new Date().toTimeString());
+            // console.log('5 ' + new Date().toUTCString());
+            // console.log('6 ' + new Date().getUTCHours());
+            // console.log('7 ' + new Date().getUTCDate());
+
+            path = configparam.hosttype + "://" + configparam.domainname + "/verifiedemail?i=" +
+                userid + "&ts=" + new Date().toISOString();
+
+            var mailOptions = {
+                from: 'nodegitapp@gmail.com',
+                to: emailid,
+                subject: 'Verify email id',
+                text: "Please click here to verify email " + path
+            };
+
+            transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    console.log("mail sent error: " + error);
+                    res.json(false);
+                } else {
+                    console.log("mail sent success");
+                    res.json(true);
+                }
+            });
         });
-
     }
     return;
 });

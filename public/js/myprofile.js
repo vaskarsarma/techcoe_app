@@ -382,6 +382,7 @@ $(function() {
                 console.log("success : " + JSON.stringify(data));
                 $(".vemailsuccessResult").removeClass("hidden");
                 $(".vemailerrorResult").addClass("hidden");
+                $(".emailverificationform").addClass("hidden");
             },
             error: function(error) {
                 console.log("error : " + error);

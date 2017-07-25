@@ -42,19 +42,6 @@ var hbs = exphbs.create({
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// app.engine('handlebars', hbs({
-//     defaultLayout: 'layout'
-//         // Example to use custom helper function for HandleBar
-//         ,
-//     helpers: {
-//         CheckEmpty: require("./public/js/customcheckempty"),
-//         CheckNumber: require("./public/js/customchecknumber"),
-//         IsAdmin: require("./public/js/isadmin"),
-//         CheckIsAdmin: require("./public/js/checkisadmin")
-//     }
-// }));
-//app.set('view engine', 'handlebars');
-
 require("./passport/init");
 
 // Configuring Passport
@@ -86,13 +73,6 @@ app.use(expressValidator({
         };
     }
 }));
-
-// app.use(flash());
-
-// app.use(function(req, res, next) {
-//     res.locals.messages = require('express-messages')(req, res);
-//     next();
-// });
 
 //Get Home Page
 app.get('/', function(req, res) {
@@ -137,6 +117,8 @@ app.use('/authorizedAPI', authorizedAPI);
 var dashboard = require('./controllers/dashboard');
 app.use('/dashboard', dashboard);
 
+var verifiedemail = require('./controllers/verifiedemail');
+app.use('/verifiedemail', verifiedemail);
 
 app.use(function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -179,12 +161,12 @@ app.use(function(err, req, res, next) {
 });
 
 // // Handle un-caught error
-process.on("uncaughtException", function(err) {
-    console.log("There is some unhandled errors in the application");
-    console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
-    console.error(err.stack);
-    process.exit(1);
-});
+// process.on("uncaughtException", function(err) {
+//     console.log("There is some unhandled errors in the application");
+//     console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
+//     console.error(err.stack);
+//     process.exit(1);
+// });
 
 // Connect to Mongo on start
 db.connect(db.url, function(err) {

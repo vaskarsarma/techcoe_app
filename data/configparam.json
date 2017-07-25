@@ -1,0 +1,5 @@
+{
+    "hosttype": "http",
+    "domainname": "localhost:1337",
+    "emailverificationgap": "86400"
+}
