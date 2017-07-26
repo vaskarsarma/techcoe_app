@@ -331,15 +331,6 @@ router.post('/verifyemail', function(req, res) {
                 }
             });
 
-
-            // console.log('1 ' + new Date().toDateString());
-            // console.log('2 ' + new Date().toISOString());
-            // console.log('3 ' + new Date().toLocaleDateString());
-            // console.log('4 ' + new Date().toTimeString());
-            // console.log('5 ' + new Date().toUTCString());
-            // console.log('6 ' + new Date().getUTCHours());
-            // console.log('7 ' + new Date().getUTCDate());
-
             path = configparam.hosttype + "://" + configparam.domainname + "/verifiedemail?i=" +
                 userid + "&ts=" + new Date().toISOString();
 

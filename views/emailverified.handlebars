@@ -1,20 +1,26 @@
 <div class="container">
-    <div class="widget-wrapper">
-        <div class="list-group">
-            <h4 class="list-group-item active">Email Verification</h4>
+    <div class="wow fadeIn" data-wow-delay="0.1s">
+        <div class="card">
+            <div class="card-block">
+                <h5><strong>Email verification status</strong></h5>
+                {{#if isError}}
 
-            <div class="alert alert-danger hidden amerrorResult" role="alert">
-                Currently there are some technical issue . Please try again later.
+                <div class="alert alert-danger">
+                    <strong>Sorry!</strong> Your email verification status is failed. Please try again. {{> verifyemail}}
+                    <br><br> Please click here to <a href="/auth/login">Login</a>
+                </div>
+                {{else}} {{#if isAlreadyUpdated}}
+                <div class="alert alert-danger">
+                    <strong>Hello!</strong> Your registered email is already verified.
+                    <br><br> Please click here to <a href="/auth/login">Login</a>
+                </div>
+                {{else}}
+                <div class="alert alert-success">
+                    <strong>Thank you!</strong> You have successfully verified your email.
+                    <br><br> Please click here to <a href="/auth/login">Login</a>
+                </div>
+                {{/if}} {{/if}}
             </div>
         </div>
     </div>
-
-            <div class="widget-wrapper wow fadeIn" data-wow-delay="0.6s">
-            <div class="card">
-                <div class="card-block">
-                    <h5><strong>Leave a Comment</strong></h5>
-
-                </div>
-            </div>
-        </div>
 </div>

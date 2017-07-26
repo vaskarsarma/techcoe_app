@@ -1,28 +1,23 @@
-<div class="col-lg-6 col-md-6">
-    <div class="wow fadeIn" data-wow-delay="0.1s">
-        <strong>Welcome {{user.name}} , </strong>
-        <br/><br/> {{#if user.IsEmailVerified}}
-        <h5>Thank you for verifying your email-address.</h5>
-        {{else}}
-        <div class="alert alert-danger hidden vemailerrorResult" role="alert">
-            Currently there are some technical issue . Please try again later.
-        </div>
-        <div class="alert alert-success hidden vemailsuccessResult" role="alert">
-            <strong>One mail is sent to your registered email id with a verification link. 
-                <br/>
-                Please click that link to verify your email-id within 24Hours.</strong>
-        </div>
-        <div class="emailverificationform">
-            <form id="frmemailverification">
-                <h5>You are yet to verfy your registered email-id.</h5>
-                <br>
-                <h5>Please click here to verify your email ID.</h5>
-                <br>
-                <input type="submit" value="verify email" class="btn-info">
-                <input type="hidden" id="hndemailid" name="hndemailid" value={{user.email}} />
-                <input type="hidden" id="hnduserid" name="hnduserid" value={{user._id}} />
-            </form>
-        </div>
-        {{/if}}
+<div class="wow fadeIn" data-wow-delay="0.1s">
+    <strong>Welcome {{user.name}} , </strong>
+    <br/><br/> {{#if user.IsEmailVerified}} Your registered email is verified with us. {{else}}
+    <div class="alert alert-danger hidden vemailerrorResult" role="alert">
+        Currently there are some technical issue . Please try again later.
     </div>
+    <div class="alert alert-success hidden vemailsuccessResult" role="alert">
+        <strong>One mail is sent to your registered email i.e. {{user.email}} with a verification link. 
+                <br/>
+                Please click that link to verify your email within 24Hours.</strong>
+    </div>
+    <div class="emailverificationform">
+        <form id="frmemailverification">
+            You are yet to verfy your registered email.
+            <br><br> Please click here to verify your email.
+            <br><br>
+            <input type="submit" value="verify email" class="btn-info">
+            <input type="hidden" id="hndemailid" name="hndemailid" value={{user.email}} />
+            <input type="hidden" id="hnduserid" name="hnduserid" value={{user._id}} />
+        </form>
+    </div>
+    {{/if}}
 </div>
