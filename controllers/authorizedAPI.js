@@ -43,39 +43,33 @@ router.get("/data/DashboardUserGraphInfo", function(req, res) {
 
 router.post("/data/DashboardUsertable", function(req, res) {
 
-    var type = req.params.type;
+    var type = req.body.type;
+
     if (type != null) {
-        console.log("table1:" + req.body.type);
-        var commentFilter = {};
+        dataFilter = { "_id": false, "usernamehash": false, "password": false };
+        var whereFilter = {};
         switch (type) {
-            case "total":
-                commentFilter = { "_id": false };
-                // execute code block 1
-                break;
             case "admin":
-                commentFilter = { "_id": false };
-                // execute code block 2
+                whereFilter = { "admin": true };
                 break;
             case "active":
-                commentFilter = { "_id": false };
-                // execute code block 2
+                whereFilter = { "active": true };
                 break;
             case "deactive":
-                commentFilter = { "_id": false };
-                // execute code block 2
+                whereFilter = { "active": false };
                 break;
             case "email":
-                commentFilter = { "_id": false };
-                // execute code block 2
+                whereFilter = { "IsEmailVerified": false };
                 break;
         }
-        db.find("users", commentFilter).then(function(results) {
+        // console.log("type:" + type);
+        // console.log("dataFilter:" + JSON.stringify(dataFilter));
+        // console.log("whereFilter:" + JSON.stringify(whereFilter));
+
+        db.find("users", dataFilter, whereFilter).then(function(results) {
+            // console.log(JSON.stringify(results));
             res.json(results);
         });
-    }
-    // var commentFilter = { "password": false, "usernamehash": false, "_id": false };
-    // db.find("users", commentFilter).then(function(results) {
-    //     res.json(results);
-    // });
-    res.json("true");
+    } else
+        res.json(false);
 });

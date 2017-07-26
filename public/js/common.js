@@ -222,60 +222,65 @@ $(function() {
 
     //calling method
     LoadDashboardUserInfo();
+
+    $("#userInfoTable").on("click", "tr", function() {
+        var value = $(this).attr("type");
+        console.log(value);
+        if (value != null) {
+            $.when(GetCompiledTemplate("dashboardRawTable"), GetDashboardTableJSON(value))
+                .done(function(template, json) {
+                    //alert("The name is " + person.firstName + " and the address is " + address);
+                    //  console.log("template:" + template);
+                    var data = { "user": json };
+                    console.log("json:" + JSON.stringify(data));
+                    var compiledTemplate = Handlebars.compile(template);
+                    var html = compiledTemplate(data);
+                    $(".userTableDiv").html(html).show();
+                    //console.log("html:" + html);
+                });
+        }
+    });
+
+    $(".userInfoLoader").on("click", function() {
+        LoadDashboardUserInfo();
+    });
+
 });
 
-$(".userInfoLoader").on("click", function() {
-    LoadDashboardUserInfo();
-});
+let GetCompiledTemplate = (fileName) => {
+    var d = $.Deferred();
+    $.ajax({
+            method: "Get",
+            url: "/rawTemplates/" + fileName + ".handlebars",
+            dataType: "text"
+        })
+        .done(function(data) {
+            d.resolve(data);
+        })
+        .fail(function() {
+            d.reject;
+        })
+        .always(function() {});
+    return d.promise();
+};
 
-$("#userInfoTable").on("click", "tr", function() {
-    var value = $(this).attr("type");
-    if (value != null) {
-        run_waitMe('userTableDiv'); //, 'progressBar');
-
-        // $.get("/authorizedAPI/data/DashboardUsertable", function(data, status) {
-        //     alert("Data: " + data + "\nStatus: " + status);
-        // });
-
-        $.ajax({
-                method: "Post",
-                url: "/authorizedAPI/data/DashboardUsertable",
-                data: { type: $(this).attr("type").toLowerCase() }
-            })
-            .done(function(data) {
-                console.log("table 2 ");
-                //alert("success");
-            })
-            .fail(function() {
-                console.log("error");
-                //alert("error");
-            })
-            .always(function() {
-                //  alert("complete");
-            });
-        //  $(".userTableDiv").toggle("slow");
-    }
-
-    // switch (type) {
-    //     case 'Total':
-    //         alert('jQuery Wins!');
-    //         break;
-    //     case 'Admin':
-    //         alert('prototype Wins!');
-    //         break;
-    //     case 'Active':
-    //         alert('mootools Wins!');
-    //         break;
-    //     case 'Deactive':
-    //         alert('dojo Wins!');
-    //         break;
-    //     default:
-    //         alert('Nobody Wins!');
-    // }
-
-    //debugger;
-    //  LoadDashboardUserInfo();
-});
+let GetDashboardTableJSON = (data) => {
+    //  run_waitMe('userTableDiv');
+    var d = $.Deferred();
+    $.ajax({
+            method: "Post",
+            url: "/authorizedAPI/data/DashboardUsertable",
+            data: { type: data.toLowerCase() }
+        })
+        .done(function(jsonResult) {
+            d.resolve(jsonResult);
+        })
+        .fail(function() {
+            d.reject;
+        })
+        .always(function() {});
+    return d.promise();
+}
 
 let LoadDashboardUserInfo = () => {
     run_waitMe();
