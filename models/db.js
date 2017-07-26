@@ -109,12 +109,13 @@ exports.findAllCount = function(collection) {
 
 
 
-exports.find = function(collection, filter) {
+exports.find = function(collection, filter1, filter2) {
     // console.log("test");
     //  console.log("find: " + collection + " , filter:" + JSON.stringify(filter));
     //  console.log("find: " + collection);
+    filter2 = filter2 != null ? filter2 : {};
     return new Promise(function(resolve, reject) {
-        getConnection().collection(collection).find({}, filter).toArray(function(err, results) {
+        getConnection().collection(collection).find(filter2, filter1).toArray(function(err, results) {
             if (!err) {
                 // console.log("success");
                 //   console.log("resolve : " + collection + ": " + JSON.stringify(results));
