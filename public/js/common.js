@@ -225,18 +225,23 @@ $(function() {
 
     $("#userInfoTable").on("click", "tr", function() {
         var value = $(this).attr("type");
-        console.log(value);
         if (value != null) {
             $.when(GetCompiledTemplate("dashboardRawTable"), GetDashboardTableJSON(value))
                 .done(function(template, json) {
-                    //alert("The name is " + person.firstName + " and the address is " + address);
-                    //  console.log("template:" + template);
                     var data = { "user": json };
-                    console.log("json:" + JSON.stringify(data));
+                    //  console.log("json:" + JSON.stringify(data));
                     var compiledTemplate = Handlebars.compile(template);
                     var html = compiledTemplate(data);
                     $(".userTableDiv").html(html).show();
-                    //console.log("html:" + html);
+                    $('.userDataTable').DataTable({
+                        "order": [
+                            [3, "desc"]
+                        ],
+                        "aLengthMenu": [
+                            [5, 10, 20],
+                            [5, 10, 20]
+                        ]
+                    });
                 });
         }
     });

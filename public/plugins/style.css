@@ -1,6 +1,12 @@
 ﻿/* Navbar ====================================== */
 
 @import url(materialize.css);
+.userTableDiv .body {
+    font-size: 13px !important;
+    color: #555;
+    padding: 20px;
+}
+
 .card .ul {
     font-size: 20px !important;
     color: #555;

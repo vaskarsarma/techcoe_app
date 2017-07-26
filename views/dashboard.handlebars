@@ -1,81 +1,45 @@
-<!-- #Top Bar -->
-{{!--
-<div>
+<div class="block-header">
+    <h2>DASHBOARD</h2>
+</div>
 
+<!-- Widgets -->
+<div class="row clearfix">
+    {{>dashboardHeaderCount collectionCountList}}
+</div>
+<!-- #END# Widgets -->
+<!-- CPU Usage -->
 
-    <section class="content">
-        <div class="container-fluid"> --}}
-            <div class="block-header">
-                <h2>DASHBOARD</h2>
-            </div>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{>DashboardUserGraph}}
+    </div>
+</div>
+<!-- #END# CPU Usage -->
+<div class="row clearfix">
+    <!-- Visitors -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {{>DashboardBlogsInfo}}
+    </div>
+    <!-- #END# Visitors -->
+    <!-- Latest Social Trends -->
 
-            <!-- Widgets -->
-            <div class="row clearfix">
-                {{>dashboardHeaderCount collectionCountList}}
-            </div>
-            <!-- #END# Widgets -->
-            <!-- CPU Usage -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {{>DashboardCategoryInfo}}
+    </div>
+    <!-- #END# Latest Social Trends -->
+    <!-- Answered Tickets -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {{>DashboardUserInfo}}
+    </div>
+    <!-- #END# Answered Tickets -->
+</div>
 
-            <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    {{>DashboardUserGraph}}
-                </div>
-            </div>
-            <!-- #END# CPU Usage -->
-            <div class="row clearfix">
-                <!-- Visitors -->
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    {{>DashboardBlogsInfo}}
-                </div>
-                <!-- #END# Visitors -->
-                <!-- Latest Social Trends -->
+<div class="row clearfix">
+    <!-- Task Info -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-12">
+        <div class="card userTableDiv" style="display: none">
 
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    {{>DashboardCategoryInfo}}
-                </div>
-                <!-- #END# Latest Social Trends -->
-                <!-- Answered Tickets -->
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    {{>DashboardUserInfo}}
-                </div>
-                <!-- #END# Answered Tickets -->
-            </div>
-
-            <div class="row clearfix">
-                <!-- Task Info -->
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-12">
-                    {{>dashboardTable}}
-                </div>
-                <!-- #END# Task Info -->
-                <!-- Browser Usage -->
-                {{!--
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    {{>DashboardCategoryInfo}}
-                </div> --}} {{!--
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card">
-                        <div class="header">
-                            <h2>BROWSER USAGE</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div id="donut_chart" class="dashboard-donut-chart"></div>
-                        </div>
-                    </div>
-                </div> --}}
-                <!-- #END# Browser Usage -->
-            </div>
-            {{!-- </div>
-    </section>
-</div> --}}
+        </div>
+        {{!-- {{>dashboardTable}} --}}
+    </div>
+</div>

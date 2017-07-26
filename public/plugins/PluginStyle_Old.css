@@ -1,5 +1,11 @@
 ﻿/* Navbar ====================================== */
 
+.userTableDiv .body {
+    font-size: 13px !important;
+    color: #555;
+    padding: 20px;
+}
+
 #container {
     min-width: 310px;
     max-width: 800px;
