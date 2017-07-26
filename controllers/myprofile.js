@@ -331,8 +331,9 @@ router.post('/verifyemail', function(req, res) {
                 }
             });
 
+            var DT = new Date().toISOString();
             path = configparam.hosttype + "://" + configparam.domainname + "/verifiedemail?i=" +
-                userid + "&ts=" + new Date().toISOString();
+                userid + "&ts=" + DT;
 
             var mailOptions = {
                 from: 'nodegitapp@gmail.com',
@@ -347,7 +348,44 @@ router.post('/verifyemail', function(req, res) {
                     res.json(false);
                 } else {
                     console.log("mail sent success");
-                    res.json(true);
+
+                    // Track email verification trigger in Database
+                    var filter = { "userid": userid };
+
+                    db.findOne('verifyemailtrigger', filter).then(function(results) {
+                        if (results != undefined && results._id != undefined) {
+
+                            filter = { "_id": ObjectId(results._id) };
+
+                            var updateQuery = {
+                                "dt": DT
+                            };
+
+                            db.get().collection("verifyemailtrigger").update(filter, {
+                                $set: updateQuery
+                            }, { upsert: false }, (err, results) => {
+                                if (err) {
+                                    res.json(false);
+                                } else {
+                                    console.log("details updated Successfully");
+                                    res.json(true);
+                                }
+                            });
+                        } else {
+                            filter = {
+                                "userid": userid,
+                                "dt": DT
+                            };
+
+                            db.Insert("verifyemailtrigger", filter).then(function(results) {
+                                res.json(true);
+                            }).catch(function(err) {
+                                res.json(false);
+                            });
+                        }
+                    }).catch(function(e) {
+                        res.json(false);
+                    });
                 }
             });
         });
