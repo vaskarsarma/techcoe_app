@@ -176,5 +176,9 @@ textarea {
     border: none;
 }
 
+.ui-datepicker {
+    z-index: 1000!important;
+}
+
 
 /*############# End My Profile Accordion #########################   */

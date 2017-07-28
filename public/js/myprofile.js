@@ -1,4 +1,7 @@
 $(function() {
+
+    $("#dob").datepicker();
+
     $(".profileprogress").imgProgress({
         // path to the image
         // path to the image
@@ -14,7 +17,7 @@ $(function() {
         // CSS background-size property
         backgroundSize: "cover",
         // current percentage value
-        percent: 10
+        percent: 5
     });
 
     $(".profileprogress").imgProgressTo(profileCompleteStatus());
@@ -61,6 +64,7 @@ $(function() {
         var data = new FormData(this); // <-- 'this' is your form element
 
         if (isValid) {
+            run_waitMe("uploadphotostatus");
             $(".ErrorPanel").html("");
             $.ajax({
                 url: "/myprofile/uploadphoto",
@@ -80,6 +84,7 @@ $(function() {
                             )
                         );
                         $(".ErrorPanel").html(errorPanel).removeClass("hidden");
+                        stop_waitMe("uploadphotostatus");
                     } else {
                         $(".reloadimage").attr(
                             "src",
@@ -87,6 +92,7 @@ $(function() {
                         );
                         $("#displayImage").val("");
                         $(".profileprogress").imgProgressTo(profileCompleteStatus());
+                        stop_waitMe("uploadphotostatus");
                     }
                 },
                 error: function(error) {
@@ -383,6 +389,7 @@ $(function() {
                 $(".vemailsuccessResult").removeClass("hidden");
                 $(".vemailerrorResult").addClass("hidden");
                 $(".emailverificationform").addClass("hidden");
+                $(".profileprogress").imgProgressTo(profileCompleteStatus());
             },
             error: function(error) {
                 console.log("error : " + error);
@@ -418,9 +425,9 @@ var substringMatcher = function(strs) {
 
 let profileCompleteStatus = () => {
     var totalFields = 20;
-    var percentagePerFields = 100 / 20;
+    var percentagePerFields = 100 / totalFields;
 
-    var i = 0;
+    var i = 1;
     i = checkControlContent("_id", i, true);
     i = checkControlContent("aboutme", i, false);
     i = checkControlContent("firstname", i, false);
@@ -439,6 +446,7 @@ let profileCompleteStatus = () => {
     i = checkControlContent("address2", i, false);
     i = checkControlContent("country", i, false);
     i = checkControlContent("pinno", i, false);
+    i = checkControlContent("hndemailverified", i, false);
 
     var totalpercentage = percentagePerFields * i;
 
@@ -462,7 +470,7 @@ let checkControlContent = (control_id, i, isImage) => {
             imgSRC = imgSRC.substring(0, imgSRC.indexOf('?'));
 
         if (imgPath == imgSRC)
-            return i + 3;
+            return i + 1;
         else
             return i;
 

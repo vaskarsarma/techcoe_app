@@ -1,6 +1,8 @@
 <div class="wow fadeIn" data-wow-delay="0.1s">
     <strong>Welcome {{user.name}} , </strong>
-    <br/><br/> {{#if user.IsEmailVerified}} Your registered email is verified with us. {{else}}
+    <br/><br/> {{#if user.IsEmailVerified}} Your registered email is verified with us.
+    <input type="hidden" id="hndemailverified" name="hndemailverified" value={{user.IsEmailVerified}} />
+     {{else}}
     <div class="alert alert-danger hidden vemailerrorResult" role="alert">
         Currently there are some technical issue . Please try again later.
     </div>

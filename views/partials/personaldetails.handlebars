@@ -22,9 +22,10 @@
             <input type="text" class="form-control" id="lastname" name="lastname" value="{{personaldetails.lastname}}">
           </div>
 
-<div class="form-group md-form">
+          <div class="form-group md-form">
             <label for="lastname">DOB</label>
-            <input type="text" class="form-control" id="dob" name="dob" value="{{personaldetails.dob}}">
+            {{!-- <input type="text" class="form-control" id="dob" name="dob" value="{{personaldetails.dob}}"> --}}
+            <input type="text" id="dob" name="dob" value="{{personaldetails.dob}}">
           </div>
 
           <div class="form-group md-form">
@@ -37,10 +38,10 @@
           </div>
 
           {{#if personaldetails}}
-            <input type="hidden" id='userid' name='userid' value="{{personaldetails.userid}}">
-            <input type="hidden" id='_id' name='_id' value="{{personaldetails._id}}"> {{else}}
-            <input type="hidden" id='userid' name='userid' value="{{user._id}}">
-            <input type="hidden" id='_id' name='_id' value=""> {{/if}}
+          <input type="hidden" id='userid' name='userid' value="{{personaldetails.userid}}">
+          <input type="hidden" id='_id' name='_id' value="{{personaldetails._id}}"> {{else}}
+          <input type="hidden" id='userid' name='userid' value="{{user._id}}">
+          <input type="hidden" id='_id' name='_id' value=""> {{/if}}
 
         </form>
       </div>
