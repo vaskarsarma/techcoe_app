@@ -19,8 +19,6 @@ $(function() {
     });
 
     $(".subscribe").click(function() {
-        //.log("subscribe click");
-
         var isValid = true;
         var errorPanel = $("<div></div>");
         var errorMessage = null;
@@ -30,13 +28,11 @@ $(function() {
             $("#nameSubscribe").val() == undefined
         ) {
             isValid = false;
-            console.log("error in name");
             errorPanel.append(
                 ErrorMessage("<strong>Warning!</strong> Please enter name.")
             );
         } else if (!validateName($("#nameSubscribe").val())) {
             isValid = false;
-            console.log("error in name");
             errorPanel.append(
                 ErrorMessage(" <strong>Warning!</strong> Please enter valid Name.")
             );
@@ -47,13 +43,11 @@ $(function() {
             $("#emailSubscribe").val() == undefined
         ) {
             isValid = false;
-            console.log("error in name");
             errorPanel.append(
                 ErrorMessage("<strong>Warning!</strong> Please enter email.")
             );
         } else if (!validateEmail($("#emailSubscribe").val())) {
             isValid = false;
-            console.log("error in email");
             errorPanel.append(
                 ErrorMessage("<strong>Warning!</strong> Please enter valid email.")
             );
@@ -61,7 +55,6 @@ $(function() {
 
         if (isValid) {
             $(".ErrorPanel").html("");
-            console.log("hi");
             $.ajax({
                 url: "http://localhost:1337/subscribe",
                 type: "GET",
@@ -70,18 +63,15 @@ $(function() {
                     '"&name="' +
                     $("#nameSubscribe").val(),
                 success: function(data) {
-                    //  console.log("data : " + data);
                     $(".subscribeBlock").addClass("hidden");
                     $(".successResult").removeClass("hidden");
                 },
                 error: function(err) {
-                    // console.log("err : " + err);
                     $(".subscribeBlock").addClass("hidden");
                     $(".errorResult").removeClass("hidden");
                 }
             });
         } else {
-            // console.log("errorPanel: " + errorPanel);
             $(".ErrorPanel").html(errorPanel).removeClass("hidden");
         }
     });
@@ -89,10 +79,9 @@ $(function() {
     $.getJSON("/authorizedAPI/data/DashboardUserGraphInfo")
         .done(function(data) {
             if (data != null) {
-                //  console.log("DashboardUserGraphInfo userData data:" + JSON.stringify(data.userData));
-                //   console.log("DashboardUserGraphInfo subscribeUserData data:" + JSON.stringify(data.subscribeUserData));
+
                 var collection = [];
-                //    console.log("test1:" + JSON.stringify(alasql("SELECT count(*) as total, dateTime, 'Logged in user' as text FROM ? GROUP BY dateTime ", [data])));
+
                 collection.push(
                     alasql(
                         "SELECT count(*) as total, dateTime, 'User registration' as text FROM ? GROUP BY  dateTime ", [data.userData]
@@ -103,13 +92,8 @@ $(function() {
                         "SELECT count(*) as total, dateTime, 'Subscribe Users' as text FROM ? GROUP BY  dateTime ", [data.subscribeUserData]
                     )
                 );
-                // collection.push(alasql("SELECT count(*) as total, FROM ? where admin=true", [data])[0]);
-                // collection.push(alasql("SELECT count(*) as total, 'Active' as text ,'activeUser' as key FROM ? where active=true", [data])[0]);
-                // collection.push(alasql("SELECT count(*) as total, 'Deactive' as text ,'deactiveUser' as key FROM ? where active=false", [data])[0]);
-                // collection.push(alasql("SELECT count(*) as total, 'Email' as text ,'emailVeriPending' as key FROM ? where IsEmailVerified=false", [data])[0]);
 
                 var collectionList = CreateGraphCollection(collection);
-                // console.log("Graph collection:" + JSON.stringify(collectionList));
                 CreateUserGraph(collectionList);
             }
         })
@@ -117,28 +101,23 @@ $(function() {
             var err = textStatus + ", " + error;
         });
 
-    $.getJSON("/userGraph.json")
-        .done(function(data) {
-            if (data != null) {
-                //CreateUserGraph(data);
-                // console.log("JSON success data:" + JSON.stringify(data));
-            }
-        })
-        .fail(function(jqxhr, textStatus, error) {
-            console.log("json error");
-        });
+    // $.getJSON("/userGraph.json")
+    //     .done(function(data) {
+    //         if (data != null) {
+    //             //CreateUserGraph(data);
+    //             // console.log("JSON success data:" + JSON.stringify(data));
+    //         }
+    //     })
+    //     .fail(function(jqxhr, textStatus, error) {
+    //         console.log("json error");
+    //     });
 
     $.getJSON("/authorizedAPI/data/GetTradingBlogs")
         .done(function(data) {
             if (data != null) {
-                // console.log("common data:" + JSON.stringify(data));
                 data = alasql(
                     "SELECT categorykey , count(*) as total FROM ? GROUP BY categorykey", [data]
                 );
-                // console.log("filtered data:" + JSON.stringify(data));
-                //  console.log(GetTradingBlogs(data));
-                // var test = GetTradingBlogs(data);
-                //  console.log("test:" + test);
                 $(".blogTrend").append(GetTradingBlogs(data));
             }
         })
@@ -169,13 +148,7 @@ $(function() {
     $.getJSON("/authorizedAPI/data/DashboardBlogsInfo")
         .done(function(data) {
             if (data != null) {
-                // console.log("DashboardBlogsInfo data:" + JSON.stringify(data));
                 var collection = [];
-                console.log(
-                    alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [
-                        data
-                    ])
-                );
                 collection.push(
                     alasql("SELECT count(*) as total , 'Total comments' as text FROM ?", [
                         data
@@ -230,7 +203,6 @@ $(function() {
             $.when(GetCompiledTemplate("dashboardRawTable"), GetDashboardTableJSON(value))
                 .done(function(template, json) {
                     var data = { "user": json };
-                    //  console.log("json:" + JSON.stringify(data));
                     var compiledTemplate = Handlebars.compile(template);
                     var html = compiledTemplate(data);
                     $(".userTableDiv").html(html).show();
@@ -249,16 +221,55 @@ $(function() {
     });
 
     $(".userTableDiv").on("click", "td>button", function() {
-        console.log("td click1");
+        var item = {};
+        var jsonObj = [];
+        item["id"] = $(this).closest("tr").data("id");
+        var userName = $(this).closest("tr").data("name");
+        $(this).closest("tr").find('input:checkbox').each(function() {
+            if ($(this).data('type') === "email") {
+                item["email"] = $(this).is(':checked');
+            } else if ($(this).data('type') === "admin") {
+                item["admin"] = $(this).is(':checked');
+            } else if ($(this).data('type') === "active") {
+                item["active"] = $(this).is(':checked');
+            }
+        });
+        jsonObj.push(item);
+        UpdateTableRecords(jsonObj, userName);
     });
 
     $(".userInfoLoader").on("click", function() {
         LoadDashboardUserInfo();
     });
-
-    //sweetAlert("Hello world!");
-
 });
+
+
+let UpdateTableRecords = (record, userName) => {
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to update this records?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        confirmButtonText: "Yes, update it!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        $.ajax({
+                method: "Post",
+                url: "/authorizedAPI/data/UpdateTableRecords",
+                data: record[0]
+            })
+            .done(function(data) {
+                userName = userName != null ? userName : "Your record";
+                LoadDashboardUserInfo();
+                swal("Updated!", userName + " is successfully updated!", "success");
+            })
+            .error(function(data) {
+                swal("Oops", "We couldn't connect to the server!", "error");
+            });
+    });
+};
+
 
 let GetCompiledTemplate = (fileName) => {
     var d = $.Deferred();
@@ -379,8 +390,6 @@ let validateUserInfoColor = (userInfoColor, match) => {
 };
 
 let calculatePercentage = (val, total) => {
-    //  var test = ((val * 100) / total).toFixed(0);
-    //debugger;
     return (val * 100 / total).toFixed(0);
 };
 
@@ -399,16 +408,10 @@ let ErrorMessage = $message => {
 };
 
 let getFileExtension = filename => {
-    // Use a regular expression to trim everything before final dot
     var extension = filename.replace(/^.*\./, "");
-    // Iff there is no dot anywhere in filename, we would have extension == filename,
-    // so we account for this possibility now
     if (extension == filename) {
         extension = "";
     } else {
-        // if there is an extension, we convert to lower case
-        // (N.B. this conversion will not effect the value of the extension
-        // on the file upload.)
         extension = extension.toLowerCase().trim();
     }
 
@@ -419,8 +422,6 @@ let GetTradingBlogs = results => {
     var list = $("<ul class='dashboard-stat-list blogTrend'></ul>");
     var node = null;
     $.each(results, function(i, item) {
-        //console.log(item["categorykey"]);
-        // console.log(validateCategory(categoryJSON, item["categorykey"]));
         node =
             "<li>" +
             validateCategory(categoryJSON, item["categorykey"]) +
@@ -428,9 +429,7 @@ let GetTradingBlogs = results => {
             item["total"] +
             "</span></li>";
         list.append(node);
-        // console.log("node:" + node);
     });
-    //  console.log("list:" + list.html());
     return list.html();
 };
 
@@ -438,8 +437,6 @@ let GetDashboardBlogsInfo = results => {
     var list = $("<ul class='dashboard-stat-list validateTickets'></ul>");
     var node = null;
     $.each(results, function(i, item) {
-        //console.log(item["categorykey"]);
-        // console.log(validateCategory(categoryJSON, item["categorykey"]));
         node =
             "<li>" +
             item["text"] +
@@ -448,9 +445,7 @@ let GetDashboardBlogsInfo = results => {
             "</b>" +
             "<small>TICKETS</small></li>";
         list.append(node);
-        // console.log("node:" + node);
     });
-    // console.log("GetDashboardBlogsInfo list:" + list.html());
     return list.html();
 };
 
@@ -492,9 +487,9 @@ let CreateDashboardUserInfo = results => {
             percentage +
             "%'></div></div></td></tr>";
         list.append(node);
-        //  console.log("node" + JSON.stringify(node));
+
     });
-    //  console.log("list:" + list.html());
+
     return list.html();
 };
 
@@ -540,13 +535,13 @@ let CreateGraphCollection = results => {
     var collectionList = [];
     var fullCollectionList = {};
     var collectionName = "";
-    // debugger;
+
     if (results != null) {
         $.each(results, function(i, result) {
-            //  console.log("result:" + JSON.stringify(result));
+
             collection = [];
             $.each(result, function(i, data) {
-                //      console.log("result data:" + JSON.stringify(data));
+
                 collectionName = data["text"];
                 var d = new Date(data["dateTime"]);
                 var utcDate = Date.UTC(
@@ -554,23 +549,12 @@ let CreateGraphCollection = results => {
                     d.getUTCMonth(),
                     d.getUTCDate()
                 );
-                //"Date.UTC(" + d.getUTCFullYear() + "," + d.getUTCMonth() + "," + d.getUTCDate() + ")";
+
                 var data = [utcDate, data["total"]];
                 collection.push(data);
             });
             collectionList.push({ name: collectionName, data: collection });
         });
-
-        // $.each(results[0], function(i, data) {
-        //     collectionName = data["text"];
-        //     var d = new Date(data["dateTime"]);
-        //     var utcDate = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-        //     //"Date.UTC(" + d.getUTCFullYear() + "," + d.getUTCMonth() + "," + d.getUTCDate() + ")";
-        //     var data = [utcDate, data["total"]];
-        //     collection.push(data);
-        // });
-        //collectionList = { "name": collectionName, "data": collection };
-        console.log(JSON.stringify(collectionList));
         return collectionList;
     }
 };

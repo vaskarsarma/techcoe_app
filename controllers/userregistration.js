@@ -11,8 +11,6 @@ var names = Moniker.generator([Moniker.noun]);
 module.exports = router;
 
 router.get("/userregistration", function(req, res) {
-    // console.log("userregistration");
-    console.log(names.choose());
     res.render('userregistration');
 });
 
@@ -35,7 +33,6 @@ router.post("/userregistration", function(req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-        console.log("errors");
         res.render('userregistration', {
             errors: errors,
             username: username,
@@ -46,7 +43,6 @@ router.post("/userregistration", function(req, res) {
             admin: admin
         });
     } else {
-        console.log("home");
 
         db.get().collection('users').findOne({ username: username }, function(err, info) {
 
@@ -58,18 +54,15 @@ router.post("/userregistration", function(req, res) {
                     "username": username,
                     "name": name,
                     "password": bcrypt.hashSync(password, 10),
-                    "admin": admin,
+                    "admin": false,
                     "email": email,
                     "IsEmailVerified": false,
                     "active": false,
                     "dateTime": new Date().toDateString()
                 }, (err, results) => {
                     if (err) {
-                        console.log("Error in inseration");
-                        // res.status(500).send();
                         res.render('userregistration', { title: 'Sign-up', IsError: true });
                     } else {
-                        // console.log("User inserted successfully");
                         res.render('userregistration', { title: 'Sign-up', IsUpdated: true });
                     }
                 });
@@ -77,7 +70,7 @@ router.post("/userregistration", function(req, res) {
                 res.render('userregistration', { title: 'Sign-up', IsUserNameAvailable: true });
             }
         });
-        //  res.redirect('/userregistration');
+
     }
 
 

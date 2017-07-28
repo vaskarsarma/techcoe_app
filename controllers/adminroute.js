@@ -46,34 +46,6 @@ router.get("/add", function(req, res) {
 //================== Save Data =================
 router.post("/savedata", function(req, res) {
 
-    // Validate User Data
-    // var name = req.body.name;
-    // var email = req.body.email;
-    // var password = req.body.password;
-    // var password2 = req.body.password2;
-
-    // req.checkBody('name', 'Name field is required').notEmpty();
-    // req.checkBody('email', 'email field is required').notEmpty();
-    // req.checkBody('email', 'email is not valid').isEmail();
-    // req.checkBody('password', 'password field is required').notEmpty();
-    // req.checkBody('password2', 'password2 field is required').notEmpty();
-    // req.checkBody('password2', 'password didnot match').equals(req.body.password);
-
-    // var errors = req.validationErrors();
-    // if (errors) {
-    //     console.log("errors");
-    //     res.render('users', {
-    //         errors: errors,
-    //         name: name,
-    //         email: email,
-    //         password: password,
-    //         password2: password2
-    //     });
-    // } else {
-    //     console.log("home");
-    //     res.redirect('/home');
-    // }
-
     if (req.body._id != undefined && req.body._id != null) {
         var id = req.body._id;
         var name = req.body.name;
@@ -90,11 +62,9 @@ router.post("/savedata", function(req, res) {
                         "password": req.body.password,
                         "admin": admin
                     }, (err, results) => {
-                        console.log("u4");
                         if (err) {
                             res.status(500).send();
                         } else {
-                            //  console.log("Data updated Successfully");
                             data.users(function(err, results) {
                                 if (err) {
                                     res.status(500).send();
@@ -114,7 +84,6 @@ router.post("/savedata", function(req, res) {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            // console.log("Data Saved Successfully");
                             data.users(function(err, results) {
                                 if (err) {
                                     res.status(500).send();
@@ -138,7 +107,6 @@ router.post("/savedata", function(req, res) {
             if (err) {
                 res.status(500).send();
             } else {
-                //console.log("Data Saved Successfully");
                 data.users(function(err, results) {
                     if (err) {
                         res.status(500).send();

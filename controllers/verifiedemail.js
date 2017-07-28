@@ -36,7 +36,6 @@ router.get('/', function(req, res) {
                             if (err) {
                                 res.status(500).send();
                             } else {
-                                console.log("Email id is verified successfully");
                                 res.render('emailverified', { layout: 'layout', title: 'Email Verification Page' });
                             }
                         });
@@ -44,8 +43,6 @@ router.get('/', function(req, res) {
                         res.render('emailverified', { layout: 'layout', title: 'Email Verification Page', isAlreadyUpdated: "true" });
                     }
                 }).catch(function(err) {
-                    console.log("email verification " + err);
-                    //res.status(500).send();
                     res.render('emailverified', { layout: 'layout', title: 'Email Verification Page', isError: "true" });
                 });
             } else {
@@ -55,7 +52,6 @@ router.get('/', function(req, res) {
             res.render('emailverified', { layout: 'layout', title: 'Email Verification Page', isError: "true" });
         }
     }).catch(function(err) {
-        console.log(err);
         res.render('emailverified', { layout: 'layout', title: 'Email Verification Page', isError: "true" });
     });
 });
