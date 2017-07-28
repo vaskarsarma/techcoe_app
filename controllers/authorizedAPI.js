@@ -30,7 +30,6 @@ router.get("/data/DashboardUserInfo", function(req, res) {
 });
 
 router.get("/data/DashboardUserGraphInfo", function(req, res) {
-    // console.log("DashboardBlogsInfo start");
     var userFilter = { "password": false, "usernamehash": false, "_id": false };
     var subscribeUserFilter = { "dateTime": true, "_id": false };
     var collectionCountList = {};
@@ -62,12 +61,8 @@ router.post("/data/DashboardUsertable", function(req, res) {
                 whereFilter = { "IsEmailVerified": false };
                 break;
         }
-        // console.log("type:" + type);
-        // console.log("dataFilter:" + JSON.stringify(dataFilter));
-        // console.log("whereFilter:" + JSON.stringify(whereFilter));
 
         db.find("users", dataFilter, whereFilter).then(function(results) {
-            // console.log(JSON.stringify(results));
             res.json(results);
         });
     } else
@@ -75,19 +70,14 @@ router.post("/data/DashboardUsertable", function(req, res) {
 });
 
 router.post("/data/UpdateTableRecords", function(req, res) {
-    console.log("1");
-
     if (req.body.id != null) {
         var filterQuery = { "_id": ObjectId(req.body.id) };
-        // console.log(req.body.email);
-
         var updateQuery = {
             "IsEmailVerified": (req.body.email === 'true'),
             "active": (req.body.active === 'true'),
             "admin": (req.body.admin === 'true')
         };
         db.update("users", filterQuery, updateQuery).then(function(results) {
-            console.log("test");
             res.json(results);
         });
     } else
