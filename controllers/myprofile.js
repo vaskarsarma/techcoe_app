@@ -9,6 +9,8 @@ var mkdirp = require("mkdirp");
 var db = require("../models/db");
 var ObjectId = require("mongodb").ObjectID;
 
+var logs = require("../models/loggers");
+
 var configparam = require("../data/configparam.json");
 
 //View/Edit user details
@@ -34,8 +36,9 @@ router.get('/:_id', function(req, res) {
             edudetails: data[3],
             contactdetails: data[4]
         });
+        logs.logger.info("Successfully retrive my-profile data");
     }).catch(function(err) {
-        console.log("Error while retriveing about me content");
+        logs.logger.error("Error while retieveing my-profile data. Error " + err);
         res.status(500).send();
     });
 });

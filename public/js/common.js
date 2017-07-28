@@ -256,7 +256,7 @@ $(function() {
         LoadDashboardUserInfo();
     });
 
-    sweetAlert("Hello world!");
+    //sweetAlert("Hello world!");
 
 });
 
