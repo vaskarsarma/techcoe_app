@@ -13,11 +13,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"> {{!--
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic' rel='stylesheet'
-        type='text/css'>
-    <link rel="stylesheet" href="//storage.googleapis.com/code.getmdl.io/1.0.1/material.teal-red.min.css" /> --}} {{!--
-    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"> 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
@@ -27,7 +23,7 @@
     <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
+    {{!-- <link href="/plugins/morrisjs/morris.css" rel="stylesheet" /> --}}
 
     <link href="/plugins/PluginStyle_Old.css" rel="stylesheet" />
 
@@ -37,14 +33,8 @@
 
     <link rel="stylesheet" href="/css/main.css">
 
-    <link href="/css/style.css" rel="stylesheet"> {{!--
-    <link rel="stylesheet" href="/css/imgProgress.css"> --}}
-
-    <link href="/css/mdb.css" rel="stylesheet"> {{!--
-    <!-- Custom Css -->
-    <link href="/plugins/style.css" rel="stylesheet"> --}}
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/css/style.css" rel="stylesheet"> 
+    <link href="/css/mdb.css" rel="stylesheet"> 
     <link href="/plugins/themes/all-themes.css" rel="stylesheet" />
 
 </head>
@@ -53,6 +43,8 @@
     <header>
         <nav class="navbar navbar-toggleable-md navbar-dark">
             <div class="container">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -63,26 +55,39 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbarNav1">
+                    {{#if user }}
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/dashboard">dashboard</span></a>
-                        </li>
+                        <li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
+                        {{#IsAdmin user.admin}} {{/IsAdmin}}
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blogs</a></li>
                     </ul>
-                    <div id="bloodhound">
-                        <input class="typeahead" type="text" placeholder="Countries"> {{!-- <input class="form-control" type="text"
-                            placeholder="Search"> --}}
-                    </div>
-                    {{!--
                     <form class="form-inline waves-effect waves-light">
                         <input class="form-control" type="text" placeholder="Search">
-                    </form> --}}
+                    </form>
                     <ul class="nav-item navbar-nav navbar-right">
-                        <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/auth/userregistration">Sign-up</a></li>
+                        <li class="nav-item dropdown btn-group">
+                            <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="/{{user._id}}/{{user._id}}.jpg" 
+                            class="profile-image navbarimage four reloadimage"> {{user.name}} <b class="caret"></b>
+                            </a>
+                            <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="/myprofile/{{user._id}}">My Profile</a>
+                                <a class="dropdown-item" href="/auth/logout">Log-out {{user.name}}</a>
+                            </div>
+                        </li>
                     </ul>
+                    {{!-- {{else}}
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                    </ul>
+                    <div id="bloodhound">
+                        <input class="typeahead " type="text" placeholder="Countries">
+                    </div>
+                    <ul class="nav-item navbar-nav navbar-right">
+                        <li class="nav-item active"><a class="nav-link" href="/auth/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/auth/userregistration">Sign-up</a></li>
+                    </ul> --}}
+                    {{/if}}
                 </div>
             </div>
         </nav>
@@ -104,13 +109,10 @@
     <script type="text/javascript" src="/plugins/waitMe/waitMe.js"></script>
     <script type="text/javascript" src="/plugins/handlebars.js"></script>
     <script type="text/javascript" src="/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/plugins/sweetalert-dev.js"></script>
-    {{!--
-    <script type="text/javascript" src="/js/templates.js"></script> --}} {{!--
-    <script src="/js/imgProgress.js"></script> --}}
-    <script src="/js/highchart/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="/js/common.js"></script>
+    <script type="text/javascript" src="/plugins/sweetalert-dev.js"></script>    
+    <script type="text/javascript" src="/js/highchart/highcharts.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
 
 </body>
 

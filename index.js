@@ -111,12 +111,6 @@ app.use('/auth', userregistration);
 var CommonAPI = require('./controllers/CommonAPI');
 app.use('/commonapi', CommonAPI);
 
-var authorizedAPI = require('./controllers/authorizedAPI');
-app.use('/authorizedAPI', authorizedAPI);
-
-var dashboard = require('./controllers/dashboard');
-app.use('/dashboard', dashboard);
-
 var verifiedemail = require('./controllers/verifiedemail');
 app.use('/verifiedemail', verifiedemail);
 
@@ -143,6 +137,12 @@ app.use("/viewblog", viewblogroute);
 
 var myprofileroute = require('./controllers/myprofile');
 app.use("/myprofile", myprofileroute);
+
+var authorizedAPI = require('./controllers/authorizedAPI');
+app.use('/authorizedAPI', authorizedAPI);
+
+var dashboard = require('./controllers/dashboard');
+app.use('/dashboard', dashboard);
 
 //Error handling
 app.get('*', function(req, res, next) {
