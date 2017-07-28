@@ -58,7 +58,7 @@ router.post("/userregistration", function(req, res) {
                     "username": username,
                     "name": name,
                     "password": bcrypt.hashSync(password, 10),
-                    "admin": admin,
+                    "admin": false,
                     "email": email,
                     "IsEmailVerified": false,
                     "active": false,

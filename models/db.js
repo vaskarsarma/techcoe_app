@@ -27,34 +27,22 @@ function getConnection() {
 }
 
 exports.update = function(collection, findQuery, updateQuery) {
-    //  Console.log(collection + " , " + findQuery + " , " + updateQuery);
-
+    console.log("3");
+    console.log("collection:" + collection + " , " + JSON.stringify(findQuery) + " , " + JSON.stringify(updateQuery));
+    console.log("4");
     return new Promise(function(resolve, reject) {
-        getConnection().collection(collection).update(findQuery, { $set: updateQuery }, { upsert: false },
+        getConnection().collection(collection).update(findQuery, { $set: updateQuery }, { upsert: true },
             (err, results) => {
                 if (!err) {
-                    // console.log("update success");
+                    console.log("update success");
                     resolve(results);
                 } else {
-                    // console.log("update failure");
+                    console.log("update failure");
                     reject(err);
                 }
             });
     });
 }
-
-// getConnection().collection(collection)
-//     .update({ findQuery }, { $set: { updateQuery } }, (err, results) => {
-//         if (!err) {
-//             console.log(results);
-//             resolve(results);
-//         } else {
-//             console.log(err);
-//             reject(err);
-//         }
-//     });
-// });
-// }
 
 exports.findOne = function(collection, filter) {
     //  console.log("filter:" + JSON.stringify(filter));
@@ -107,11 +95,9 @@ exports.findAllCount = function(collection) {
     });
 }
 
-
-
 exports.find = function(collection, filter1, filter2) {
     // console.log("test");
-    //  console.log("find: " + collection + " , filter:" + JSON.stringify(filter));
+    // console.log("find: " + collection + " , filter:" + JSON.stringify(filter1));
     //  console.log("find: " + collection);
     filter2 = filter2 != null ? filter2 : {};
     return new Promise(function(resolve, reject) {
@@ -127,22 +113,6 @@ exports.find = function(collection, filter1, filter2) {
         });
     });
 }
-
-
-// exports.GetHash = function() {
-//     return state.hash
-// }
-
-// exports.GetHashInfo = function() {
-//     console.log("outside hash");
-//     connect().collection('hash').find(function(err, info) {
-//         console.log("inside hash");
-//         if (err) return done(err)
-//         state.hash = info;
-//         console.log("inside hash1 :" + info);
-//         done();
-//     });
-// }
 
 exports.close = function(done) {
     if (state.db) {

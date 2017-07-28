@@ -250,15 +250,55 @@ $(function() {
 
     $(".userTableDiv").on("click", "td>button", function() {
         console.log("td click1");
+        var item = {};
+        var jsonObj = [];
+        item["id"] = $(this).closest("tr").data("id");
+        var userName = $(this).closest("tr").data("name");
+        $(this).closest("tr").find('input:checkbox').each(function() {
+            if ($(this).data('type') === "email") {
+                item["email"] = $(this).is(':checked');
+            } else if ($(this).data('type') === "admin") {
+                item["admin"] = $(this).is(':checked');
+            } else if ($(this).data('type') === "active") {
+                item["active"] = $(this).is(':checked');
+            }
+        });
+        jsonObj.push(item);
+        UpdateTableRecords(jsonObj, userName);
     });
 
     $(".userInfoLoader").on("click", function() {
         LoadDashboardUserInfo();
     });
-
-    sweetAlert("Hello world!");
-
 });
+
+
+let UpdateTableRecords = (record, userName) => {
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to update this records?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        confirmButtonText: "Yes, update it!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        $.ajax({
+                method: "Post",
+                url: "/authorizedAPI/data/UpdateTableRecords",
+                data: record[0]
+            })
+            .done(function(data) {
+                userName = userName != null ? userName : "Your record";
+                LoadDashboardUserInfo();
+                swal("Updated!", userName + " is successfully updated!", "success");
+            })
+            .error(function(data) {
+                swal("Oops", "We couldn't connect to the server!", "error");
+            });
+    });
+};
+
 
 let GetCompiledTemplate = (fileName) => {
     var d = $.Deferred();
@@ -379,8 +419,6 @@ let validateUserInfoColor = (userInfoColor, match) => {
 };
 
 let calculatePercentage = (val, total) => {
-    //  var test = ((val * 100) / total).toFixed(0);
-    //debugger;
     return (val * 100 / total).toFixed(0);
 };
 
@@ -399,16 +437,10 @@ let ErrorMessage = $message => {
 };
 
 let getFileExtension = filename => {
-    // Use a regular expression to trim everything before final dot
     var extension = filename.replace(/^.*\./, "");
-    // Iff there is no dot anywhere in filename, we would have extension == filename,
-    // so we account for this possibility now
     if (extension == filename) {
         extension = "";
     } else {
-        // if there is an extension, we convert to lower case
-        // (N.B. this conversion will not effect the value of the extension
-        // on the file upload.)
         extension = extension.toLowerCase().trim();
     }
 
@@ -419,8 +451,6 @@ let GetTradingBlogs = results => {
     var list = $("<ul class='dashboard-stat-list blogTrend'></ul>");
     var node = null;
     $.each(results, function(i, item) {
-        //console.log(item["categorykey"]);
-        // console.log(validateCategory(categoryJSON, item["categorykey"]));
         node =
             "<li>" +
             validateCategory(categoryJSON, item["categorykey"]) +
@@ -428,9 +458,7 @@ let GetTradingBlogs = results => {
             item["total"] +
             "</span></li>";
         list.append(node);
-        // console.log("node:" + node);
     });
-    //  console.log("list:" + list.html());
     return list.html();
 };
 
@@ -438,8 +466,6 @@ let GetDashboardBlogsInfo = results => {
     var list = $("<ul class='dashboard-stat-list validateTickets'></ul>");
     var node = null;
     $.each(results, function(i, item) {
-        //console.log(item["categorykey"]);
-        // console.log(validateCategory(categoryJSON, item["categorykey"]));
         node =
             "<li>" +
             item["text"] +
@@ -448,9 +474,7 @@ let GetDashboardBlogsInfo = results => {
             "</b>" +
             "<small>TICKETS</small></li>";
         list.append(node);
-        // console.log("node:" + node);
     });
-    // console.log("GetDashboardBlogsInfo list:" + list.html());
     return list.html();
 };
 

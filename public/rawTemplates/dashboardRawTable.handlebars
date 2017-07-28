@@ -1,9 +1,7 @@
 <div class="body table-responsive">
     <table id="userDataTable" class="table table-hover table-striped userDataTableClass">
         <thead>
-            <tr>
-                {{!--
-                <th>USER NAME</th> --}}
+            <tr>                
                 <th>NAME</th>
                 <th>EMAIL</th>
                 <th>EMAIL VERIFIED</th>
@@ -15,25 +13,23 @@
         </thead>
         <tbody>
             {{#each user}}
-            <tr>
-                {{!--
-                <td>{{username}}</td> --}}
+            <tr data-id={{_id}} data-name={{name}}>               
                 <td>{{name}}</td>
                 <td>{{email}}</td>
-                <td>
+                <td >
                     {{#if IsEmailVerified}}
-                    <input type="checkbox" checked> {{else}}
-                    <input type="checkbox"> {{/if}}
+                    <input type="checkbox" data-type="email" checked> {{else}}
+                    <input type="checkbox" data-type="email"> {{/if}}
                 </td>
-                <td>
+                <td >
                     {{#if active}}
-                    <input type="checkbox" checked> {{else}}
-                    <input type="checkbox"> {{/if}}
+                    <input type="checkbox" data-type="active" checked> {{else}}
+                    <input type="checkbox" data-type="active"> {{/if}}
                 </td>
                 <td>
                     {{#if admin}}
-                    <input type="checkbox" checked> {{else}}
-                    <input type="checkbox"> {{/if}}
+                    <input type="checkbox" data-type="admin" checked> {{else}}
+                    <input type="checkbox" data-type="admin"> {{/if}}
 
                 </td>
                 <td>{{dateTime}}</td>

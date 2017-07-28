@@ -46,7 +46,7 @@ router.post("/data/DashboardUsertable", function(req, res) {
     var type = req.body.type;
 
     if (type != null) {
-        dataFilter = { "_id": false, "usernamehash": false, "password": false };
+        dataFilter = { "usernamehash": false, "password": false };
         var whereFilter = {};
         switch (type) {
             case "admin":
@@ -68,6 +68,26 @@ router.post("/data/DashboardUsertable", function(req, res) {
 
         db.find("users", dataFilter, whereFilter).then(function(results) {
             // console.log(JSON.stringify(results));
+            res.json(results);
+        });
+    } else
+        res.json(false);
+});
+
+router.post("/data/UpdateTableRecords", function(req, res) {
+    console.log("1");
+
+    if (req.body.id != null) {
+        var filterQuery = { "_id": ObjectId(req.body.id) };
+        // console.log(req.body.email);
+
+        var updateQuery = {
+            "IsEmailVerified": (req.body.email === 'true'),
+            "active": (req.body.active === 'true'),
+            "admin": (req.body.admin === 'true')
+        };
+        db.update("users", filterQuery, updateQuery).then(function(results) {
+            console.log("test");
             res.json(results);
         });
     } else
