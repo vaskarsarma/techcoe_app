@@ -1,4 +1,13 @@
-﻿/* Navbar ====================================== */
+﻿input[type="checkbox"] {
+    top: 0;
+    width: 20px;
+    height: 20px;
+}
+
+button.btn.btn-info.waves-effect {
+    line-height: 0.25 !important;
+    max-height: 5px !important;
+}
 
 .userTableDiv .body {
     font-size: 13px !important;

@@ -226,6 +226,7 @@ $(function() {
     $("#userInfoTable").on("click", "tr", function() {
         var value = $(this).attr("type");
         if (value != null) {
+            run_waitMe("userDataTableClass");
             $.when(GetCompiledTemplate("dashboardRawTable"), GetDashboardTableJSON(value))
                 .done(function(template, json) {
                     var data = { "user": json };
@@ -233,7 +234,7 @@ $(function() {
                     var compiledTemplate = Handlebars.compile(template);
                     var html = compiledTemplate(data);
                     $(".userTableDiv").html(html).show();
-                    $('.userDataTable').DataTable({
+                    $('#userDataTable').DataTable({
                         "order": [
                             [3, "desc"]
                         ],
@@ -242,13 +243,20 @@ $(function() {
                             [5, 10, 20]
                         ]
                     });
+                    stop_waitMe("userDataTableClass");
                 });
         }
+    });
+
+    $(".userTableDiv").on("click", "td>button", function() {
+        console.log("td click1");
     });
 
     $(".userInfoLoader").on("click", function() {
         LoadDashboardUserInfo();
     });
+
+    sweetAlert("Hello world!");
 
 });
 
