@@ -11,6 +11,12 @@ const saltRounds = 10;
 
 var blogs = require('./models/blogs');
 
+// Use Morgan along with WINSTON for application logging
+var morgan = require("morgan");
+var logs = require("./models/loggers");
+app.use(morgan("combined", { "stream": logs.stream }));
+//app.use(morgan('{"remote_addr": ":remote-addr", "remote_user": ":remote-user", "date": ":date[clf]", "method": ":method", "url": ":url", "http_version": ":http-version", "status": ":status", "result_length": ":res[content-length]", "referrer": ":referrer", "user_agent": ":user-agent", "response_time": ":response-time"}', { "stream": logs.stream }));
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 

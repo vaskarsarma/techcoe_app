@@ -37,6 +37,8 @@ router.get('/:_id', function(req, res) {
             contactdetails: data[4]
         });
         logs.logger.info("Successfully retrive my-profile data");
+        logs.logger.error("error Successfully retrive my-profile data");
+        logs.logger.warn("warn Successfully retrive my-profile data");
     }).catch(function(err) {
         logs.logger.error("Error while retieveing my-profile data. Error " + err);
         res.status(500).send();

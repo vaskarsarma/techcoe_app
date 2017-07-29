@@ -19,14 +19,10 @@ const logger = new(winston.Logger)({
         // new
         new(winston.transports.Console)({
             colorize: true,
-            timestamp: function() {
-                return Date.now();
-            },
-            formatter: function(options) {
-                // Return string will be passed to logger.
-                return options.timestamp() + ' ' + options.level.toUpperCase() + ' ' + (options.message ? options.message : '') +
-                    (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '');
-            }
+            level: 'debug',
+            handleExceptions: true,
+            json: false,
+            colorize: true
         }),
         new(require('winston-daily-rotate-file'))({
             colorize: true,
@@ -34,6 +30,9 @@ const logger = new(winston.Logger)({
             timestamp: tsFormat,
             datePattern: 'yyyy-MM-dd',
             prepend: true,
+            json: true,
+            maxsize: 5242880, //5MB
+            maxfiles: 5,
             level: env === 'development' ? 'verbose' : 'info',
             handleExceptions: true,
             humanReadableUnhandledException: true
@@ -42,3 +41,9 @@ const logger = new(winston.Logger)({
 });
 
 exports.logger = logger;
+
+exports.stream = {
+    write: function(message, encoding) {
+        logger.info(message);
+    }
+};
