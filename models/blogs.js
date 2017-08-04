@@ -49,7 +49,7 @@ exports.viewblogsbycategory = function(key) {
     return new Promise(function(resolve, reject) {
         var collection = db.get().collection("blogs");
 
-        collection.find({ categorykey: key }).limit(10).sort({ "date": 1 })
+        collection.find({ status: { $in: ["0", "1"] }, categorykey: key }).limit(10).sort({ "date": 1 })
             .toArray(function(err, info) {
                 if (!err) {
                     resolve(info);
