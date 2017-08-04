@@ -6,7 +6,7 @@ var state = {
     //hash: null,
 }
 
-exports.url = 'mongodb://vaskar:12345678@ds161001.mlab.com:61001/mytest_mongodb';
+exports.url = 'test data';
 
 exports.connect = function(url, done) {
     if (state.db) return done()
