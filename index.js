@@ -12,9 +12,9 @@ const saltRounds = 10;
 var blogs = require('./models/blogs');
 
 // Use Morgan along with WINSTON for application logging
-var morgan = require("morgan");
+//var morgan = require("morgan");
 var logs = require("./models/loggers");
-app.use(morgan("combined", { "stream": logs.stream }));
+//app.use(morgan("combined", { "stream": logs.stream }));
 //app.use(morgan('{"remote_addr": ":remote-addr", "remote_user": ":remote-user", "date": ":date[clf]", "method": ":method", "url": ":url", "http_version": ":http-version", "status": ":status", "result_length": ":res[content-length]", "referrer": ":referrer", "user_agent": ":user-agent", "response_time": ":response-time"}', { "stream": logs.stream }));
 
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -167,12 +167,12 @@ app.use(function(err, req, res, next) {
 });
 
 // // Handle un-caught error
-// process.on("uncaughtException", function(err) {
-//     console.log("There is some unhandled errors in the application");
-//     console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
-//     console.error(err.stack);
-//     process.exit(1);
-// });
+process.on("uncaughtException", function(err) {
+    console.log("There is some unhandled errors in the application");
+    console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
+    console.error(err.stack);
+    process.exit(1);
+});
 
 // Connect to Mongo on start
 db.connect(db.url, function(err) {
