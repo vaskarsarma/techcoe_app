@@ -578,16 +578,10 @@ var userInfoColor = [
 
 let limitBlogLength = () => {
     $('.blogdata .limitblogdata').each(function(index, value) {
-        debugger;
         var showlength = 100;
         var data = $(value).text();
-        console.log("data : " + data + ", Length : " + data.length);
-
         if (data.length > showlength) {
-            console.log("yes");
-
             var c = data.substring(0, showlength);
-
             $('.blogdata .limitblogdata')[index].innerHTML = "";
             $('.blogdata .limitblogdata')[index].innerHTML = "<p>" + c + "</p>";
         }
