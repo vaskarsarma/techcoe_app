@@ -24,7 +24,7 @@ exports.allblogs = function(cb) {
 exports.blogs = function(cb) {
     var collection = db.get().collection("blogs");
 
-    collection.find({ status: { $in: ["0", "1"] } }).sort({ "creationdate": 1 }).toArray(function(err, results) {
+    collection.find({ status: { $in: ["0", "1"] } }).limit(4).sort({ "creationdate": 1 }).toArray(function(err, results) {
         cb(err, results);
     });
 }

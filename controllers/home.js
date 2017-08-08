@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 module.exports = router;
+var _ = require("lodash");
 
 var blogs = require('../models/blogs');
 
@@ -21,6 +22,11 @@ router.get('/home', function(req, res) {
                 res.render('home', { layout: 'layout', title: 'Home Page', category: categoryList, blogs: results });
             } else {
                 logs.logger.info("Successfully retrived blogs details");
+                // console.log("data");
+                // _.forEach(results, function(result) {
+                //     console.log(result.index);
+                // });
+
                 res.render('home', { layout: 'layout', title: 'Home Page', category: categoryList, blogs: results });
             }
         }

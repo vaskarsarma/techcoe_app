@@ -15,14 +15,19 @@
                 <span class="glyphicon glyphicon-time"></span> Posted on {{this.creationdate}}</p>
 
             <!--Content-->
-             <span class="limitblogdata">{{{this.content}}}</span> 
+            <span class="limitblogdata">{{{this.content}}}</span> 
 
             <!--"Read more" button-->
             <a href="/viewblog/showdetails/{{this._id}}"><button class="btn btn-info">Read more</button></a>
 
+
+
         </div>
 
         <hr> {{/each}} {{/Compare}}
+
+        <img style="height: 20px; width: 20px;" class="loadmoreblog" alt="Load More" src="/images/loadmore.png" />
+
     </div>
 
     <!-- Blog Sidebar Widgets Column -->

@@ -59,8 +59,12 @@
       <input type="hidden" id="modifiedby" name="modifiedby" value={{user.username}} />
       <input type="hidden" id="createdby" name="createdby" value={{blogs.createdby}} />
       <input type="hidden" id="_id" name="_id" value={{blogs._id}} />
-      <input type="hidden" id="status" name="status" value={{blogs.status}} /> {{else}}
-      <input type="hidden" id="createdby" name="createdby" value={{user.username}} /> {{/if}}
+      <input type="hidden" id="status" name="status" value={{blogs.status}} />
+      <input type="hidden" id="index" name="index" value={{index}} />
+       {{else}}
+      <input type="hidden" id="createdby" name="createdby" value={{user.username}} /> 
+      <input type="hidden" id="index" name="index" value={{index}} />
+      {{/if}}
 
       <div class="form-group">
         <div>

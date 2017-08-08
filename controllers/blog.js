@@ -25,9 +25,9 @@ router.get('/', function(req, res) {
         } else {
             if (results.length == 0) {
                 results = { count: 0 };
-                res.render('bloggers', { title: 'Blogs', category: categoryList, blogs: results });
+                res.render('bloggers', { title: 'Blogs', category: categoryList, blogs: results, index: 1 });
             } else {
-                res.render('bloggers', { title: 'Blogs', category: categoryList, blogs: results });
+                res.render('bloggers', { title: 'Blogs', category: categoryList, blogs: results, index: results.length + 1 });
             }
         }
     });
@@ -67,7 +67,8 @@ router.post("/savedata", function(req, res) {
                                 "categorykey": req.body.category,
                                 "modifiedby": req.body.modifiedby,
                                 "modifydate": new Date().toUTCString(),
-                                "status": req.body.status
+                                "status": req.body.status,
+                                "index": info.index
                             }, (err, results) => {
                                 if (err) {
                                     console.log("Failed to updated History");
@@ -83,9 +84,9 @@ router.post("/savedata", function(req, res) {
                                 } else {
                                     if (results.length == 0) {
                                         results = { count: 0 };
-                                        res.render('bloggers', { title: 'Blogs', isBlogUpdated: false, category: categoryList, blogs: results });
+                                        res.render('bloggers', { title: 'Blogs', isBlogUpdated: false, category: categoryList, blogs: results, index: 1 });
                                     } else {
-                                        res.render('bloggers', { title: 'Blogs', isBlogUpdated: true, category: categoryList, topic: topic, blogs: results });
+                                        res.render('bloggers', { title: 'Blogs', isBlogUpdated: true, category: categoryList, topic: topic, blogs: results, index: results.length + 1 });
                                     }
                                 }
                             });
@@ -103,10 +104,10 @@ router.post("/savedata", function(req, res) {
                                 } else {
                                     if (results.length == 0) {
                                         results = { count: 0 };
-                                        res.render('bloggers', { title: 'Blogs', isBlogAdded: false, category: categoryList, blogs: results });
+                                        res.render('bloggers', { title: 'Blogs', isBlogAdded: false, category: categoryList, blogs: results, index: 1 });
                                     } else {
                                         req.body = "";
-                                        res.render('bloggers', { title: 'Blogs', isBlogAdded: true, category: categoryList, blogs: results });
+                                        res.render('bloggers', { title: 'Blogs', isBlogAdded: true, category: categoryList, blogs: results, index: results.length + 1 });
                                     }
                                 }
                             });
@@ -122,7 +123,8 @@ router.post("/savedata", function(req, res) {
             "categorykey": req.body.category,
             "createdby": req.body.createdby,
             "creationdate": new Date().toUTCString(),
-            "status": status.pending
+            "status": status.pending,
+            "index": req.body.index
         }, (err, results) => {
             if (err) {
                 res.status(500).send();
@@ -134,10 +136,10 @@ router.post("/savedata", function(req, res) {
                     } else {
                         if (results.length == 0) {
                             results = { count: 0 };
-                            res.render('bloggers', { title: 'Blogs', isBlogAdded: false, blogs: results });
+                            res.render('bloggers', { title: 'Blogs', isBlogAdded: false, blogs: results, index: 1 });
                         } else {
                             req.body = "";
-                            res.render('bloggers', { title: 'Blogs', isBlogAdded: true, category: categoryList, blogs: results });
+                            res.render('bloggers', { title: 'Blogs', isBlogAdded: true, category: categoryList, blogs: results, index: results.length + 1 });
                         }
                     }
                 });
@@ -177,7 +179,8 @@ router.get('/delete/:_id', function(req, res) {
                             "categorykey": req.body.category,
                             "modifiedby": req.body.modifiedby,
                             "modifydate": new Date().toUTCString(),
-                            "status": req.body.status
+                            "status": req.body.status,
+                            "index": req.body.index
                         }, (err, results) => {
                             if (err) {
                                 console.log("Failed to updated History");
@@ -191,7 +194,7 @@ router.get('/delete/:_id', function(req, res) {
                             if (err) {
                                 res.status(500).send();
                             } else {
-                                res.render('bloggers', { title: 'Blogs', isBlogDeleted: true, topic: topic, category: categoryList, blogs: results });
+                                res.render('bloggers', { title: 'Blogs', isBlogDeleted: true, topic: topic, category: categoryList, blogs: results, index: results.length + 1 });
                             }
                         });
                     }
@@ -209,7 +212,7 @@ router.get('/edit/:_id', function(req, res) {
         if (err) {
             res.status(500).send();
         } else {
-            res.render('bloggers', { title: 'Blogs', selectedBlogForEdit: true, category: categoryList, blogs: info });
+            res.render('bloggers', { title: 'Blogs', selectedBlogForEdit: true, category: categoryList, blogs: info, index: info.index });
         }
     });
 });

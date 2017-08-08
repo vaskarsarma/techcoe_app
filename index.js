@@ -8,6 +8,7 @@ var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
+var _ = require("lodash");
 
 var blogs = require('./models/blogs');
 
@@ -92,7 +93,12 @@ app.get('/', function(req, res) {
                 results = { count: 0 };
                 res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results });
             } else {
-                res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results });
+                var nextIndex = 0;
+                _.forEach(results, function(result) {
+                    nextIndex = result.index
+                });
+                console.log(nextIndex);
+                res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results, index: nextIndex });
             }
         }
     });
