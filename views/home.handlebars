@@ -2,33 +2,16 @@
 <h1></h1>--}}
 
 <div class="row">
-    <div class="col-lg-8 blogdata">
-        {{#Compare blogs.count 0}}
-        <img class="img-responsive img-circle img-fluid" border="0" src="/images/learnings.jpg" title="article" /> {{else}}
-        {{#each blogs}}
-        <div class="post-wrapper wow fadeIn" data-wow-delay="0.2s">
-
-            <!-- Title ,Author ,Date/Time-->
-            <h1 class="h1-responsive"><a href="/viewblog/showdetails/{{this._id}}">
-                    <img border="0" src="/images/article.png" title="article"></a>{{this.topic}}</h1>
-            <p>Written by <a href="#">{{this.createdby}}</a>,
-                <span class="glyphicon glyphicon-time"></span> Posted on {{this.creationdate}}</p>
-
-            <!--Content-->
-            <span class="limitblogdata">{{{this.content}}}</span> 
-
-            <!--"Read more" button-->
-            <a href="/viewblog/showdetails/{{this._id}}"><button class="btn btn-info">Read more</button></a>
-
-
-
-        </div>
-
-        <hr> {{/each}} {{/Compare}}
-
-        <img style="height: 20px; width: 20px;" class="loadmoreblog" alt="Load More" src="/images/loadmore.png" />
-
+    {{!-- test --}}
+    <div class="col-lg-8 ">
+        <div class="blogdata"></div>
+       <div id="divImage" class="hidden">
+        <img style="height: 20px; width: 20px;" id="loadmoreblog" name="loadmoreblog" alt="Load More" src="/images/loadmore.png" />
+        <br/>
+        <br/>
     </div>
+    </div>
+    
 
     <!-- Blog Sidebar Widgets Column -->
     <div class="col-md-4">
@@ -67,7 +50,7 @@
 
         <div class="widget-wrapper wow fadeIn" data-wow-delay="0.6s">
             {{> subscribe}}
-            
+
         </div>
     </div>
 </div>

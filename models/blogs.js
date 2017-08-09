@@ -24,9 +24,25 @@ exports.allblogs = function(cb) {
 exports.blogs = function(cb) {
     var collection = db.get().collection("blogs");
 
-    collection.find({ status: { $in: ["0", "1"] } }).limit(4).sort({ "creationdate": 1 }).toArray(function(err, results) {
+    collection.find({ status: { $in: ["0", "1"] } }).sort({ "creationdate": 1 }).toArray(function(err, results) {
         cb(err, results);
     });
+}
+
+// , index: { $gt: startindex }
+exports.blogsbySI = function(cb, startindex, categorykey) {
+    console.log("SI : " + startindex + " , CT : " + categorykey);
+    var collection = db.get().collection("blogs");
+
+    if (categorykey == "all") {
+        collection.find({ status: { $in: ["0", "1"] }, index: { $gt: startindex } }).limit(4).sort({ "creationdate": 1 }).toArray(function(err, results) {
+            cb(err, results);
+        });
+    } else {
+        collection.find({ status: { $in: ["0", "1"] }, index: { $gt: startindex }, categorykey: categorykey }).limit(4).sort({ "creationdate": 1 }).toArray(function(err, results) {
+            cb(err, results);
+        });
+    }
 }
 
 exports.comments = function(cb, blogid) {
@@ -59,6 +75,21 @@ exports.viewblogsbycategory = function(key) {
             });
     });
 }
+
+// exports.loadblogbyindex = function(key) {
+//     return new Promise(function(resolve, reject) {
+//         var collection = db.get().collection("blogs");
+
+//         collection.find({ status: { $in: ["0", "1"] }, categorykey: key }).limit(10).sort({ "date": 1 })
+//             .toArray(function(err, info) {
+//                 if (!err) {
+//                     resolve(info);
+//                 } else {
+//                     reject(err);
+//                 }
+//             });
+//     });
+// }
 
 //++++++++++++++++++++++++ Methods to retirve blog specific details using Promise +++++++++++++++
 exports.viewblogsbyid = function(id) {

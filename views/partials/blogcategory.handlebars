@@ -1,12 +1,14 @@
-<div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+<div class="widget-wrapper wow fadeIn blogcategory" data-wow-delay="0.4s">
             <div class="list-group">
                 <h4 class="list-group-item active">Blog Categories:</h4>
-                {{#if user}}
+                {{!-- {{#if user}} --}}
+                {{!-- {{#each category}} --}}
+                {{!-- <a href="/home/{{this.key}}" data-key="{{this.key}}" class="list-group-item blogctid">{{this.name}}</a> --}}
+                {{!-- {{/each}}  --}}
+                {{!-- {{else}} --}}
                 {{#each category}}
-                <a href="/home/{{this.key}}" class="list-group-item">{{this.name}}</a> {{/each}}
-                {{else}}
-                {{#each category}}
-                <span class="list-group-item">{{this.name}}</span> {{/each}}
-                {{/if}}
+                <span data-key="{{this.key}}" class="list-group-item blogctid">{{this.name}}</span> 
+                {{/each}}
+                {{!-- {{/if}} --}}
             </div>
         </div>

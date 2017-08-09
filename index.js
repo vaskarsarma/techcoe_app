@@ -85,23 +85,24 @@ app.use(expressValidator({
 app.get('/', function(req, res) {
 
     categoryList = blogs.category;
-    blogs.blogs(function(err, results) {
-        if (err) {
-            res.status(500).send();
-        } else {
-            if (results.length == 0) {
-                results = { count: 0 };
-                res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results });
-            } else {
-                var nextIndex = 0;
-                _.forEach(results, function(result) {
-                    nextIndex = result.index
-                });
-                console.log(nextIndex);
-                res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results, index: nextIndex });
-            }
-        }
-    });
+    res.render('home', { layout: 'default', title: 'Home Page', category: categoryList });
+
+    // blogs.blogsbySI(function(err, results) {
+    //     if (err) {
+    //         res.status(500).send();
+    //     } else {
+    //         if (results.length == 0) {
+    //             results = { count: 0 };
+    //             res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results });
+    //         } else {
+    //             var nextIndex = 0;
+    //             _.forEach(results, function(result) {
+    //                 nextIndex = result.index
+    //             });
+    //             res.render('home', { layout: 'default', title: 'Home Page', category: categoryList, blogs: results, index: nextIndex });
+    //         }
+    //     }
+    // }, 0, "all");
 });
 
 
@@ -120,8 +121,8 @@ app.use('/subscribe', subscribe);
 var userregistration = require('./controllers/userregistration');
 app.use('/auth', userregistration);
 
-var CommonAPI = require('./controllers/CommonAPI');
-app.use('/commonapi', CommonAPI);
+var commonapi = require('./controllers/CommonAPI');
+app.use('/commonapi', commonapi);
 
 var verifiedemail = require('./controllers/verifiedemail');
 app.use('/verifiedemail', verifiedemail);
